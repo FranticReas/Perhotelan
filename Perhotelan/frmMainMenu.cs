@@ -16,5 +16,25 @@ namespace Perhotelan
         {
             InitializeComponent();
         }
+
+        private void btnSidePanel_Click(object sender, EventArgs e)
+        {
+            pnlSideBar.Visible = !pnlSideBar.Visible;
+        }
+
+        private void frmMainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProfile2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
