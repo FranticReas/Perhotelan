@@ -58,6 +58,20 @@ namespace Perhotelan
             registerForm.ShowDialog(); // Show the registration form as a dialog
             this.Show(); // Show the login form again if the registration form is closed
         }
-    
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            //Sementara
+            bool loginSuccessful = true; // Replace this with your actual login validation logic
+
+            if (loginSuccessful)
+            {
+                this.DialogResult = DialogResult.OK; // Close form and return DialogResult.OK
+            }
+            else
+            {
+                MessageBox.Show("Login failed. Please try again.");
+            }
+        }
+
     }
 }
