@@ -75,6 +75,7 @@
             txtTglLahir.PlaceholderText = "HH/BB/TTTT";
             txtTglLahir.Size = new Size(342, 23);
             txtTglLahir.TabIndex = 3;
+            txtTglLahir.Leave += TxtTglLahir_Leave;
             // 
             // txtNohp
             // 
@@ -168,7 +169,7 @@
             Controls.Add(txtNama);
             Controls.Add(lblDaftar);
             Name = "frmDaftar";
-            Text = "frmDaftar";
+            Text = "HotelKu";
             ResumeLayout(false);
             PerformLayout();
         }

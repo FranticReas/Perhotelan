@@ -16,7 +16,7 @@ namespace Perhotelan
         public frmDaftar()
         {
             InitializeComponent();
-            txtTglLahir.Leave += TxtTglLahir_Leave;
+            
         }
 
         private void TxtTglLahir_Leave(object sender, EventArgs e)
