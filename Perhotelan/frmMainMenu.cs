@@ -17,9 +17,6 @@ namespace Perhotelan
             InitializeComponent();
 
             IntializedMenuInterface();
-
-            
-            this.Controls.Add(txtSearch);           
         }
 
         private void IntializedMenuInterface()
@@ -68,25 +65,14 @@ namespace Perhotelan
 
             flpMenu.Controls.Add(card);
         }
-        private void btnSidePanel_Click(object sender, EventArgs e)
-        {
-            pnlSideBar.Visible = !pnlSideBar.Visible;
-        }
 
         private void frmMainMenu_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void lblProfile2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            txtSearch.Visible = true;
-            txtSearch.Focus();
 
         }
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -103,6 +89,16 @@ namespace Perhotelan
                     card.Visible = isMatch;
                 }
             }
+        }
+
+        private void flpMenu_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtSearch_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
