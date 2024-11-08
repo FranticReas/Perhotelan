@@ -1,6 +1,6 @@
 ﻿namespace Perhotelan
 {
-    partial class frmMainMenu
+    partial class frmBooking
     {
         /// <summary>
         /// Required designer variable.
@@ -33,11 +33,15 @@
             btnBooking = new Button();
             btnProfil = new Button();
             btnSearch = new Button();
-            flpMenu = new FlowLayoutPanel();
             pnlHeader = new Panel();
             txtSearch = new TextBox();
+            flpBookings = new FlowLayoutPanel();
+            btnOngoing = new Button();
+            btnCompleted = new Button();
+            btnCanceled = new Button();
             pnlSideBar.SuspendLayout();
             pnlHeader.SuspendLayout();
+            flpBookings.SuspendLayout();
             SuspendLayout();
             // 
             // pnlSideBar
@@ -52,7 +56,7 @@
             pnlSideBar.Margin = new Padding(3, 0, 3, 3);
             pnlSideBar.Name = "pnlSideBar";
             pnlSideBar.Size = new Size(389, 46);
-            pnlSideBar.TabIndex = 1;
+            pnlSideBar.TabIndex = 2;
             // 
             // btnHome
             // 
@@ -79,7 +83,6 @@
             btnBooking.TabIndex = 3;
             btnBooking.Text = "📖";
             btnBooking.UseVisualStyleBackColor = true;
-            btnBooking.Click += btnBooking_Click;
             // 
             // btnProfil
             // 
@@ -105,17 +108,6 @@
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍";
             btnSearch.UseVisualStyleBackColor = true;
-            btnSearch.Click += btnSearch_Click;
-            // 
-            // flpMenu
-            // 
-            flpMenu.AutoScroll = true;
-            flpMenu.Location = new Point(0, 32);
-            flpMenu.Name = "flpMenu";
-            flpMenu.Padding = new Padding(10, 25, 10, 10);
-            flpMenu.Size = new Size(389, 369);
-            flpMenu.TabIndex = 4;
-            flpMenu.Paint += flpMenu_Paint;
             // 
             // pnlHeader
             // 
@@ -125,7 +117,7 @@
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(389, 34);
-            pnlHeader.TabIndex = 5;
+            pnlHeader.TabIndex = 6;
             // 
             // txtSearch
             // 
@@ -134,34 +126,80 @@
             txtSearch.PlaceholderText = "🔍 Search";
             txtSearch.Size = new Size(365, 23);
             txtSearch.TabIndex = 10;
-            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
-            // frmMainMenu
+            // flpBookings
+            // 
+            flpBookings.AutoScroll = true;
+            flpBookings.Controls.Add(btnOngoing);
+            flpBookings.Controls.Add(btnCompleted);
+            flpBookings.Controls.Add(btnCanceled);
+            flpBookings.Location = new Point(0, 39);
+            flpBookings.Name = "flpBookings";
+            flpBookings.Size = new Size(389, 362);
+            flpBookings.TabIndex = 7;
+            // 
+            // btnOngoing
+            // 
+            btnOngoing.Anchor = AnchorStyles.None;
+            btnOngoing.Location = new Point(3, 3);
+            btnOngoing.Name = "btnOngoing";
+            btnOngoing.Size = new Size(115, 35);
+            btnOngoing.TabIndex = 0;
+            btnOngoing.Text = "Diproses";
+            btnOngoing.UseVisualStyleBackColor = true;
+            btnOngoing.Click += btnOngoing_Click;
+            // 
+            // btnCompleted
+            // 
+            btnCompleted.Anchor = AnchorStyles.None;
+            btnCompleted.Location = new Point(124, 3);
+            btnCompleted.Name = "btnCompleted";
+            btnCompleted.Size = new Size(115, 35);
+            btnCompleted.TabIndex = 1;
+            btnCompleted.Text = "Selesai";
+            btnCompleted.UseVisualStyleBackColor = true;
+            btnCompleted.Click += btnCompleted_Click;
+            // 
+            // btnCanceled
+            // 
+            btnCanceled.Anchor = AnchorStyles.None;
+            btnCanceled.Location = new Point(245, 3);
+            btnCanceled.Name = "btnCanceled";
+            btnCanceled.Size = new Size(115, 35);
+            btnCanceled.TabIndex = 2;
+            btnCanceled.Text = "Dibatalkan";
+            btnCanceled.UseVisualStyleBackColor = true;
+            btnCanceled.Click += btnCanceled_Click;
+            // 
+            // frmBooking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(389, 450);
+            Controls.Add(flpBookings);
             Controls.Add(pnlHeader);
             Controls.Add(pnlSideBar);
-            Controls.Add(flpMenu);
-            Name = "frmMainMenu";
-            Text = "HotelKu";
-            Load += frmMainMenu_Load;
+            Name = "frmBooking";
+            Text = "frmBooking";
             pnlSideBar.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
+            flpBookings.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
+
         private Panel pnlSideBar;
-        private Button btnSearch;
-        private FlowLayoutPanel flpMenu;
-        private Panel pnlHeader;
-        private Button btnProfil;
         private Button btnHome;
         private Button btnBooking;
-        private TextBox textBox1;
+        private Button btnProfil;
+        private Button btnSearch;
+        private Panel pnlHeader;
         private TextBox txtSearch;
+        private FlowLayoutPanel flpBookings;
+        private Button btnOngoing;
+        private Button btnCompleted;
+        private Button btnCanceled;
     }
 }
