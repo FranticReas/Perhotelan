@@ -42,7 +42,7 @@
             // 
             // pnlSideBar
             // 
-            pnlSideBar.BackColor = Color.PaleGreen;
+            pnlSideBar.BackColor = Color.FromArgb(17, 70, 60);
             pnlSideBar.Controls.Add(btnHome);
             pnlSideBar.Controls.Add(btnBooking);
             pnlSideBar.Controls.Add(btnProfil);
@@ -60,6 +60,7 @@
             btnHome.FlatAppearance.BorderSize = 0;
             btnHome.FlatStyle = FlatStyle.Flat;
             btnHome.Font = new Font("Segoe UI", 12F);
+            btnHome.ForeColor = Color.FromArgb(250, 199, 131);
             btnHome.Location = new Point(12, 3);
             btnHome.Name = "btnHome";
             btnHome.Size = new Size(42, 40);
@@ -73,6 +74,7 @@
             btnBooking.FlatAppearance.BorderSize = 0;
             btnBooking.FlatStyle = FlatStyle.Flat;
             btnBooking.Font = new Font("Segoe UI", 12F);
+            btnBooking.ForeColor = SystemColors.ControlLightLight;
             btnBooking.Location = new Point(108, 3);
             btnBooking.Name = "btnBooking";
             btnBooking.Size = new Size(42, 40);
@@ -86,6 +88,7 @@
             btnProfil.FlatAppearance.BorderSize = 0;
             btnProfil.FlatStyle = FlatStyle.Flat;
             btnProfil.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnProfil.ForeColor = SystemColors.ControlLightLight;
             btnProfil.Location = new Point(335, 3);
             btnProfil.Name = "btnProfil";
             btnProfil.Size = new Size(42, 40);
@@ -99,6 +102,7 @@
             btnSearch.FlatAppearance.BorderSize = 0;
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 12F);
+            btnSearch.ForeColor = SystemColors.ControlLightLight;
             btnSearch.Location = new Point(228, 3);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(42, 40);
@@ -119,7 +123,7 @@
             // 
             // pnlHeader
             // 
-            pnlHeader.BackColor = Color.LightGreen;
+            pnlHeader.BackColor = Color.FromArgb(17, 70, 60);
             pnlHeader.Controls.Add(txtSearch);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
@@ -141,6 +145,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(389, 450);
+            ControlBox = false;
             Controls.Add(pnlHeader);
             Controls.Add(pnlSideBar);
             Controls.Add(flpMenu);

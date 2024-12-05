@@ -28,30 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblCancelBooking = new Label();
             lblConfirmation = new Label();
             lblPolicy = new Label();
-            label3 = new Label();
             btnConfirm = new Button();
             btnCancel = new Button();
             SuspendLayout();
-            // 
-            // lblCancelBooking
-            // 
-            lblCancelBooking.AutoSize = true;
-            lblCancelBooking.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCancelBooking.ForeColor = Color.Red;
-            lblCancelBooking.Location = new Point(124, 9);
-            lblCancelBooking.Name = "lblCancelBooking";
-            lblCancelBooking.Size = new Size(132, 20);
-            lblCancelBooking.TabIndex = 0;
-            lblCancelBooking.Text = "Batalkan Booking";
             // 
             // lblConfirmation
             // 
             lblConfirmation.AutoSize = true;
             lblConfirmation.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblConfirmation.Location = new Point(26, 57);
+            lblConfirmation.Location = new Point(26, 9);
             lblConfirmation.Name = "lblConfirmation";
             lblConfirmation.Size = new Size(332, 40);
             lblConfirmation.TabIndex = 1;
@@ -61,30 +48,23 @@
             // lblPolicy
             // 
             lblPolicy.AutoSize = true;
-            lblPolicy.Location = new Point(53, 113);
+            lblPolicy.ForeColor = Color.FromArgb(192, 0, 0);
+            lblPolicy.Location = new Point(49, 60);
             lblPolicy.Name = "lblPolicy";
-            lblPolicy.Size = new Size(281, 30);
+            lblPolicy.Size = new Size(278, 30);
             lblPolicy.TabIndex = 2;
-            lblPolicy.Text = "hanya 80% yang bisa di balikkan dari transaksi anda \r\nmenurut kebijakan kami";
+            lblPolicy.Text = "hanya 80% yang bisa dibalikkan dari transaksi anda \r\nmenurut kebijakan kami";
             lblPolicy.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 29);
-            label3.Name = "label3";
-            label3.Size = new Size(367, 15);
-            label3.TabIndex = 3;
-            label3.Text = "________________________________________________________________________";
+            lblPolicy.Click += lblPolicy_Click;
             // 
             // btnConfirm
             // 
-            btnConfirm.BackColor = Color.FromArgb(0, 192, 0);
+            btnConfirm.BackColor = Color.FromArgb(251, 86, 68);
             btnConfirm.Font = new Font("Franklin Gothic Medium", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnConfirm.ForeColor = SystemColors.ControlLightLight;
-            btnConfirm.Location = new Point(225, 204);
+            btnConfirm.ForeColor = Color.White;
+            btnConfirm.Location = new Point(249, 93);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(133, 49);
+            btnConfirm.Size = new Size(109, 38);
             btnConfirm.TabIndex = 4;
             btnConfirm.Text = "Ya, Lanjutkan";
             btnConfirm.UseVisualStyleBackColor = false;
@@ -92,12 +72,12 @@
             // 
             // btnCancel
             // 
-            btnCancel.BackColor = Color.FromArgb(192, 255, 192);
+            btnCancel.BackColor = Color.FromArgb(44, 190, 142);
             btnCancel.Font = new Font("Franklin Gothic Medium", 11.25F);
-            btnCancel.ForeColor = Color.DarkGreen;
-            btnCancel.Location = new Point(53, 204);
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(26, 93);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(133, 49);
+            btnCancel.Size = new Size(115, 38);
             btnCancel.TabIndex = 5;
             btnCancel.Text = "Tidak";
             btnCancel.UseVisualStyleBackColor = false;
@@ -107,13 +87,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(389, 289);
+            ClientSize = new Size(389, 143);
+            ControlBox = false;
             Controls.Add(btnCancel);
             Controls.Add(btnConfirm);
-            Controls.Add(label3);
             Controls.Add(lblPolicy);
             Controls.Add(lblConfirmation);
-            Controls.Add(lblCancelBooking);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "frmCancelConfirmation";
             Text = "Batalkan Booking";
             ResumeLayout(false);
@@ -130,12 +110,9 @@
             throw new NotImplementedException();
         }
 
-        #endregion
-
-        private Label lblCancelBooking;
+#endregion
         private Label lblConfirmation;
         private Label lblPolicy;
-        private Label label3;
         private Button btnConfirm;
         private Button btnCancel;
     }

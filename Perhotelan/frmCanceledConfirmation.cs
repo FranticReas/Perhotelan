@@ -30,5 +30,10 @@ namespace Perhotelan
             IsConfirmed = true;
             this.Close();
         }
+
+        private void lblPolicy_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

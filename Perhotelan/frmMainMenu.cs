@@ -34,7 +34,7 @@ namespace Perhotelan
             Panel card = new Panel
             {
                 Size = new Size(348, 100),
-                BackColor = Color.FromArgb(100, 181, 246),
+                BackColor = Color.White,
                 Margin = new Padding(5),
                 Cursor = Cursors.Hand
             };
@@ -51,9 +51,9 @@ namespace Perhotelan
             Label titleLabel = new Label
             {
                 Text = hotelName,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(100, 10)
+                Font = new Font("Montserrat", 15, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 70, 60),
+                Location = new Point(96, 10)
 
             };
             card.Controls.Add(titleLabel);
@@ -61,8 +61,8 @@ namespace Perhotelan
             Label subtitleLabel = new Label
             {
                 Text = hotelLocation,
-                Font = new Font("Segoe UI", 5, FontStyle.Regular),
-                ForeColor = Color.White,
+                Font = new Font("Montserrat", 9, FontStyle.Regular),
+                ForeColor = Color.FromArgb(17, 70, 60),
                 Location = new Point(100, 35)
             };
             card.Controls.Add(subtitleLabel);
@@ -70,8 +70,8 @@ namespace Perhotelan
             Label instructorLabel = new Label
             {
                 Text = hotelPricing,
-                Font = new Font("Segoe UI", 5, FontStyle.Regular),
-                ForeColor = Color.White,
+                Font = new Font("Montserrat", 8, FontStyle.Regular),
+                ForeColor = Color.FromArgb(17, 70, 60),
                 Location = new Point(100, 80)
             };
             card.Controls.Add(instructorLabel);
@@ -79,8 +79,8 @@ namespace Perhotelan
             Label ratingLabel = new Label
             {
                 Text = hotelRating,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                ForeColor = Color.White,
+                Font = new Font("Montserrat", 10, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 70, 60),
                 Location = new Point(card.Width - 50, 10), // Adjust the position to the top-right
                 AutoSize = true,
                 TextAlign = ContentAlignment.TopRight
@@ -103,7 +103,7 @@ namespace Perhotelan
             // Open a new form or display more details about the card
             Form hotelDetailsForm = new Form
             {
-                Text = "Hotel " + hotelName,
+                Text = hotelName,
                 Size = new Size(400, 300)
             };
 
@@ -148,12 +148,17 @@ namespace Perhotelan
 
         }
 
-        
-
         private void btnBooking_Click(object sender, EventArgs e)
         {
             frmBooking bookingForm = new frmBooking();
-            bookingForm.Show();
+            SwitchForm(this, bookingForm);
+        }
+
+        public static void SwitchForm(Form currentForm, Form newForm)
+        {
+            currentForm.Hide();       // Sembunyikan form sekarang
+            newForm.ShowDialog();     // Tampilkan form baru sebagai dialog
+            currentForm.Show();       // Kembalikan form lama jika diperlukan
         }
     }
 }

@@ -34,7 +34,6 @@ namespace Perhotelan
                 Size = new Size(348, 150),
                 BackColor = Color.White,
                 Margin = new Padding(10),
-                BorderStyle = BorderStyle.FixedSingle
             };
 
             // PictureBox for the hotel image
@@ -102,6 +101,8 @@ namespace Perhotelan
                         // Update the status label to "Canceled"
                         statusLabel.Text = "Dibatalkan";
                         statusLabel.ForeColor = Color.Red;
+                        // Mengupdate diproses
+                        btnOngoing.PerformClick();
                     }
                 }
             };
@@ -126,6 +127,8 @@ namespace Perhotelan
         }
         private void btnOngoing_Click(object sender, EventArgs e)
         {
+            // Mengatur warna tombol
+            SetButtonStyles(btnOngoing, btnCompleted, btnCanceled);
             // Filter bookings to show only ongoing bookings
             foreach (Control control in flpBookings.Controls)
             {
@@ -139,6 +142,8 @@ namespace Perhotelan
 
         private void btnCompleted_Click(object sender, EventArgs e)
         {
+            // Mengatur warna tombol
+            SetButtonStyles(btnCompleted, btnOngoing, btnCanceled);
             // Filter bookings to show only completed bookings
             foreach (Control control in flpBookings.Controls)
             {
@@ -152,6 +157,8 @@ namespace Perhotelan
 
         private void btnCanceled_Click(object sender, EventArgs e)
         {
+            // Mengatur warna tombol
+            SetButtonStyles(btnCanceled, btnCompleted, btnOngoing);
             // Filter bookings to show only canceled bookings
             foreach (Control control in flpBookings.Controls)
             {
@@ -161,6 +168,43 @@ namespace Perhotelan
                     card.Visible = statusLabel != null;
                 }
             }
+        }
+
+        private void SetButtonStyles(Button activeButton, params Button[] inactiveButtons)
+        {
+            // Tombol aktif
+            activeButton.BackColor = Color.FromArgb(17, 70, 60);
+            activeButton.ForeColor = Color.FromKnownColor(KnownColor.ControlLightLight);
+
+            // Tombol tidak aktif
+            foreach (var button in inactiveButtons)
+            {
+                button.BackColor = Color.FromKnownColor(KnownColor.ControlLightLight);
+                button.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
+            }
+        }
+
+        private void flpBookings_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            frmMainMenu menuForm = new frmMainMenu();
+            SwitchForm(this, menuForm);
+        }
+
+        public static void SwitchForm(Form currentForm, Form newForm)
+        {
+            currentForm.Hide();       // Sembunyikan form sekarang
+            newForm.ShowDialog();     // Tampilkan form baru sebagai dialog
+            currentForm.Show();       // Kembalikan form lama jika diperlukan
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

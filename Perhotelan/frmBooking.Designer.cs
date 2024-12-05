@@ -46,7 +46,7 @@
             // 
             // pnlSideBar
             // 
-            pnlSideBar.BackColor = Color.PaleGreen;
+            pnlSideBar.BackColor = Color.FromArgb(17, 70, 60);
             pnlSideBar.Controls.Add(btnHome);
             pnlSideBar.Controls.Add(btnBooking);
             pnlSideBar.Controls.Add(btnProfil);
@@ -64,12 +64,14 @@
             btnHome.FlatAppearance.BorderSize = 0;
             btnHome.FlatStyle = FlatStyle.Flat;
             btnHome.Font = new Font("Segoe UI", 12F);
+            btnHome.ForeColor = SystemColors.ControlLightLight;
             btnHome.Location = new Point(12, 3);
             btnHome.Name = "btnHome";
             btnHome.Size = new Size(42, 40);
             btnHome.TabIndex = 4;
             btnHome.Text = "🏠";
             btnHome.UseVisualStyleBackColor = true;
+            btnHome.Click += btnHome_Click;
             // 
             // btnBooking
             // 
@@ -77,6 +79,7 @@
             btnBooking.FlatAppearance.BorderSize = 0;
             btnBooking.FlatStyle = FlatStyle.Flat;
             btnBooking.Font = new Font("Segoe UI", 12F);
+            btnBooking.ForeColor = Color.FromArgb(250, 199, 131);
             btnBooking.Location = new Point(108, 3);
             btnBooking.Name = "btnBooking";
             btnBooking.Size = new Size(42, 40);
@@ -89,6 +92,7 @@
             btnProfil.FlatAppearance.BorderSize = 0;
             btnProfil.FlatStyle = FlatStyle.Flat;
             btnProfil.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnProfil.ForeColor = SystemColors.ControlLightLight;
             btnProfil.Location = new Point(335, 3);
             btnProfil.Name = "btnProfil";
             btnProfil.Size = new Size(42, 40);
@@ -102,16 +106,18 @@
             btnSearch.FlatAppearance.BorderSize = 0;
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 12F);
+            btnSearch.ForeColor = SystemColors.ControlLightLight;
             btnSearch.Location = new Point(228, 3);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(42, 40);
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // pnlHeader
             // 
-            pnlHeader.BackColor = Color.LightGreen;
+            pnlHeader.BackColor = Color.FromArgb(17, 70, 60);
             pnlHeader.Controls.Add(txtSearch);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
@@ -137,16 +143,20 @@
             flpBookings.Name = "flpBookings";
             flpBookings.Size = new Size(389, 362);
             flpBookings.TabIndex = 7;
+            flpBookings.Paint += flpBookings_Paint;
             // 
             // btnOngoing
             // 
             btnOngoing.Anchor = AnchorStyles.None;
+            btnOngoing.BackColor = Color.FromArgb(17, 70, 60);
+            btnOngoing.FlatAppearance.BorderSize = 0;
+            btnOngoing.ForeColor = SystemColors.ControlLightLight;
             btnOngoing.Location = new Point(3, 3);
             btnOngoing.Name = "btnOngoing";
             btnOngoing.Size = new Size(115, 35);
             btnOngoing.TabIndex = 0;
             btnOngoing.Text = "Diproses";
-            btnOngoing.UseVisualStyleBackColor = true;
+            btnOngoing.UseVisualStyleBackColor = false;
             btnOngoing.Click += btnOngoing_Click;
             // 
             // btnCompleted
@@ -176,11 +186,12 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(389, 450);
+            ControlBox = false;
             Controls.Add(flpBookings);
             Controls.Add(pnlHeader);
             Controls.Add(pnlSideBar);
             Name = "frmBooking";
-            Text = "frmBooking";
+            Text = "Hotelku";
             pnlSideBar.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();

@@ -73,5 +73,14 @@ namespace Perhotelan
             }
         }
 
+        private void lblHotel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblKu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
