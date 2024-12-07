@@ -166,7 +166,6 @@
         private Button btnProfil;
         private Button btnHome;
         private Button btnBooking;
-        private TextBox textBox1;
         private TextBox txtSearch;
     }
 }
