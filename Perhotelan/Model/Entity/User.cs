@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Perhotelan.Model.Entity
 {
+
+    [Table("user")]
     class User
     {
         public int userId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string UserName { get; set; }
-        public int noHp { get; set; }
-        public string userTgl {  get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string username { get; set; }
+        public string phoneNumber { get; set; }
+        public string birthdate { get; set; }
+        public string imagePath { get; set; }
+
     }
 }

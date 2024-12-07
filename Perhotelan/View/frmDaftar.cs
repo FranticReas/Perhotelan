@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Perhotelan.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,20 +10,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Perhotelan.Model.Entity;
+using Perhotelan.Model.Context;
+
 namespace Perhotelan
 {
     public partial class frmDaftar : Form
     {
+        private UserController _controller;
         public frmDaftar()
         {
             InitializeComponent();
-            
         }
 
         private void TxtTglLahir_Leave(object sender, EventArgs e)
         {
             DateTime date;
-            if (DateTime.TryParseExact(txtTglLahir.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+            if (DateTime.TryParseExact(txtTglLahir.Text, "yyyy/MM/dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
             {
                 // Date is valid
                 txtTglLahir.ForeColor = Color.Black;
@@ -30,7 +34,7 @@ namespace Perhotelan
             else
             {
                 // Show error if date is invalid
-                MessageBox.Show("Masukkan teks dalam format HH/BB/TTTT.");
+                MessageBox.Show("Masukkan teks dalam format YYYY/MM/HH.");
                 txtTglLahir.Focus();
                 txtTglLahir.ForeColor = Color.Red;
             }
@@ -64,12 +68,18 @@ namespace Perhotelan
 
         private void btnDaftar_Click(object sender, EventArgs e)
         {
+            
             this.Close();
         }
 
         private void lnkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.Close();
+        }
+
+        private void txtTglLahir_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

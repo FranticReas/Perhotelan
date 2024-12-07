@@ -8,10 +8,14 @@ namespace Perhotelan.Model.Entity
 {
     class Room
     {
-        public string RoomType { get; set; }
-        public double Price { get; set; }
-        public int MaxGuests { get; set; }
-        public int Size { get; set; } // Size in m²
-        public string BedType { get; set; }
+        public int roomId { get; set; }
+        public string roomType { get; set; }
+        public double price { get; set; }
+        public int maxGuest { get; set; }
+        public string roomSize { get; set; } 
+        public string bedType { get; set; }
+        public string roomRating { get; set; }
+        public string roomFacility { get; set; }
+        public string imagePath { get; set; }
     }
 }

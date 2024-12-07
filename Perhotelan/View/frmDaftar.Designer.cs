@@ -66,9 +66,10 @@
             txtTglLahir.Font = new Font("Montserrat", 9F);
             txtTglLahir.Location = new Point(26, 165);
             txtTglLahir.Name = "txtTglLahir";
-            txtTglLahir.PlaceholderText = "HH/BB/TTTT";
+            txtTglLahir.PlaceholderText = "TTTT/BB/HH";
             txtTglLahir.Size = new Size(342, 22);
             txtTglLahir.TabIndex = 3;
+            txtTglLahir.TextChanged += txtTglLahir_TextChanged;
             txtTglLahir.Leave += TxtTglLahir_Leave;
             // 
             // txtNohp
