@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,29 +33,15 @@ namespace Perhotelan
 
                 foreach (var hotel in hotels)
                 {
-                    // Load the hotel image if the `imagePath` property is set
-                    Image hotelImage = null;
-                    if (!string.IsNullOrEmpty(hotel.imagePath))
-                    {
-                        try
-                        {
-                            hotelImage = Image.FromFile($"{hotel.imagePath}");
-                        }
-                        catch (Exception ex)
-                        {
-                            // Handle image loading exceptions
-                            Console.WriteLine($"Error loading image: {ex.Message}");
-                        }
-                    }
+                    Image hotelImage = Image.FromFile($"{hotel.imagePath}.jpg");
                     // Concatenate firstname and lastname for display
                     string fullName = $"{hotel.firstname} {hotel.lastname}";
-
                     // Call AddCard method to add the hotel card to the interface
-                    AddCard(fullName, hotelImage, hotel.location, $"{hotel.hotelRating}⭐",  Convert.ToInt32(hotel.hotelId));
+                    AddCard(fullName, hotelImage, hotel.location, $"{hotel.hotelRating}⭐", Convert.ToInt32(hotel.hotelId), hotel.facility1, hotel.facility2, hotel.facility3);
                 }
             }
         }
-        private void AddCard(string fullName, Image hotelImage, string hotelLocation, string hotelRating, int hotelid)
+        private void AddCard(string fullName, Image hotelImage, string hotelLocation, string hotelRating, int hotelid, string facility1, string facility2, string facility3)
         {
             Panel card = new Panel
             {
@@ -104,21 +91,56 @@ namespace Perhotelan
             };
             card.Controls.Add(ratingLabel);
 
-            // Event handlers for clicking the card
+            // Icon and detail labels for guests, room size, and bed type
+            int iconY = 65; // Y-coordinate for icons and details
+            int spacing = 70; // Space between each icon-text pair
+
+            Label guestLabel = new Label
+            {
+                Text = $"{facility1}",
+                Font = new Font("Montserrat", 8, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 70, 60),
+                Location = new Point(100, iconY + 2),
+                AutoSize = true
+            };
+            card.Controls.Add(guestLabel);
+
+            Label sizeLabel = new Label
+            {
+                Text = facility2,
+                Font = new Font("Montserrat", 8, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 70, 60),
+                Location = new Point(105 + spacing, iconY + 2),
+                AutoSize = true
+            };
+            card.Controls.Add(sizeLabel);
+
+            Label bedLabel = new Label
+            {
+                Text = facility3,
+                Font = new Font("Montserrat", 8, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 70, 60),
+                Location = new Point(135 + 2 * spacing, iconY + 2),
+                AutoSize = true
+            };
+            card.Controls.Add(bedLabel);
+
+            // Add click events to all elements
             card.Click += (s, e) => Card_Click(fullName, hotelid);
-            titleLabel.Click += (s, e) => Card_Click(fullName, hotelid);
-            subtitleLabel.Click += (s, e) => Card_Click(fullName, hotelid);
-            ratingLabel.Click += (s, e) => Card_Click(fullName, hotelid);
+            foreach (Control control in card.Controls)
+            {
+                control.Click += (s, e) => Card_Click(fullName, hotelid);
+            }
             pictureBox.Click += (s, e) => Card_Click(fullName, hotelid);
 
             flpMenu.Controls.Add(card);
         }
-        
+
         // Event handler for card click
-        private void Card_Click(string hotelName, int hotelId)
+        private void Card_Click(string fullname, int hotelid)
         {
             // Open the detailed hotel form with the selected hotel's ID
-            frmHotelDesign hotelDetailsForm = new frmHotelDesign(hotelId);
+            frmHotelDesign hotelDetailsForm = new frmHotelDesign(hotelid);
             hotelDetailsForm.ShowDialog();
         }
 
@@ -163,6 +185,11 @@ namespace Perhotelan
             currentForm.Hide();       // Sembunyikan form sekarang
             newForm.ShowDialog();     // Tampilkan form baru sebagai dialog
             currentForm.Show();       // Kembalikan form lama jika diperlukan
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

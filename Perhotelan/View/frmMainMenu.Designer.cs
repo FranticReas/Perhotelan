@@ -67,6 +67,7 @@
             btnHome.TabIndex = 4;
             btnHome.Text = "🏠";
             btnHome.UseVisualStyleBackColor = true;
+            btnHome.Click += btnHome_Click;
             // 
             // btnBooking
             // 

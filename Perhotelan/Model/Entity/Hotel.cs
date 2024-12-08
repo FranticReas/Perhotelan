@@ -14,7 +14,9 @@ namespace Perhotelan.Model.Entity
         public string location { get; set; }
         public decimal hotelRating { get; set; }
         public int reviewCount { get; set; }
-        public string facility {  get; set; }
+        public string facility1 {  get; set; }
+        public string facility2 { get; set; }
+        public string facility3 { get; set; }
         public string imagePath { get; set; }
         public List<Room> AvailableRooms { get; set; }
     }

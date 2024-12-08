@@ -79,7 +79,7 @@ namespace Perhotelan.Model.Context
         public List<Hotel> GetAllHotels()
         {
             List<Hotel> hotels = new List<Hotel>();
-            string query = "SELECT * FROM Hotel"; // Assuming hotel table exists
+            string query = "SELECT * FROM Hotel";
 
             using (var cmd = new SQLiteCommand(query, Conn))
             {
@@ -89,12 +89,15 @@ namespace Perhotelan.Model.Context
                     {
                         var hotel = new Hotel
                         {
-                            hotelId = reader["hotelId"].ToString(),  // Use column names instead of index
+                            hotelId = reader["hotelid"].ToString(),  
                             firstname = reader["firstname"].ToString(),
                             lastname = reader["lastname"].ToString(),
                             location = reader["location"].ToString(),
                             hotelRating = Convert.ToDecimal(reader["hotelRating"]),
                             reviewCount = Convert.ToInt32(reader["reviewCount"]),
+                            facility1 = reader["hotelFacility1"].ToString(),
+                            facility2 = reader["hotelFacility2"].ToString(),
+                            facility3 = reader["hotelFacility3"].ToString(),
                             imagePath = reader["imagePath"].ToString()
                         };
 
@@ -121,12 +124,13 @@ namespace Perhotelan.Model.Context
                     {
                         var room = new Room
                         {
-                            roomId = reader.GetInt32(0),
-                            roomType = reader.GetString(1),
-                            maxGuest = reader.GetInt32(2),
-                            price = reader.GetString(3),
-                            roomSize = reader.GetInt32(4),
-                            imagePath = reader.GetString(5),
+                            roomId = Convert.ToInt32(reader["roomId"]),
+                            roomType = reader["roomType"].ToString(),
+                            maxGuest = Convert.ToInt32(reader["maxGuest"]),
+                            price = reader["price"].ToString(),
+                            roomSize = Convert.ToInt32(reader["roomSize"]),
+                            bedType = reader["bedType"].ToString(),
+                            imagePath = reader["imagePath"].ToString()
                         };
 
                         rooms.Add(room);

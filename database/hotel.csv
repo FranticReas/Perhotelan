@@ -1,51 +1,51 @@
-hotelid,firstname,lastname,location,hotelRating,reviewCount,hotelFacility,imagePath
-1,Royal,Inn,0086 Northridge Parkway,2.0,2059,restaurant,asset/hotel10
-2,Harbor,Inn,9125 Cambridge Court,1.4,7348,spa,asset/hotel4
-3,Golden,Retreat,11328 Nevada Point,1.4,5123,gym,asset/hotel1
-4,Golden,Inn,5560 Crescent Oaks Trail,2.6,8928,pool,asset/hotel5
-5,Grand,Palace,90007 Kim Court,3.6,3919,pool,asset/hotel7
-6,Ocean,Inn,1045 Nevada Street,3.9,5822,gym,asset/hotel3
-7,Mountain,Resort,03 Dexter Point,3.8,9259,pool,asset/hotel1
-8,Sunset,Retreat,88 Sauthoff Crossing,4.1,9874,spa,asset/hotel5
-9,Golden,Center,77955 Mcbride Place,1.7,3672,wifi,asset/hotel10
-10,Golden,Palace,57113 Chive Junction,4.1,1737,gym,asset/hotel8
-11,City,Retreat,7177 Green Parkway,1.6,9417,gym,asset/hotel4
-12,Royal,Hotel,5954 Stoughton Hill,4.9,7055,spa,asset/hotel5
-13,Ocean,Inn,2105 Kinsman Road,1.5,4578,wifi,asset/hotel10
-14,Ocean,Center,41 Messerschmidt Avenue,2.1,6521,spa,asset/hotel9
-15,Harbor,Palace,81 Badeau Drive,4.8,8975,gym,asset/hotel2
-16,Lakeside,Palace,882 Fulton Court,2.1,2549,wifi,asset/hotel6
-17,Golden,Palace,0747 Continental Hill,4.8,4648,pool,asset/hotel2
-18,Royal,Resort,224 Golf Course Circle,1.2,1812,breakfast,asset/hotel9
-19,Royal,Resort,5 Harbort Hill,2.4,4202,wifi,asset/hotel2
-20,City,Inn,59 Wayridge Avenue,2.7,6278,gym,asset/hotel1
-21,Lakeside,Hotel,98200 Miller Way,1.4,8874,spa,asset/hotel1
-22,Ocean,Hotel,0 5th Court,4.0,7499,breakfast,asset/hotel6
-23,Golden,Inn,9 International Court,2.9,3097,breakfast,asset/hotel5
-24,Royal,Retreat,69 East Terrace,1.5,7761,pool,asset/hotel8
-25,City,Palace,34 Jana Drive,3.7,5411,breakfast,asset/hotel4
-26,Royal,Hotel,132 Clarendon Park,2.2,8802,restaurant,asset/hotel9
-27,Golden,Palace,79 Corry Crossing,3.2,8252,pool,asset/hotel7
-28,Ocean,Retreat,2382 Gateway Point,3.2,6378,restaurant,asset/hotel3
-29,Grand,Palace,79 Saint Paul Trail,1.5,3821,wifi,asset/hotel5
-30,Golden,Retreat,87 Muir Alley,1.3,4498,wifi,asset/hotel1
-31,Ocean,Retreat,614 Cambridge Drive,3.4,3373,spa,asset/hotel8
-32,Golden,Inn,24 Manley Drive,1.5,6972,spa,asset/hotel1
-33,Golden,Palace,73001 Doe Crossing Road,4.6,2233,gym,asset/hotel5
-34,Golden,Inn,83936 American Ash Alley,1.3,4049,wifi,asset/hotel10
-35,Sunset,Center,5124 Sunbrook Court,2.6,7277,gym,asset/hotel10
-36,Sunset,Resort,2 Hoard Way,3.3,5684,gym,asset/hotel6
-37,Lakeside,Resort,490 Buhler Crossing,4.3,1879,pool,asset/hotel7
-38,Harbor,Center,9 Heath Park,3.7,2740,wifi,asset/hotel7
-39,Ocean,Retreat,8499 Glacier Hill Point,1.4,4024,spa,asset/hotel8
-40,Ocean,Palace,5 Glendale Court,1.2,4369,gym,asset/hotel7
-41,Mountain,Inn,57 Messerschmidt Place,4.2,9395,spa,asset/hotel1
-42,Sunset,Resort,20466 Center Trail,4.4,6403,spa,asset/hotel9
-43,Grand,Inn,19 Sunfield Park,1.5,7406,wifi,asset/hotel5
-44,Sunset,Inn,52053 Milwaukee Center,1.6,6063,spa,asset/hotel2
-45,City,Palace,4826 Manley Center,4.8,2664,pool,asset/hotel7
-46,City,Inn,784 Maywood Hill,1.7,6588,pool,asset/hotel8
-47,Royal,Palace,75 Dennis Court,2.9,4105,pool,asset/hotel2
-48,Golden,Resort,6 Debs Lane,2.9,8976,breakfast,asset/hotel1
-49,Mountain,Palace,73 High Crossing Center,3.1,5292,wifi,asset/hotel9
-50,Golden,Inn,1033 Monica Park,1.1,6125,gym,asset/hotel7
+hotelid,firstname,lastname,location,hotelRating,reviewCount,hotelFacility1,hotelFacility2,hotelFacility3,imagePath
+1,Mountain,Retreat,31 Sutherland Pass,3.2,3288,GYM,SPA,WIFI,asset/hotel4
+2,Ocean,Center,8 Lyons Crossing,4.8,1831,GYM,SPA,WIFI,asset/hotel4
+3,Sunset,Retreat,756 Hovde Pass,3.4,3361,GYM,SPA,WIFI,asset/hotel3
+4,City,Center,4992 Westridge Junction,3.3,7506,GYM,SPA,WIFI,asset/hotel5
+5,Royal,Center,46802 Derek Hill,3.7,5551,POOL,RESTAURANT,WIFI,asset/hotel10
+6,Lakeside,Resort,135 Farmco Crossing,4.4,4143,GYM,RESTAURANT,BREAKFAST,asset/hotel2
+7,Golden,Center,22 Mccormick Alley,4.2,7012,GYM,RESTAURANT,WIFI,asset/hotel6
+8,Ocean,Center,84 Hayes Parkway,5.0,6414,POOL,SPA,WIFI,asset/hotel10
+9,Sunset,Inn,1 Brentwood Road,3.4,7709,POOL,RESTAURANT,WIFI,asset/hotel8
+10,Golden,Inn,6771 Forest Dale Pass,4.6,9465,GYM,RESTAURANT,WIFI,asset/hotel5
+11,City,Inn,54 Dovetail Place,4.3,9418,POOL,SPA,BREAKFAST,asset/hotel9
+12,Sunset,Palace,00390 Maryland Avenue,3.2,7712,GYM,SPA,WIFI,asset/hotel4
+13,Royal,Resort,7982 Pearson Road,3.7,2837,GYM,RESTAURANT,WIFI,asset/hotel10
+14,Mountain,Resort,0 Crowley Court,3.6,1047,GYM,SPA,BREAKFAST,asset/hotel5
+15,Mountain,Hotel,54985 Crescent Oaks Point,5.0,5877,GYM,SPA,BREAKFAST,asset/hotel2
+16,Ocean,Hotel,22 Bobwhite Parkway,3.1,3182,GYM,SPA,BREAKFAST,asset/hotel9
+17,Royal,Center,480 Sommers Parkway,3.5,9034,POOL,RESTAURANT,BREAKFAST,asset/hotel7
+18,City,Center,8 Maywood Alley,4.0,5271,GYM,RESTAURANT,BREAKFAST,asset/hotel3
+19,Grand,Retreat,139 Towne Center,3.6,5358,POOL,SPA,BREAKFAST,asset/hotel2
+20,Grand,Palace,3 Longview Street,3.1,1839,GYM,SPA,BREAKFAST,asset/hotel7
+21,Royal,Hotel,402 Hooker Junction,4.5,3683,POOL,RESTAURANT,BREAKFAST,asset/hotel6
+22,City,Inn,87059 Waywood Plaza,3.5,1034,GYM,SPA,BREAKFAST,asset/hotel1
+23,Royal,Resort,1 Banding Point,4.9,6275,GYM,RESTAURANT,BREAKFAST,asset/hotel2
+24,Ocean,Center,74 Novick Road,3.3,8462,POOL,SPA,WIFI,asset/hotel9
+25,Sunset,Palace,244 Emmet Hill,3.8,3678,GYM,SPA,BREAKFAST,asset/hotel1
+26,Harbor,Palace,7 Blackbird Lane,4.7,8084,GYM,RESTAURANT,BREAKFAST,asset/hotel4
+27,Golden,Palace,3 Scoville Center,4.1,4032,GYM,SPA,WIFI,asset/hotel4
+28,Lakeside,Retreat,6989 Gulseth Court,3.7,4537,POOL,RESTAURANT,WIFI,asset/hotel4
+29,City,Inn,45 Schurz Court,4.2,9191,POOL,RESTAURANT,BREAKFAST,asset/hotel10
+30,Sunset,Center,2 Brickson Park Pass,4.8,3440,GYM,SPA,WIFI,asset/hotel7
+31,City,Palace,16538 Everett Plaza,4.1,1241,GYM,RESTAURANT,WIFI,asset/hotel6
+32,City,Resort,1 Dawn Park,3.6,4110,GYM,RESTAURANT,BREAKFAST,asset/hotel5
+33,Royal,Center,281 Nevada Court,3.1,7596,POOL,RESTAURANT,BREAKFAST,asset/hotel6
+34,Lakeside,Inn,453 Beilfuss Crossing,3.9,5526,POOL,SPA,BREAKFAST,asset/hotel2
+35,Harbor,Hotel,7645 Corry Court,3.8,3026,POOL,RESTAURANT,BREAKFAST,asset/hotel10
+36,Sunset,Retreat,4 Mayfield Court,4.3,8429,GYM,RESTAURANT,BREAKFAST,asset/hotel8
+37,Royal,Palace,45447 Morning Pass,4.6,3961,GYM,RESTAURANT,BREAKFAST,asset/hotel3
+38,Harbor,Palace,65 Jana Circle,3.7,8550,POOL,SPA,WIFI,asset/hotel8
+39,Ocean,Center,7296 Dexter Crossing,3.9,9299,GYM,SPA,BREAKFAST,asset/hotel4
+40,City,Palace,04 Milwaukee Avenue,4.6,9586,POOL,SPA,WIFI,asset/hotel5
+41,Ocean,Resort,9 Hovde Terrace,3.9,9035,GYM,SPA,WIFI,asset/hotel3
+42,Royal,Inn,15496 North Avenue,3.6,5553,GYM,RESTAURANT,WIFI,asset/hotel9
+43,Lakeside,Palace,516 Dorton Avenue,4.0,4943,GYM,RESTAURANT,BREAKFAST,asset/hotel9
+44,Harbor,Inn,2 Florence Circle,4.6,4818,POOL,RESTAURANT,WIFI,asset/hotel3
+45,Lakeside,Resort,76736 Blackbird Terrace,4.7,8616,GYM,SPA,WIFI,asset/hotel6
+46,Mountain,Hotel,75350 Del Sol Avenue,3.4,1659,GYM,SPA,WIFI,asset/hotel3
+47,Sunset,Hotel,6 Little Fleur Alley,4.3,1181,GYM,SPA,BREAKFAST,asset/hotel2
+48,Grand,Inn,06844 Sycamore Parkway,3.7,5429,POOL,SPA,WIFI,asset/hotel9
+49,Golden,Retreat,75 Nevada Lane,4.0,9077,GYM,RESTAURANT,WIFI,asset/hotel10
+50,City,Retreat,771 Riverside Hill,3.5,2702,POOL,RESTAURANT,BREAKFAST,asset/hotel9
