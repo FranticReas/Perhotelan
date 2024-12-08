@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Perhotelan.Model.Context;
+using Perhotelan.Model.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -22,14 +24,37 @@ namespace Perhotelan
 
         private void IntializedMenuInterface()
         {
-            // Sementara
-            Image hotelImage = Image.FromFile("asset/images.jpg");
-            for (int i = 0; i < 5; i++)
+            using (DdContext context = new DdContext())
             {
-                AddCard("Hotel " + (i + 1), "lokasi - bumi 🗿", "100k/malam", "🌟 4.3", hotelImage);
+                // Fetch all hotels from the database
+                List<Hotel> hotels = context.GetAllHotels();
+
+                foreach (var hotel in hotels)
+                {
+                    // Load the hotel image if the `imagePath` property is set
+                    Image hotelImage = null;
+                    if (!string.IsNullOrEmpty(hotel.imagePath))
+                    {
+                        try
+                        {
+                            hotelImage = Image.FromFile(hotel.imagePath);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle image loading exceptions
+                            Console.WriteLine($"Error loading image: {ex.Message}");
+                        }
+                    }
+
+                    // Concatenate firstname and lastname for display
+                    string fullName = $"{hotel.firstname} {hotel.lastname}";
+
+                    // Call AddCard method to add the hotel card to the interface
+                    AddCard(fullName, hotelImage, hotel.location, $"{hotel.hotelRating}⭐");
+                }
             }
         }
-        private void AddCard(string hotelName, string hotelLocation, string hotelPricing, string hotelRating, Image hotelImage)
+        private void AddCard(string fullName, Image hotelImage, string hotelLocation, string hotelRating)
         {
             Panel card = new Panel
             {
@@ -50,11 +75,11 @@ namespace Perhotelan
 
             Label titleLabel = new Label
             {
-                Text = hotelName,
-                Font = new Font("Montserrat", 15, FontStyle.Bold),
+                Text = fullName,
+                Font = new Font("Montserrat", 10, FontStyle.Bold),
                 ForeColor = Color.FromArgb(17, 70, 60),
-                Location = new Point(96, 10)
-
+                Location = new Point(96, 10),
+                AutoSize = true
             };
             card.Controls.Add(titleLabel);
 
@@ -63,18 +88,10 @@ namespace Perhotelan
                 Text = hotelLocation,
                 Font = new Font("Montserrat", 9, FontStyle.Regular),
                 ForeColor = Color.FromArgb(17, 70, 60),
-                Location = new Point(100, 35)
+                Location = new Point(100, 35),
+                AutoSize = true
             };
             card.Controls.Add(subtitleLabel);
-
-            Label instructorLabel = new Label
-            {
-                Text = hotelPricing,
-                Font = new Font("Montserrat", 8, FontStyle.Regular),
-                ForeColor = Color.FromArgb(17, 70, 60),
-                Location = new Point(100, 80)
-            };
-            card.Controls.Add(instructorLabel);
 
             Label ratingLabel = new Label
             {
@@ -87,16 +104,16 @@ namespace Perhotelan
             };
             card.Controls.Add(ratingLabel);
 
-            //Untuk membuka tab
-            card.Click += (s, e) => Card_Click(hotelName);
-            titleLabel.Click += (s, e) => Card_Click(hotelName);
-            subtitleLabel.Click += (s, e) => Card_Click(hotelName);
-            instructorLabel.Click += (s, e) => Card_Click(hotelName);
-            ratingLabel.Click += (s, e) => Card_Click(hotelName);
-            pictureBox.Click += (s, e) => Card_Click(hotelName);
+            // Event handlers for clicking the card
+            card.Click += (s, e) => Card_Click(fullName);
+            titleLabel.Click += (s, e) => Card_Click(fullName);
+            subtitleLabel.Click += (s, e) => Card_Click(fullName);
+            ratingLabel.Click += (s, e) => Card_Click(fullName);
+            pictureBox.Click += (s, e) => Card_Click(fullName);
 
             flpMenu.Controls.Add(card);
         }
+
         // Event handler for card click
         private void Card_Click(string hotelName)
         {

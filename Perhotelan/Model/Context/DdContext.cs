@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Perhotelan.Model.Entity;
 
+
 namespace Perhotelan.Model.Context
 {
     class DdContext : IDisposable
@@ -22,22 +23,31 @@ namespace Perhotelan.Model.Context
         // Method untuk melakukan koneksi ke database
         private SQLiteConnection GetOpenConnection()
         {
-            SQLiteConnection conn = null; // deklarasi objek connection
-            try // penggunaan blok try-catch untuk penanganan error
+            SQLiteConnection conn = null; // declare connection object
+            try
             {
-                // atur ulang lokasi database yang disesuaikan dengan
-                // lokasi database perpustakaan Anda
-                string dbName = @"C:\Users\desir\Desktop\Tugas\Kuliah\s3\Pemograman 2\UTS\database\hotelapp.sql";
-                // deklarasi variabel connectionString, ref: https://www.connectionstrings.com/
-                string connectionString = string.Format("Data Source={0}; FailIfMissing=True;", dbName);
+                // Get the full path of the database
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string dbName = Path.Combine(baseDir, "database", "hotelapp.db"); // Construct full pathstring dbName = @"database\hotelapp.db"; // Replace with the actual path
+
+
+                // Check if the database file exists
+                if (!File.Exists(dbName))
+                {
+                    throw new FileNotFoundException("Database file not found.", dbName);
+                }
+
+                // Declare connection string
+                string connectionString = $"Data Source={dbName}; FailIfMissing=True;";
+
                 // Initialize and open the connection
-                conn = new SQLiteConnection(connectionString); // buat objek connection
-                conn.Open(); // buka koneksi ke database
+                conn = new SQLiteConnection(connectionString);
+                conn.Open();
             }
-            // jika terjadi error di blok try, akan ditangani langsung oleh blok catch
-            catch (Exception ex)
+            catch (Exception ex) // handle errors
             {
                 System.Diagnostics.Debug.Print("Open Connection Error: {0}", ex.Message);
+                throw new InvalidOperationException("Could not open database connection.", ex);
             }
             return conn;
         }
@@ -49,7 +59,14 @@ namespace Perhotelan.Model.Context
             {
                 try
                 {
-                    if (_conn.State != ConnectionState.Closed) _conn.Close();
+                    if (_conn.State != ConnectionState.Closed)
+                    {
+                        _conn.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.Print("Error closing connection: {0}", ex.Message);
                 }
                 finally
                 {
@@ -57,6 +74,68 @@ namespace Perhotelan.Model.Context
                 }
             }
             GC.SuppressFinalize(this);
+        }
+
+        public List<Hotel> GetAllHotels()
+        {
+            List<Hotel> hotels = new List<Hotel>();
+            string query = "SELECT * FROM Hotel"; // Assuming hotel table exists
+
+            using (var cmd = new SQLiteCommand(query, Conn))
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var hotel = new Hotel
+                        {
+                            hotelId = reader["hotelId"].ToString(),  // Use column names instead of index
+                            firstname = reader["firstname"].ToString(),
+                            lastname = reader["lastname"].ToString(),
+                            location = reader["location"].ToString(),
+                            hotelRating = Convert.ToDecimal(reader["hotelRating"]),
+                            reviewCount = Convert.ToInt32(reader["reviewCount"]),
+                            imagePath = reader["imagePath"].ToString()
+                        };
+
+                        hotels.Add(hotel);
+                    }
+                }
+            }
+            return hotels;
+        }
+
+
+        public List<Room> GetRoomsByHotelId(int hotelId)
+        {
+            List<Room> rooms = new List<Room>();
+            string query = "SELECT * FROM rooms WHERE hotelId = @hotelId";
+
+            using (var cmd = new SQLiteCommand(query, Conn))
+            {
+                cmd.Parameters.AddWithValue("@hotelId", hotelId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var room = new Room
+                        {
+                            roomId = reader.GetInt32(0),
+                            roomType = reader.GetString(1),
+                            maxGuest = reader.GetInt32(2),
+                            price = reader.GetDouble(3),
+                            roomSize = reader.GetString(4),
+                            roomRating = reader.GetString(5),
+                            roomFacility = reader.GetString(6),
+                            imagePath = reader.GetString(7),
+                        };
+
+                        rooms.Add(room);
+                    }
+                }
+            }
+            return rooms;
         }
     }
 }

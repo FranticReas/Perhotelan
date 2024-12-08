@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox1 = new PictureBox();
             pnlHeader = new Panel();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            flpHotelDetail = new FlowLayoutPanel();
+            pnlHeader.SuspendLayout();
             SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(12, 61);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(365, 180);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
             // 
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(17, 70, 60);
+            pnlHeader.Controls.Add(flpHotelDetail);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(389, 46);
             pnlHeader.TabIndex = 6;
+            // 
+            // flpHotelDetail
+            // 
+            flpHotelDetail.Location = new Point(0, 39);
+            flpHotelDetail.Name = "flpHotelDetail";
+            flpHotelDetail.Size = new Size(389, 413);
+            flpHotelDetail.TabIndex = 7;
             // 
             // frmHotelDetail
             // 
@@ -56,16 +56,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(389, 450);
             Controls.Add(pnlHeader);
-            Controls.Add(pictureBox1);
             Name = "frmHotelDetail";
             Text = "frmHotelDetail";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private PictureBox pictureBox1;
         private Panel pnlHeader;
+        private FlowLayoutPanel flpHotelDetail;
     }
 }

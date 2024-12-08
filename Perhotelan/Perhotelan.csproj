@@ -27,4 +27,14 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="database\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="database\hotelapp.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
