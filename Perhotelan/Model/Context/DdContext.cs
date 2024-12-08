@@ -28,7 +28,7 @@ namespace Perhotelan.Model.Context
             {
                 // Get the full path of the database
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                string dbName = Path.Combine(baseDir, "database", "hotelapp.db"); // Construct full pathstring dbName = @"database\hotelapp.db"; // Replace with the actual path
+                string dbName = @"database/hotelapp.db";
 
 
                 // Check if the database file exists
@@ -109,7 +109,7 @@ namespace Perhotelan.Model.Context
         public List<Room> GetRoomsByHotelId(int hotelId)
         {
             List<Room> rooms = new List<Room>();
-            string query = "SELECT * FROM rooms WHERE hotelId = @hotelId";
+            string query = "SELECT * FROM room WHERE hotelId = @hotelId";
 
             using (var cmd = new SQLiteCommand(query, Conn))
             {
@@ -124,11 +124,9 @@ namespace Perhotelan.Model.Context
                             roomId = reader.GetInt32(0),
                             roomType = reader.GetString(1),
                             maxGuest = reader.GetInt32(2),
-                            price = reader.GetDouble(3),
-                            roomSize = reader.GetString(4),
-                            roomRating = reader.GetString(5),
-                            roomFacility = reader.GetString(6),
-                            imagePath = reader.GetString(7),
+                            price = reader.GetString(3),
+                            roomSize = reader.GetInt32(4),
+                            imagePath = reader.GetString(5),
                         };
 
                         rooms.Add(room);
@@ -137,5 +135,6 @@ namespace Perhotelan.Model.Context
             }
             return rooms;
         }
+
     }
 }

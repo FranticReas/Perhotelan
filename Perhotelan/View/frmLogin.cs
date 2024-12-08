@@ -36,19 +36,19 @@ namespace Perhotelan
         }
         private void txtLoginPass_Enter(object sender, EventArgs e) //Password enter
         {
-            if (txtLoginEmail.Text == "Masukkan password anda disini")
+            if (txtLoginPass.Text == "Masukkan password anda disini")
             {
-                txtLoginEmail.Text = "";
-                txtLoginEmail.ForeColor = System.Drawing.Color.Black;
+                txtLoginPass.Text = "";
+                txtLoginPass.ForeColor = System.Drawing.Color.Black;
             }
         }
 
         private void txtLoginPass_Leave(object sender, EventArgs e) // Pasword leave
         {
-            if (string.IsNullOrWhiteSpace(txtLoginEmail.Text))
+            if (string.IsNullOrWhiteSpace(txtLoginPass.Text))
             {
-                txtLoginEmail.Text = "Masukkan password anda disini";
-                txtLoginEmail.ForeColor = System.Drawing.Color.Gray;
+                txtLoginPass.Text = "Masukkan password anda disini";
+                txtLoginPass.ForeColor = System.Drawing.Color.Gray;
             }
         }
         private void lnkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -79,6 +79,11 @@ namespace Perhotelan
         }
 
         private void lblKu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtLoginPass_TextChanged(object sender, EventArgs e)
         {
 
         }

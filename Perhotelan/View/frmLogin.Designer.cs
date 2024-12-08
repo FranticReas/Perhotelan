@@ -52,6 +52,7 @@
             txtLoginPass.Name = "txtLoginPass";
             txtLoginPass.Size = new Size(221, 23);
             txtLoginPass.TabIndex = 3;
+            txtLoginPass.TextChanged += txtLoginPass_TextChanged;
             // 
             // btnLogin
             // 

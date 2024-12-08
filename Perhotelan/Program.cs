@@ -22,7 +22,9 @@ namespace Perhotelan
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
                     // If login is successful (DialogResult.OK), run the MainMenu form
-                    Application.Run(new frmMainMenu());
+                    var mainMenu = new frmMainMenu();
+                    Application.Run(mainMenu);
+
                 }
                 else
                 {

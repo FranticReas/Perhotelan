@@ -21,7 +21,7 @@ namespace Perhotelan
         private void IntializedBookingInterface()
         {
             // Sementara
-            Image hotelImage = Image.FromFile("asset/images.jpg");
+            Image hotelImage = Image.FromFile("asset/hotel1.jpg");
             for (int i = 0; i < 5; i++)
             {
                 AddBookingCard("Hotel " + (i + 1), "lokasi - bumi 🗿", "Diproses", hotelImage);

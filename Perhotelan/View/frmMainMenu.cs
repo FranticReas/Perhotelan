@@ -1,5 +1,6 @@
 ﻿using Perhotelan.Model.Context;
 using Perhotelan.Model.Entity;
+using Perhotelan.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,7 +38,7 @@ namespace Perhotelan
                     {
                         try
                         {
-                            hotelImage = Image.FromFile(hotel.imagePath);
+                            hotelImage = Image.FromFile($"{hotel.imagePath}");
                         }
                         catch (Exception ex)
                         {
@@ -45,16 +46,15 @@ namespace Perhotelan
                             Console.WriteLine($"Error loading image: {ex.Message}");
                         }
                     }
-
                     // Concatenate firstname and lastname for display
                     string fullName = $"{hotel.firstname} {hotel.lastname}";
 
                     // Call AddCard method to add the hotel card to the interface
-                    AddCard(fullName, hotelImage, hotel.location, $"{hotel.hotelRating}⭐");
+                    AddCard(fullName, hotelImage, hotel.location, $"{hotel.hotelRating}⭐",  Convert.ToInt32(hotel.hotelId));
                 }
             }
         }
-        private void AddCard(string fullName, Image hotelImage, string hotelLocation, string hotelRating)
+        private void AddCard(string fullName, Image hotelImage, string hotelLocation, string hotelRating, int hotelid)
         {
             Panel card = new Panel
             {
@@ -105,36 +105,23 @@ namespace Perhotelan
             card.Controls.Add(ratingLabel);
 
             // Event handlers for clicking the card
-            card.Click += (s, e) => Card_Click(fullName);
-            titleLabel.Click += (s, e) => Card_Click(fullName);
-            subtitleLabel.Click += (s, e) => Card_Click(fullName);
-            ratingLabel.Click += (s, e) => Card_Click(fullName);
-            pictureBox.Click += (s, e) => Card_Click(fullName);
+            card.Click += (s, e) => Card_Click(fullName, hotelid);
+            titleLabel.Click += (s, e) => Card_Click(fullName, hotelid);
+            subtitleLabel.Click += (s, e) => Card_Click(fullName, hotelid);
+            ratingLabel.Click += (s, e) => Card_Click(fullName, hotelid);
+            pictureBox.Click += (s, e) => Card_Click(fullName, hotelid);
 
             flpMenu.Controls.Add(card);
         }
-
+        
         // Event handler for card click
-        private void Card_Click(string hotelName)
+        private void Card_Click(string hotelName, int hotelId)
         {
-            // Open a new form or display more details about the card
-            Form hotelDetailsForm = new Form
-            {
-                Text = hotelName,
-                Size = new Size(400, 300)
-            };
-
-            Label hotelInfoLabel = new Label
-            {
-                Text = "Sementara " + hotelName,
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font("Segoe UI", 12)
-            };
-
-            hotelDetailsForm.Controls.Add(hotelInfoLabel);
-            hotelDetailsForm.ShowDialog(); // Show the details form as a modal dialog
+            // Open the detailed hotel form with the selected hotel's ID
+            frmHotelDesign hotelDetailsForm = new frmHotelDesign(hotelId);
+            hotelDetailsForm.ShowDialog();
         }
+
         private void frmMainMenu_Load(object sender, EventArgs e)
         {
 
