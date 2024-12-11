@@ -11,11 +11,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Perhotelan.View;
 using Perhotelan.Model.Entity;
+using Perhotelan.Model.Repository;
 
 namespace Perhotelan.View
 {
     public partial class frmHotelDesign : Form
     {
+        // Delegate untuk meneruskan tanggal check-out
+        public Action<DateTime> OnCheckoutDateSelected { get; set; }
+
         private int _hotelId;
 
         public frmHotelDesign(int hotelid)
@@ -76,8 +80,9 @@ namespace Perhotelan.View
         {
             using (DdContext context = new DdContext())
             {
+                RoomRepository service = new RoomRepository(context);
                 // Fetch all rooms from the database
-                List<Room> rooms = context.GetRoomsByHotelId(_hotelId);
+                List<Room> rooms = service.GetRoomsByHotelId(_hotelId);
 
                 foreach (var room in rooms)
                 {
@@ -209,7 +214,6 @@ namespace Perhotelan.View
             {
                 control.Click += (s, e) => RoomCard_Click(roomName, roomId);
             }
-            pictureBox.Click += (s, e) => RoomCard_Click(roomName, roomId);
 
             // Add card to the FlowLayoutPanel
             flpRoom.Controls.Add(card);
@@ -223,11 +227,43 @@ namespace Perhotelan.View
         // Event handler for room card click
         private void RoomCard_Click(string roomName, int roomId)
         {
-            
-            // Open the detailed room form with the selected room's ID
-            frmRoomBooking roomBookingForm = new frmRoomBooking(roomId);
-            roomBookingForm.ShowDialog();
-            
+            OpenDatePicker();
+        }
+        private void OpenDatePicker()
+        {
+            // Buat instance form check-in
+            frmCheckIn checkInForm = new frmCheckIn(_hotelId);
+
+            // Hubungkan delegate OnDateSelected
+            checkInForm.OnDateSelected = (selectedDate) =>
+            {
+                // Setelah tanggal check-in dipilih, buka form check-out
+                frmCheckOut checkoutForm = new frmCheckOut();
+
+                checkoutForm.OnCheckoutDateSelected = (checkoutDate) =>
+                {
+                    if (checkoutDate <= selectedDate)
+                    {
+                        MessageBox.Show("Check-out date must be after check-in date!", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        // Proses tanggal check-in dan check-out
+                        ProcessSelectedDate(selectedDate, checkoutDate);
+                    }
+                };
+
+                // Tampilkan form check-out sebagai dialog
+                checkoutForm.ShowDialog();
+            };
+
+            // Tampilkan form check-in sebagai dialog
+            checkInForm.ShowDialog();
+        }
+        private void ProcessSelectedDate(DateTime checkinDate, DateTime checkoutDate)
+        {
+            // Contoh: Tampilkan hasil di MessageBox
+            MessageBox.Show($"Check-in: {checkinDate:dddd, dd MMMM yyyy}\nCheck-out: {checkoutDate:dddd, dd MMMM yyyy}");
         }
     }
 }

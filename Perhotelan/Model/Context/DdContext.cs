@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Perhotelan.Model.Entity;
+using Perhotelan.Model.Repository;
 
 
 namespace Perhotelan.Model.Context
@@ -75,70 +76,5 @@ namespace Perhotelan.Model.Context
             }
             GC.SuppressFinalize(this);
         }
-
-        public List<Hotel> GetAllHotels()
-        {
-            List<Hotel> hotels = new List<Hotel>();
-            string query = "SELECT * FROM Hotel";
-
-            using (var cmd = new SQLiteCommand(query, Conn))
-            {
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var hotel = new Hotel
-                        {
-                            hotelId = reader["hotelid"].ToString(),  
-                            firstname = reader["firstname"].ToString(),
-                            lastname = reader["lastname"].ToString(),
-                            location = reader["location"].ToString(),
-                            hotelRating = Convert.ToDecimal(reader["hotelRating"]),
-                            reviewCount = Convert.ToInt32(reader["reviewCount"]),
-                            facility1 = reader["hotelFacility1"].ToString(),
-                            facility2 = reader["hotelFacility2"].ToString(),
-                            facility3 = reader["hotelFacility3"].ToString(),
-                            imagePath = reader["imagePath"].ToString()
-                        };
-
-                        hotels.Add(hotel);
-                    }
-                }
-            }
-            return hotels;
-        }
-
-
-        public List<Room> GetRoomsByHotelId(int hotelId)
-        {
-            List<Room> rooms = new List<Room>();
-            string query = "SELECT * FROM room WHERE hotelId = @hotelId";
-
-            using (var cmd = new SQLiteCommand(query, Conn))
-            {
-                cmd.Parameters.AddWithValue("@hotelId", hotelId);
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var room = new Room
-                        {
-                            roomId = Convert.ToInt32(reader["roomId"]),
-                            roomType = reader["roomType"].ToString(),
-                            maxGuest = Convert.ToInt32(reader["maxGuest"]),
-                            price = reader["price"].ToString(),
-                            roomSize = Convert.ToInt32(reader["roomSize"]),
-                            bedType = reader["bedType"].ToString(),
-                            imagePath = reader["imagePath"].ToString()
-                        };
-
-                        rooms.Add(room);
-                    }
-                }
-            }
-            return rooms;
-        }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Perhotelan.Model.Context;
 using Perhotelan.Model.Entity;
+using Perhotelan.Model.Repository;
 using Perhotelan.View;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,9 @@ namespace Perhotelan
         {
             using (DdContext context = new DdContext())
             {
+                HotelRepository service = new HotelRepository(context);
                 // Fetch all hotels from the database
-                List<Hotel> hotels = context.GetAllHotels();
+                List<Hotel> hotels = service.GetAllHotels();
 
                 foreach (var hotel in hotels)
                 {
@@ -131,7 +133,6 @@ namespace Perhotelan
             {
                 control.Click += (s, e) => Card_Click(fullName, hotelid);
             }
-            pictureBox.Click += (s, e) => Card_Click(fullName, hotelid);
 
             flpMenu.Controls.Add(card);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Perhotelan.Model.Entity
         public int roomSize { get; set; } 
         public string bedType { get; set; }
         public string imagePath { get; set; }
-        public string hotelid { get; set; }
+        [ForeignKey("Hotel")]
+        public int hotelid { get; set; }
+
     }
 }
