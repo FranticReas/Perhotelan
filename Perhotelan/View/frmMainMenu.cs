@@ -45,12 +45,14 @@ namespace Perhotelan
         }
         private void AddCard(string fullName, Image hotelImage, string hotelLocation, string hotelRating, int hotelid, string facility1, string facility2, string facility3)
         {
+
             Panel card = new Panel
             {
                 Size = new Size(348, 100),
                 BackColor = Color.White,
                 Margin = new Padding(5),
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                Tag = hotelid.ToString() // Simpan hotelId sebagai string di Tag
             };
 
             PictureBox pictureBox = new PictureBox
@@ -161,13 +163,28 @@ namespace Perhotelan
             foreach (Panel card in flpMenu.Controls.OfType<Panel>())
             {
                 Label titleLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold);
+                string hotelId = card.Tag?.ToString().ToLower(); // Ambil hotelId dari Tag
 
                 if (titleLabel != null)
                 {
-                    bool isMatch = titleLabel.Text.ToLower().Contains(searchText);
-                    card.Visible = isMatch;
+                    bool isMatch;
+
+                    if (searchText.StartsWith("#"))
+                    {
+                        // Pencarian berdasarkan hotelId (hilangkan tanda # untuk pencocokan)
+                        string searchId = searchText.Substring(1); // Buang karakter #
+                        isMatch = hotelId != null && hotelId.Contains(searchId);
+                    }
+                    else
+                    {
+                        // Pencarian berdasarkan nama hotel
+                        isMatch = titleLabel.Text.ToLower().Contains(searchText);
+                    }
+
+                    card.Visible = isMatch; // Tampilkan/hilangkan card sesuai hasil pencocokan
                 }
             }
+
         }
 
         private void flpMenu_Paint(object sender, PaintEventArgs e)

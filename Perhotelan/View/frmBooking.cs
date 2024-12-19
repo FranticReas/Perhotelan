@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Perhotelan.Model.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -203,6 +204,11 @@ namespace Perhotelan
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using Perhotelan.Model.Entity;
 using Perhotelan.Model.Context;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace Perhotelan.Model.Repository
 {
@@ -22,17 +23,18 @@ namespace Perhotelan.Model.Repository
             _conn = context.Conn;
         }
 
-        public int Create(User user)
+
+        /*public int Create(User user)
         {
             int result = 0;
             // deklarasi perintah SQL
-            string sql = @"insert into User (userid, username, email, phonenumber, birthdate)
-            values (@userId, @username, @email, @password, @phoneNumber, @birthdate)";
+            string sql = @"insert into User (username, email, password, phonenumber, birthdate)
+            values (@username, @email, @password, @phoneNumber, @birthdate)";
             // membuat objek command menggunakan blok using
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
                 // mendaftarkan parameter dan mengeset nilainya
-                cmd.Parameters.AddWithValue("@userId", user.userId);
+                
                 cmd.Parameters.AddWithValue("@username", user.username);
                 cmd.Parameters.AddWithValue("@email", user.email);
                 cmd.Parameters.AddWithValue("@password", user.password);
@@ -42,6 +44,8 @@ namespace Perhotelan.Model.Repository
                 {
                     // jalankan perintah INSERT dan tampung hasilnya ke dalam variabel result
                     result = cmd.ExecuteNonQuery();
+                    
+
                 }
                 catch (Exception ex)
                 {
@@ -50,6 +54,63 @@ namespace Perhotelan.Model.Repository
             }
             return result;
         }
+        */
+
+        public int Create(User user)
+        {
+            int result = 0;
+            int newUserId = 1001;
+
+            // Ambil nilai maksimum userId di tabel User
+            string getMaxUserIdSql = "SELECT COALESCE(MAX(userId), 1000) + 1 FROM user";
+
+            using (SQLiteCommand getMaxCmd = new SQLiteCommand(getMaxUserIdSql, _conn))
+            {
+                try
+                {
+                    // Eksekusi query untuk mendapatkan userId baru
+                    newUserId = Convert.ToInt32(getMaxCmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.Print("Error while fetching new userId: {0}", ex.Message);
+                }
+            }
+
+            // Set nilai userId ke properti user
+            user.userId = newUserId;
+
+            // Deklarasi perintah SQL untuk insert
+            string sql = @"INSERT INTO user (userId, username, email, password, phoneNumber, birthdate)
+                   VALUES (@userId, @username, @email, @password, @phoneNumber, @birthdate)";
+
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
+            {
+                // Daftarkan parameter dan atur nilainya
+                cmd.Parameters.AddWithValue("@userId", user.userId);
+                cmd.Parameters.AddWithValue("@username", user.username);
+                cmd.Parameters.AddWithValue("@email", user.email);
+                cmd.Parameters.AddWithValue("@password", user.password);
+                cmd.Parameters.AddWithValue("@phoneNumber", user.phoneNumber);
+                cmd.Parameters.AddWithValue("@birthdate", user.birthdate);
+
+                try
+                {
+                    // Eksekusi perintah INSERT
+                    result = cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.Print("Create error: {0}", ex.Message);
+                }
+            }
+
+            return result;
+        }
+
+
+
+
         public int Update(User user)
         {
             int result = 0;
@@ -80,7 +141,7 @@ namespace Perhotelan.Model.Repository
                 setClauses.Add("phoneNumber = @phoneNumber");
                 parameters.Add("@phoneNumber", user.phoneNumber);
             }
-            if (!string.IsNullOrEmpty(user.birthdate))
+            if (user.birthdate.HasValue)
             {
                 setClauses.Add("birthdate = @birthdate");
                 parameters.Add("@birthdate", user.birthdate);

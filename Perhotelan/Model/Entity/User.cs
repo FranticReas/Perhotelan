@@ -16,7 +16,7 @@ namespace Perhotelan.Model.Entity
         public string password { get; set; }
         public string username { get; set; }
         public string phoneNumber { get; set; }
-        public string birthdate { get; set; }
+        public DateTime? birthdate { get; set; }
         public string imagePath { get; set; }
 
     }

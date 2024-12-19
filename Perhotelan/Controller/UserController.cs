@@ -53,7 +53,7 @@ namespace Perhotelan.Controller
             }
 
             // cek tgl lahir yang diinputkan tidak boleh kosong 
-            if (string.IsNullOrEmpty(user.birthdate))
+            if (user.birthdate.HasValue)
             {
                 MessageBox.Show("Tanggal lahir harus diisi !!!", "Peringatan",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

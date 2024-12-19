@@ -52,6 +52,7 @@ namespace Perhotelan.Model.Repository
             return hotels;
         }
 
+
        
     }
 }

@@ -12,12 +12,17 @@ using System.Windows.Forms;
 
 using Perhotelan.Model.Entity;
 using Perhotelan.Model.Context;
+using Perhotelan.Model.Repository;
+using System.Data.SQLite;
 
 namespace Perhotelan
 {
     public partial class frmDaftar : Form
     {
-        private UserController _controller;
+        private SQLiteConnection _conn;
+
+        // constructor
+       
         public frmDaftar()
         {
             InitializeComponent();
@@ -66,10 +71,52 @@ namespace Perhotelan
             Controls.Add(btnShowPassConfrm);
         }
 
+        private bool isNewData = true;
         private void btnDaftar_Click(object sender, EventArgs e)
         {
-            
-            this.Close();
+
+            if (txtPass.Text != txtPassConfrm.Text)
+            {
+                MessageBox.Show("Password dan konfirmasi password tidak cocok.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Ambil data dari form
+            string username = txtNama.Text;
+            string email = txtEmail.Text;
+            string password = txtPass.Text;
+            string phoneNumber = txtNohp.Text;
+            DateTime birthdate = Convert.ToDateTime(txtTglLahir.Text);
+
+            // Buat objek User
+           
+            // Panggil repository untuk menyimpan data
+            using (var context = new DdContext()) // DdContext instance yang akan mengelola koneksi
+            {
+                User user = new User
+                {
+                    username = username,
+                    email = email,
+                    password = password,
+                    phoneNumber = phoneNumber,
+                    birthdate = birthdate
+                };
+
+                var connection = context.Conn; // Mengakses koneksi dari DdContext
+                UserRepository userRepository = new UserRepository(context); // Kirimkan koneksi ke repository
+                int result = userRepository.Create(user);
+
+                // Tampilkan hasil
+                if (result > 0)
+                {
+                    MessageBox.Show("Pendaftaran berhasil!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Pendaftaran gagal. Silakan coba lagi.", "Kesalahan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            } // Koneksi aka
         }
 
         private void lnkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -78,6 +125,16 @@ namespace Perhotelan
         }
 
         private void txtTglLahir_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPass_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNohp_TextChanged(object sender, EventArgs e)
         {
 
         }
