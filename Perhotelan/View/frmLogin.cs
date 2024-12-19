@@ -1,3 +1,6 @@
+using Perhotelan.Model.Context;
+using System.Data.SQLite;
+
 namespace Perhotelan
 {
     public partial class frmLogin : Form
@@ -60,16 +63,41 @@ namespace Perhotelan
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //Sementara
-            bool loginSuccessful = true; // Replace this with your actual login validation logic
+            string email = txtLoginEmail.Text; // Ambil email dari TextBox
+            string password = txtLoginPass.Text; // Ambil password dari TextBox
 
-            if (loginSuccessful)
+            // Validasi input kosong
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                this.DialogResult = DialogResult.OK; // Close form and return DialogResult.OK
+                MessageBox.Show("Email dan password tidak boleh kosong.");
+                return;
             }
-            else
+
+            // Gunakan repository atau koneksi langsung ke database
+            using (DdContext context = new DdContext())
             {
-                MessageBox.Show("Login failed. Please try again.");
+                // Query untuk validasi login
+                string query = "SELECT COUNT(*) FROM User WHERE email = @Email AND password = @Password";
+
+                using (var cmd = new SQLiteCommand(query, context.Conn))
+                {
+                    // Tambahkan parameter ke query
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    // Eksekusi query dan ambil hasil
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (count > 0)
+                    {                     
+                        this.DialogResult = DialogResult.OK; // Tutup form dan set DialogResult.OK
+                    }
+                    else
+                    {
+                        // Login gagal
+                        MessageBox.Show("Email atau password salah. Silakan coba lagi.");
+                    }
+                }
             }
         }
 
@@ -84,6 +112,11 @@ namespace Perhotelan
         }
 
         private void txtLoginPass_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtLoginEmail_TextChanged(object sender, EventArgs e)
         {
 
         }
