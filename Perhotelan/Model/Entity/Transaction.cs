@@ -14,13 +14,16 @@ namespace Perhotelan.Model.Entity
         public DateTime checkIn { get; set; }
         public DateTime checkOut { get; set; }
         public string status { get; set; }
+        public int price { get; set; }
 
         [ForeignKey("Room")]
-        public string price { get; set; }
         public int roomId { get; set; }
-
         [ForeignKey("User")]
         public int userId { get; set; }
+
+        // Properti tambahan untuk menyimpan data pengguna
+        public string UserFullName { get; set; }
+        public string UserPhoneNumber { get; set; }
 
     }
 }

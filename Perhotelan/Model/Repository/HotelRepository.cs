@@ -33,7 +33,7 @@ namespace Perhotelan.Model.Repository
                     {
                         var hotel = new Hotel
                         {
-                            hotelId = reader["hotelid"].ToString(),
+                            hotelId = Convert.ToInt32(reader["hotelid"]),
                             firstname = reader["firstname"].ToString(),
                             lastname = reader["lastname"].ToString(),
                             location = reader["location"].ToString(),
@@ -51,8 +51,38 @@ namespace Perhotelan.Model.Repository
             }
             return hotels;
         }
+        public Hotel GetHotelById(int hotelId)
+        {
+            Hotel hotel = null;
+            string sql = "SELECT * FROM Hotel WHERE hotelid = @hotelId";
 
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
+            {
+                cmd.Parameters.AddWithValue("@hotelId", hotelId);
 
-       
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        hotel = new Hotel
+                        {
+                            hotelId = Convert.ToInt32(reader["hotelid"]),
+                            firstname = reader["firstname"].ToString(),
+                            lastname = reader["lastname"].ToString(),
+                            location = reader["location"].ToString(),
+                            hotelRating = Convert.ToInt32(reader["hotelRating"]),
+                            reviewCount = Convert.ToInt32(reader["reviewCount"]),
+                            facility1 = reader["hotelFacility1"].ToString(),
+                            facility2 = reader["hotelFacility2"].ToString(),
+                            facility3 = reader["hotelFacility3"].ToString(),
+                            imagePath = reader["imagePath"].ToString()
+                        };
+                    }
+                }
+            }
+
+            return hotel;
+        }
+
     }
 }

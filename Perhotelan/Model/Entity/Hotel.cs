@@ -9,7 +9,7 @@ namespace Perhotelan.Model.Entity
 {
     class Hotel
     {
-        public string hotelId { get; set; }
+        public int hotelId { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string location { get; set; }

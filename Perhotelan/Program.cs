@@ -21,10 +21,12 @@ namespace Perhotelan
                 // Show the login form as a dialog and check the result
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
-                    // If login is successful (DialogResult.OK), run the MainMenu form
-                    var mainMenu = new frmMainMenu();
-                    Application.Run(mainMenu);
+                    // Ambil userId dari login form
+                    int userId = loginForm.LoggedInUserId;
 
+                    // If login is successful (DialogResult.OK), run the MainMenu form
+                    var mainMenu = new frmMainMenu(userId);
+                    Application.Run(mainMenu);
                 }
                 else
                 {

@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Perhotelan.View;
 using Perhotelan.Model.Entity;
 using Perhotelan.Model.Repository;
+using System.Diagnostics;
 
 namespace Perhotelan.View
 {
@@ -21,11 +22,12 @@ namespace Perhotelan.View
         public Action<DateTime> OnCheckoutDateSelected { get; set; }
 
         private int _hotelId;
-
-        public frmHotelDesign(int hotelid)
+        int userId;
+        public frmHotelDesign(int hotelid, int userId)
         {
-            InitializeComponent();
+            this.userId = userId;
             _hotelId = hotelid;
+            InitializeComponent();
             InitializeRoomInterface();
         }
 
@@ -70,7 +72,7 @@ namespace Perhotelan.View
                 }
 
             }
-        }      
+        }
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -92,7 +94,6 @@ namespace Perhotelan.View
                 }
             }
         }
-
         private void AddRoomCard(string roomName, Image roomImage, string roomPrice, int maxGuest, int roomId, string bedType)
         {
             // Main card panel
@@ -209,10 +210,10 @@ namespace Perhotelan.View
             card.Controls.Add(bedLabel);
 
             // Add click events to all elements
-            card.Click += (s, e) => RoomCard_Click(roomName, roomId);
+            card.Click += (s, e) => RoomCard_Click(roomId);
             foreach (Control control in card.Controls)
             {
-                control.Click += (s, e) => RoomCard_Click(roomName, roomId);
+                control.Click += (s, e) => RoomCard_Click(roomId);
             }
 
             // Add card to the FlowLayoutPanel
@@ -221,15 +222,12 @@ namespace Perhotelan.View
             // Send the image to the back for proper layering
             pictureBox.SendToBack();
         }
-
-
-
         // Event handler for room card click
-        private void RoomCard_Click(string roomName, int roomId)
+        private void RoomCard_Click(int roomId)
         {
-            OpenDatePicker();
+            OpenDatePicker(roomId);
         }
-        private void OpenDatePicker()
+        private void OpenDatePicker(int roomId)
         {
             // Buat instance form check-in
             frmCheckIn checkInForm = new frmCheckIn(_hotelId);
@@ -248,8 +246,14 @@ namespace Perhotelan.View
                     }
                     else
                     {
-                        // Proses tanggal check-in dan check-out
-                        ProcessSelectedDate(selectedDate, checkoutDate);
+                        using (DdContext context = new DdContext())
+                        {
+                            RoomRepository service = new RoomRepository(context);
+                            int nigthly_rate = service.GetRoomPrice(roomId);
+                            int price = CalculatePrice(selectedDate, checkoutDate, nigthly_rate);
+                            // Proses tanggal check-in dan check-out
+                            ProcessSelectedDate(selectedDate, checkoutDate, roomId, this.userId, price);
+                        }
                     }
                 };
 
@@ -260,11 +264,95 @@ namespace Perhotelan.View
             // Tampilkan form check-in sebagai dialog
             checkInForm.ShowDialog();
         }
-        private void ProcessSelectedDate(DateTime checkinDate, DateTime checkoutDate)
+        private int CalculatePrice(DateTime checkinDate, DateTime checkoutDate, int nightlyRate)
         {
-            // Contoh: Tampilkan hasil di MessageBox
-            MessageBox.Show($"Check-in: {checkinDate:dddd, dd MMMM yyyy}\nCheck-out: {checkoutDate:dddd, dd MMMM yyyy}");
+            // Hitung jumlah malam (durasi menginap)
+            int numberOfNights = (checkoutDate - checkinDate).Days;
+
+            // Pastikan jumlah malam tidak negatif (fallback untuk logika tambahan)
+            if (numberOfNights < 1)
+                numberOfNights = 1;
+
+            // Hitung total harga
+            return numberOfNights * nightlyRate;
         }
+        private void ProcessSelectedDate(DateTime checkinDate, DateTime checkoutDate, int roomId, int userId, int price)
+        {
+            using (DdContext context = new DdContext())
+            {
+                {
+                    var roomService = new RoomRepository(context);
+
+                    // Create a transaction instance
+                    var transaction = new Transaction_
+                    {
+                        transactionDate = DateTime.Now,           // Transaction date
+                        checkIn = checkinDate,                    // Check-in date
+                        checkOut = checkoutDate,                  // Check-out date
+                        status = "Booked",                        // Room status
+                        roomId = roomId,                          // Room ID
+                        price = price,                            // Room price
+                        userId = userId                           // User ID
+                    };
+
+                    // Log the transaction to be inserted
+                    Debug.WriteLine($"Transaction to be inserted: {transaction.transactionDate}, {transaction.checkIn}, {transaction.checkOut}, {transaction.status}, {transaction.roomId}, {transaction.price}, {transaction.userId}");
+
+                    var service = new TransactionRepository(context);
+
+                    // Call the Create method to add the transaction data to the database
+                    int result = service.Create(transaction);
+
+                    if (result > 0)
+                    {
+                        // Update room status to 'occupied'
+                        roomService.UpdateRoomStatus(roomId, "occupied");
+                        // Refresh the room interface to update available rooms
+                        RefreshRoomInterface();
+                        // Transaction added successfully
+                        MessageBox.Show("Transaction added successfully!\n" +
+                            $"Check-in: {checkinDate:dddd, dd MMMM yyyy}\n" +
+                            $"Check-out: {checkoutDate:dddd, dd MMMM yyyy}\n" +
+                            $"Room ID: {roomId}\nPrice: {price:C}",
+                            "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        // Failed to add transaction
+                        MessageBox.Show("Failed to add transaction. Please try again.",
+                            "Transaction Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void RefreshRoomInterface()
+        {
+            // Clear the current room cards (assuming there is a method to do this)
+            ClearRoomCards();
+
+            using (DdContext context = new DdContext())
+            {
+                var service = new RoomRepository(context);
+
+                // Fetch all rooms with status 'free' from the database
+                List<Room> rooms = service.GetRoomsByHotelId(_hotelId);
+
+                foreach (var room in rooms)
+                {
+                    Image roomImage = Image.FromFile($"{room.imagePath}.jpg");
+                    // Display room details on the card
+                    AddRoomCard(room.roomType, roomImage, room.price.ToString(), room.maxGuest, room.roomId, room.bedType);
+                }
+            }
+        }
+
+        private void ClearRoomCards()
+        {
+            // Assuming there is a container panel or control that holds the room cards
+            // Example: panelRoomCards.Controls.Clear();
+            flpRoom.Controls.Clear();
+        }
+
     }
 }
 

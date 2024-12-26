@@ -1,4 +1,7 @@
-﻿using Perhotelan.Model.Repository;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using Perhotelan.Model.Context;
+using Perhotelan.Model.Entity;
+using Perhotelan.Model.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,27 +11,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
+using QRCoder;
 
 namespace Perhotelan
 {
     public partial class frmBooking : Form
     {
-        public frmBooking()
+        private int _userId;
+        public frmBooking(int userId)
         {
+            _userId = userId;
             InitializeComponent();
-
-            IntializedBookingInterface();
+            InitializedBookingInterface();
+            btnOngoing_Click(this, EventArgs.Empty);
         }
-        private void IntializedBookingInterface()
+        private void InitializedBookingInterface()
         {
-            // Sementara
-            Image hotelImage = Image.FromFile("asset/hotel1.jpg");
-            for (int i = 0; i < 5; i++)
+            using (DdContext context = new DdContext())
             {
-                AddBookingCard("Hotel " + (i + 1), "lokasi - bumi 🗿", "Diproses", hotelImage);
+                // Initialize repositories
+                HotelRepository hotelService = new HotelRepository(context);
+                RoomRepository roomService = new RoomRepository(context);
+                TransactionRepository transactionService = new TransactionRepository(context);
+
+                try
+                {
+                    // Fetch all transactions for the logged-in user
+                    var transactions = transactionService.GetTransactionsByUserId(_userId);
+
+                    foreach (var transaction in transactions)
+                    {
+                        // Fetch the room linked to this transaction
+                        var room = roomService.GetRoomById(transaction.roomId);
+                        if (room == null) continue;
+
+                        // Fetch the hotel linked to the room
+                        var hotel = hotelService.GetHotelById(room.hotelId);
+                        if (hotel == null) continue;
+
+                        // Combine firstname and lastname for the full hotel name
+                        string hotelFullName = $"{hotel.firstname} {hotel.lastname}";
+
+                        // Attempt to load the room's image
+                        Image hotelImage;
+                        if (!string.IsNullOrEmpty(room.imagePath) && File.Exists(room.imagePath))
+                        {
+                            hotelImage = Image.FromFile(room.imagePath);
+                        }
+                        else
+                        {
+                            // Use a default image if no valid image path is found
+                            hotelImage = Image.FromFile(Path.Combine("asset", "room1.jpg"));
+                        }
+
+                        // Add booking card to the interface
+                        AddBookingCard(
+                            hotelFullName,     // Combined firstname and lastname
+                            hotel.location,    // Location from the `Hotel` table
+                            transaction.status, // Status from the `Transaction_` table
+                            hotelImage,         // Room image from the `Room` table
+                            transaction.transactionId // Passing transactionId
+                        );
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error initializing booking interface: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
-        private void AddBookingCard(string hotelName, string location, string bookingStatus, Image hotelImage)
+        private void AddBookingCard(string hotelName, string location, string bookingStatus, Image hotelImage, int transactionId)
         {
             Panel card = new Panel
             {
@@ -73,7 +126,7 @@ namespace Perhotelan
             {
                 Text = bookingStatus,
                 Font = new Font("Segoe UI", 9, FontStyle.Regular),
-                ForeColor = Color.Green,
+                ForeColor = bookingStatus == "Dibatalkan" ? Color.Red : Color.Green,  // Set color based on status
                 Location = new Point(100, 60),
                 AutoSize = true
             };
@@ -99,6 +152,16 @@ namespace Perhotelan
                     confirmForm.ShowDialog();
                     if (confirmForm.IsConfirmed)
                     {
+                        using (DdContext context = new DdContext())
+                        {
+                            var transactionService = new TransactionRepository(context);
+                            var roomService = new RoomRepository(context);
+
+                            int roomId = transactionService.GetRoomIdByTransaction(_userId);
+
+                            transactionService.UpdateTransactionStatus(transactionId, "Dibatalkan");
+                            roomService.UpdateRoomStatus(roomId, "free");
+                        }
                         // Update the status label to "Canceled"
                         statusLabel.Text = "Dibatalkan";
                         statusLabel.ForeColor = Color.Red;
@@ -121,6 +184,11 @@ namespace Perhotelan
                 FlatStyle = FlatStyle.Flat
             };
             viewTicketButton.FlatAppearance.BorderSize = 0;
+            // Simpan transactionId ke dalam properti Tag
+            viewTicketButton.Tag = transactionId; // Pastikan `transactionId` adalah ID transaksi yang benar
+
+            // Tambahkan event handler untuk tombol
+            viewTicketButton.Click += viewTicketButton_Click;
             card.Controls.Add(viewTicketButton);
 
             // Add the card to the FlowLayoutPanel
@@ -130,13 +198,53 @@ namespace Perhotelan
         {
             // Mengatur warna tombol
             SetButtonStyles(btnOngoing, btnCompleted, btnCanceled);
+
             // Filter bookings to show only ongoing bookings
             foreach (Control control in flpBookings.Controls)
             {
                 if (control is Panel card)
                 {
-                    Label statusLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.Contains("Diproses"));
-                    card.Visible = statusLabel != null;
+                    Label statusLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.Contains("Booked"));
+                    if (statusLabel != null)
+                    {
+                        card.Visible = true;
+
+                        // Remove description label
+                        Label descriptionLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "DescriptionLabel");
+                        if (descriptionLabel != null)
+                        {
+                            card.Controls.Remove(descriptionLabel);
+                        }
+
+                        // Show "Batalkan" button
+                        Button cancelButton = card.Controls.OfType<Button>().FirstOrDefault(btn => btn.Text == "Batalkan");
+                        if (cancelButton != null)
+                        {
+                            cancelButton.Visible = true;
+                        }
+
+                        // Show "Lihat Tiket" button
+                        Button viewTicketButton = card.Controls.OfType<Button>().FirstOrDefault(btn => btn.Text == "Lihat Ticket");
+                        if (viewTicketButton == null)
+                        {
+                            viewTicketButton = new Button
+                            {
+                                Text = "Lihat Ticket",
+                                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                                Size = new Size(100, 30),
+                                Location = new Point(210, 90),
+                                BackColor = Color.Green,
+                                ForeColor = Color.White,
+                                FlatStyle = FlatStyle.Flat
+                            };
+                            viewTicketButton.FlatAppearance.BorderSize = 0;
+                            card.Controls.Add(viewTicketButton);
+                        }
+                    }
+                    else
+                    {
+                        card.Visible = false;
+                    }
                 }
             }
         }
@@ -151,25 +259,290 @@ namespace Perhotelan
                 if (control is Panel card)
                 {
                     Label statusLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.Contains("Selesai"));
-                    card.Visible = statusLabel != null;
+                    if (statusLabel != null)
+                    {
+                        card.Visible = true;
+                        // Set status label's color and description
+                        statusLabel.ForeColor = Color.Green;
+                        statusLabel.Text = "Selesai";
+
+                        // Add description
+                        Label descriptionLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "DescriptionLabel");
+                        if (descriptionLabel == null)
+                        {
+                            descriptionLabel = new Label
+                            {
+                                Name = "DescriptionLabel",
+                                Text = "Yay, telah diselesaikan!",
+                                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                                ForeColor = Color.Green,
+                                Location = new Point(100, 80),
+                                AutoSize = true
+                            };
+                            card.Controls.Add(descriptionLabel);
+                        }
+
+                        // Hide Cancel button
+                        Button cancelButton = card.Controls.OfType<Button>().FirstOrDefault(btn => btn.Text == "Batalkan");
+                        if (cancelButton != null)
+                        {
+                            cancelButton.Visible = false;
+                        }
+                        // Remove "Lihat Tiket" button
+                        Button viewTicketButton = card.Controls.OfType<Button>().FirstOrDefault(btn => btn.Text == "Lihat Ticket");
+                        if (viewTicketButton != null)
+                        {
+                            card.Controls.Remove(viewTicketButton);
+                        }
+                    }
+                    else
+                    {
+                        card.Visible = false;
+                    }
                 }
             }
         }
-
         private void btnCanceled_Click(object sender, EventArgs e)
         {
             // Mengatur warna tombol
             SetButtonStyles(btnCanceled, btnCompleted, btnOngoing);
+
             // Filter bookings to show only canceled bookings
             foreach (Control control in flpBookings.Controls)
             {
                 if (control is Panel card)
                 {
                     Label statusLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.Contains("Dibatalkan"));
-                    card.Visible = statusLabel != null;
+                    if (statusLabel != null)
+                    {
+                        card.Visible = true;
+
+                        // Set status label's color and description
+                        statusLabel.ForeColor = Color.Red;
+                        statusLabel.Text = "Dibatalkan";
+
+                        // Add description
+                        Label descriptionLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "DescriptionLabel");
+                        if (descriptionLabel == null)
+                        {
+                            descriptionLabel = new Label
+                            {
+                                Name = "DescriptionLabel",
+                                Text = "Anda telah membatalkan transaksi ini",
+                                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                                ForeColor = Color.Red,
+                                Location = new Point(100, 80),
+                                AutoSize = true
+                            };
+                            card.Controls.Add(descriptionLabel);
+                        }
+
+                        // Remove "Lihat Tiket" button
+                        Button viewTicketButton = card.Controls.OfType<Button>().FirstOrDefault(btn => btn.Text == "Lihat Ticket");
+                        if (viewTicketButton != null)
+                        {
+                            card.Controls.Remove(viewTicketButton);
+                        }
+
+                        // Hide "Batalkan" button
+                        Button cancelButton = card.Controls.OfType<Button>().FirstOrDefault(btn => btn.Text == "Batalkan");
+                        if (cancelButton != null)
+                        {
+                            cancelButton.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        card.Visible = false;
+                    }
                 }
             }
         }
+        private void viewTicketButton_Click(object sender, EventArgs e)
+        {
+            // Ambil detail transaksi
+            var transactionId = ((Button)sender).Tag as int?;
+            if (transactionId == null) return;
+
+            using (DdContext context = new DdContext())
+            {
+                var transactionService = new TransactionRepository(context);
+                var roomService = new RoomRepository(context);
+                var hotelService = new HotelRepository(context);
+
+                // Ambil transaksi
+                var transaction = transactionService.GetTransactionById_(transactionId.Value);
+                if (transaction == null)
+                {
+                    MessageBox.Show("Transaksi tidak ditemukan.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Ambil room berdasarkan roomId dari transaksi
+                var room = roomService.GetRoomById(transaction.roomId);
+                if (room == null)
+                {
+                    MessageBox.Show("Room tidak ditemukan.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Ambil hotel berdasarkan hotelId dari room
+                var hotel = hotelService.GetHotelById(room.hotelId);
+                string hotelName = hotel != null ? $"{hotel.firstname} {hotel.lastname}" : "Hotel Tidak Diketahui";
+
+                // Membuat form tiket
+                Form ticketForm = new Form
+                {
+                    Text = "Tiket Hotel",
+                    Size = new Size(302, 504),
+                    StartPosition = FormStartPosition.CenterParent,
+                    ControlBox = false
+                };
+
+                // Panel Header
+                Panel pnlHeader = new Panel
+                {
+                    BackColor = Color.FromArgb(17, 70, 60),
+                    Dock = DockStyle.Top,
+                    Size = new Size(302, 43)
+                };
+
+                Button btnBack = new Button
+                {
+                    Text = "<",
+                    Font = new Font("Montserrat Black", 16F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(250, 199, 131),
+                    FlatStyle = FlatStyle.Flat,
+                    Size = new Size(40, 43)
+                };
+                btnBack.Click += (s, e2) => ticketForm.Close();
+
+                // Label Hotel
+                Label lblHotel = new Label
+                {
+                    AutoSize = true,
+                    BackColor = Color.Transparent,
+                    FlatStyle = FlatStyle.Flat,
+                    Font = new Font("Montserrat Black", 24F, FontStyle.Bold),
+                    ForeColor = SystemColors.ControlLightLight,
+                    Location = new Point(46, -1),
+                    Margin = new Padding(0),
+                    Name = "lblHotel",
+                    Size = new Size(135, 44),
+                    TabIndex = 15,
+                    Text = "HOTEL"
+                };
+
+                // Label Ku
+                Label lblKu = new Label
+                {
+                    AutoEllipsis = true,
+                    AutoSize = true,
+                    BackColor = Color.Transparent,
+                    Font = new Font("Montserrat Black", 24F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(250, 199, 131),
+                    Location = new Point(181, 0),
+                    Margin = new Padding(0),
+                    Name = "lblKu",
+                    Size = new Size(68, 44),
+                    TabIndex = 16,
+                    Text = "KU"
+                };
+
+                pnlHeader.Controls.Add(btnBack);
+                pnlHeader.Controls.Add(lblHotel);
+                pnlHeader.Controls.Add(lblKu);
+                ticketForm.Controls.Add(pnlHeader);
+
+                // Tambahkan nama hotel
+                Label hotelLabel = new Label
+                {
+                    Text = hotelName,
+                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                    Location = new Point(10, 50),
+                    AutoSize = true
+                };
+                ticketForm.Controls.Add(hotelLabel);
+
+                // QR Code
+                PictureBox qrCodePictureBox = new PictureBox
+                {
+                    Size = new Size(150, 150),
+                    Location = new Point(76, 80),
+                    SizeMode = PictureBoxSizeMode.StretchImage
+                };
+                ticketForm.Controls.Add(qrCodePictureBox);
+
+                string qrData = $"Nama: {transaction.UserFullName}\n" +
+                                $"No HP: {transaction.UserPhoneNumber}\n" +
+                                $"Check-in: {transaction.checkIn:dd MMMM yyyy}\n" +
+                                $"Check-out: {transaction.checkOut:dd MMMM yyyy}";
+
+                // Generate QR Code atau gunakan path default
+                try
+                {
+                    qrCodePictureBox.Image = GenerateQRCode(qrData);
+                }
+                catch
+                {
+                    qrCodePictureBox.Image = Image.FromFile(Path.Combine("asset", "QRKode.jpg"));
+                }
+
+                // Tambahkan detail transaksi
+                Label detailLabel = new Label
+                {
+                    Text = $"Nama: {transaction.UserFullName}\n" +
+                           $"No HP: {transaction.UserPhoneNumber}\n" +
+                           $"Check-in: {transaction.checkIn:dd MMMM yyyy}\n" +
+                           $"Check-out: {transaction.checkOut:dd MMMM yyyy}",
+                    Font = new Font("Segoe UI", 9),
+                    Location = new Point(10, 250),
+                    AutoSize = true
+                };
+                ticketForm.Controls.Add(detailLabel);
+
+                // Tombol selesai
+                Button closeButton = new Button
+                {
+                    Text = "Selesai",
+                    Font = new Font("Segoe UI", 10),
+                    Size = new Size(250, 40),
+                    Location = new Point(20, 430),
+                    BackColor = Color.Green,
+                    ForeColor = Color.White,
+                    FlatStyle = FlatStyle.Flat
+                };
+                closeButton.Click += (s, e2) =>
+                {
+                    using (DdContext context = new DdContext())
+                    {
+                        var service = new TransactionRepository(context);
+                        service.UpdateTransactionStatus(transactionId.Value, "Selesai");
+                    }
+                    ticketForm.Close();
+                };
+                ticketForm.Controls.Add(closeButton);
+
+                // Tampilkan form
+                ticketForm.ShowDialog();
+            }
+        }
+
+
+        private Image GenerateQRCode(string qrData)
+        {
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrData, QRCodeGenerator.ECCLevel.Q);
+                using (QRCode qrCode = new QRCode(qrCodeData))
+                {
+                    Bitmap qrCodeImage = qrCode.GetGraphic(20);
+                    return qrCodeImage;
+                }
+            }
+        }
+
+
 
         private void SetButtonStyles(Button activeButton, params Button[] inactiveButtons)
         {
@@ -184,30 +557,25 @@ namespace Perhotelan
                 button.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
             }
         }
-
         private void flpBookings_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
         private void btnHome_Click(object sender, EventArgs e)
         {
-            frmMainMenu menuForm = new frmMainMenu();
+            frmMainMenu menuForm = new frmMainMenu(_userId);
             SwitchForm(this, menuForm);
         }
-
         public static void SwitchForm(Form currentForm, Form newForm)
         {
             currentForm.Hide();       // Sembunyikan form sekarang
             newForm.ShowDialog();     // Tampilkan form baru sebagai dialog
             currentForm.Show();       // Kembalikan form lama jika diperlukan
         }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             
         }
-
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
 

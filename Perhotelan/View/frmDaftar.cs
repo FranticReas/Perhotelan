@@ -26,6 +26,8 @@ namespace Perhotelan
         public frmDaftar()
         {
             InitializeComponent();
+            txtPass.PasswordChar = '*';
+            txtPassConfrm.PasswordChar = '*';
         }
 
         private void TxtTglLahir_Leave(object sender, EventArgs e)

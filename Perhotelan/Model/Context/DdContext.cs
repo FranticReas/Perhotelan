@@ -29,7 +29,7 @@ namespace Perhotelan.Model.Context
             {
                 // Get the full path of the database
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                string dbName = @"D:\Tugas\Pemrograman Lanjut\UTS\Perhotelan\Perhotelan\database\hotelapp.db";
+                string dbName = @"C:\Users\desir\Desktop\Tugas\Kuliah\s3\Pemograman 2\UTS\Perhotelan\Perhotelan\database\hotelapp.db";
 
 
                 // Check if the database file exists

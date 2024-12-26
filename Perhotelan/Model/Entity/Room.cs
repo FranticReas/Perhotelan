@@ -11,13 +11,14 @@ namespace Perhotelan.Model.Entity
     {
         public int roomId { get; set; }
         public string roomType { get; set; }
-        public string price { get; set; }
+        public int price { get; set; }
         public int maxGuest { get; set; }
         public int roomSize { get; set; } 
         public string bedType { get; set; }
         public string imagePath { get; set; }
         [ForeignKey("Hotel")]
-        public int hotelid { get; set; }
+        public int hotelId { get; set; }
+        public string status { get; set; }
 
     }
 }

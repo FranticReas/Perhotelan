@@ -18,10 +18,11 @@ namespace Perhotelan
 {
     public partial class frmMainMenu : Form
     {
-        public frmMainMenu()
+        private int _userId;
+        public frmMainMenu(int userId)
         {
+            _userId = userId;
             InitializeComponent();
-
             IntializedMenuInterface();
         }
 
@@ -143,7 +144,7 @@ namespace Perhotelan
         private void Card_Click(string fullname, int hotelid)
         {
             // Open the detailed hotel form with the selected hotel's ID
-            frmHotelDesign hotelDetailsForm = new frmHotelDesign(hotelid);
+            frmHotelDesign hotelDetailsForm = new frmHotelDesign(hotelid, _userId);
             hotelDetailsForm.ShowDialog();
         }
 
@@ -194,7 +195,7 @@ namespace Perhotelan
 
         private void btnBooking_Click(object sender, EventArgs e)
         {
-            frmBooking bookingForm = new frmBooking();
+            frmBooking bookingForm = new frmBooking(_userId);
             SwitchForm(this, bookingForm);
         }
 
