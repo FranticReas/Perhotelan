@@ -248,7 +248,6 @@ namespace Perhotelan
                 }
             }
         }
-
         private void btnCompleted_Click(object sender, EventArgs e)
         {
             // Mengatur warna tombol
@@ -369,6 +368,7 @@ namespace Perhotelan
                 var transactionService = new TransactionRepository(context);
                 var roomService = new RoomRepository(context);
                 var hotelService = new HotelRepository(context);
+                var userService = new UserRepository(context); // Assuming you have a UserRepository
 
                 // Ambil transaksi
                 var transaction = transactionService.GetTransactionById_(transactionId.Value);
@@ -389,6 +389,11 @@ namespace Perhotelan
                 // Ambil hotel berdasarkan hotelId dari room
                 var hotel = hotelService.GetHotelById(room.hotelId);
                 string hotelName = hotel != null ? $"{hotel.firstname} {hotel.lastname}" : "Hotel Tidak Diketahui";
+
+                // Retrieve user information
+                var user = userService.GetUserById(transaction.userId); // Assuming GetUserById is available
+                string userFullName = user != null ? $"{user.username}" : "Nama Tidak Diketahui";
+                string userPhoneNumber = user != null ? user.phoneNumber : "Nomor Tidak Diketahui";
 
                 // Membuat form tiket
                 Form ticketForm = new Form
@@ -468,13 +473,13 @@ namespace Perhotelan
                 PictureBox qrCodePictureBox = new PictureBox
                 {
                     Size = new Size(150, 150),
-                    Location = new Point(76, 80),
+                    Location = new Point(70, 80),
                     SizeMode = PictureBoxSizeMode.StretchImage
                 };
                 ticketForm.Controls.Add(qrCodePictureBox);
 
-                string qrData = $"Nama: {transaction.UserFullName}\n" +
-                                $"No HP: {transaction.UserPhoneNumber}\n" +
+                string qrData = $"Nama: {userFullName}\n" +
+                                $"No HP: {userPhoneNumber}\n" +
                                 $"Check-in: {transaction.checkIn:dd MMMM yyyy}\n" +
                                 $"Check-out: {transaction.checkOut:dd MMMM yyyy}";
 
@@ -491,8 +496,8 @@ namespace Perhotelan
                 // Tambahkan detail transaksi
                 Label detailLabel = new Label
                 {
-                    Text = $"Nama: {transaction.UserFullName}\n" +
-                           $"No HP: {transaction.UserPhoneNumber}\n" +
+                    Text = $"Nama: {userFullName}\n" +
+                           $"No HP: {userPhoneNumber}\n" +
                            $"Check-in: {transaction.checkIn:dd MMMM yyyy}\n" +
                            $"Check-out: {transaction.checkOut:dd MMMM yyyy}",
                     Font = new Font("Segoe UI", 9),
@@ -514,10 +519,14 @@ namespace Perhotelan
                 };
                 closeButton.Click += (s, e2) =>
                 {
+                    
                     using (DdContext context = new DdContext())
                     {
+                        var roomService = new RoomRepository(context);
+                        int roomId = transactionService.GetRoomIdByTransaction(_userId);
                         var service = new TransactionRepository(context);
                         service.UpdateTransactionStatus(transactionId.Value, "Selesai");
+                        roomService.UpdateRoomStatus(roomId, "free");
                     }
                     ticketForm.Close();
                 };
@@ -527,7 +536,6 @@ namespace Perhotelan
                 ticketForm.ShowDialog();
             }
         }
-
 
         private Image GenerateQRCode(string qrData)
         {
@@ -541,9 +549,6 @@ namespace Perhotelan
                 }
             }
         }
-
-
-
         private void SetButtonStyles(Button activeButton, params Button[] inactiveButtons)
         {
             // Tombol aktif
