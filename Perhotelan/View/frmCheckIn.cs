@@ -20,12 +20,10 @@ namespace Perhotelan.View
             InitializeComponent();
             dtpCheckIn.MinDate = DateTime.Now;
         }
-
         private void frmRoomBooking_Load(object sender, EventArgs e)
         {
 
         }
-
         private void btnOk_Click(object sender, EventArgs e)
         {
             // Ambil tanggal check-in dari DateTimePicker
@@ -37,7 +35,6 @@ namespace Perhotelan.View
             // Tutup form
             this.Close();
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             // Tutup form tanpa melakukan apa-apa

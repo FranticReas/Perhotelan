@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Perhotelan.Model.Entity
 {
-    class Hotel
+    public class Hotel
     {
         public int hotelId { get; set; }
         public string firstname { get; set; }

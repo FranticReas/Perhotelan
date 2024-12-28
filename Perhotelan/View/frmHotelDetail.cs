@@ -13,6 +13,7 @@ using Perhotelan.View;
 using Perhotelan.Model.Entity;
 using Perhotelan.Model.Repository;
 using System.Diagnostics;
+using Perhotelan.Controller;
 
 namespace Perhotelan.View
 {
@@ -35,44 +36,48 @@ namespace Perhotelan.View
         {
             LoadHotelDetails(_hotelId);
         }
-
         private void LoadHotelDetails(int hotelid)
         {
-            // Connect to the database and fetch hotel details based on the hotelId
-            using (var context = new DdContext())
+            try
             {
-                string query = "SELECT * FROM Hotel WHERE hotelid = @hotelId";
-                using (SQLiteCommand command = new SQLiteCommand(query, context.Conn))
+                // Gunakan DdContext dan HotelController
+                using (var context = new DdContext())
                 {
-                    command.Parameters.AddWithValue("@hotelId", hotelid);
+                    var hotelRepository = new HotelRepository(context);
+                    var hotelController = new HotelController(hotelRepository);
 
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    // Ambil data hotel menggunakan controller
+                    var hotel = hotelController.GetHotelById(hotelid);
+
+                    if (hotel != null)
                     {
-                        if (reader.Read())
-                        {
-                            // Retrieve and display hotel details
-                            string fullname = $"{reader["firstname"]} {reader["lastname"]}";
-                            string imagePath = reader["imagePath"].ToString();
-                            decimal hotelRating = Convert.ToDecimal(reader["hotelRating"]);
-                            int reviewCount = Convert.ToInt32(reader["reviewCount"]);
-                            string location = reader["location"].ToString();
+                        // Tampilkan data hotel di UI
+                        string fullname = $"{hotel.firstname} {hotel.lastname}";
+                        string imagePath = hotel.imagePath;
+                        decimal hotelRating = hotel.hotelRating;
+                        int reviewCount = hotel.reviewCount;
+                        string location = hotel.location;
+                        pcbHotel.Image = Image.FromFile($"{imagePath}.jpg");
 
-                            pcbHotel.Image = Image.FromFile($"{imagePath}.jpg");
-                            lblHotelName.Text = fullname;
-                            lblRating.Text = hotelRating.ToString();
-                            lblReview.Text = reviewCount.ToString();
-                            lblLokasi.Text = location;
-                        }
-                        else
-                        {
-                            // Handle case when no hotel is found with the given ID
-                            MessageBox.Show("Hotel not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        lblHotelName.Text = fullname;
+                        lblRating.Text = hotelRating.ToString();
+                        lblReview.Text = reviewCount.ToString();
+                        lblLokasi.Text = location;
+                    }
+                    else
+                    {
+                        // Tangani kasus ketika hotel tidak ditemukan
+                        MessageBox.Show("Hotel not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
+            }
+            catch (Exception ex)
+            {
+                // Tangani kesalahan umum
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -80,20 +85,33 @@ namespace Perhotelan.View
 
         private void InitializeRoomInterface()
         {
-            using (DdContext context = new DdContext())
+            try
             {
-                RoomRepository service = new RoomRepository(context);
-                // Fetch all rooms from the database
-                List<Room> rooms = service.GetRoomsByHotelId(_hotelId);
-
-                foreach (var room in rooms)
+                using (var context = new DdContext())
                 {
-                    Image roomImage = Image.FromFile($"{room.imagePath}.jpg");
-                    // Display room details on the card
-                    AddRoomCard(room.roomType, roomImage, room.price.ToString(), room.maxGuest, room.roomId, room.bedType);
+                    // Inisialisasi repository dan controller
+                    var roomRepository = new RoomRepository(context);
+                    var roomController = new RoomController(roomRepository);
+
+                    // Ambil data kamar berdasarkan hotel ID
+                    List<Room> rooms = roomController.GetRoomsByHotelId(_hotelId);
+
+                    foreach (var room in rooms)
+                    {
+                        Image roomImage = null;
+                        roomImage = Image.FromFile($"{room.imagePath}.jpg");
+                        // Tampilkan detail kamar menggunakan metode AddRoomCard
+                        AddRoomCard(room.roomType, roomImage, room.price.ToString(), room.maxGuest, room.roomId, room.bedType);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                // Tangani kesalahan umum
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
         private void AddRoomCard(string roomName, Image roomImage, string roomPrice, int maxGuest, int roomId, string bedType)
         {
             // Main card panel
@@ -282,6 +300,7 @@ namespace Perhotelan.View
             {
                 {
                     var roomService = new RoomRepository(context);
+                    var roomControler = new RoomController(roomService);
 
                     // Create a transaction instance
                     var transaction = new Transaction_
@@ -294,19 +313,16 @@ namespace Perhotelan.View
                         price = price,                            // Room price
                         userId = userId                           // User ID
                     };
-
-                    // Log the transaction to be inserted
-                    Debug.WriteLine($"Transaction to be inserted: {transaction.transactionDate}, {transaction.checkIn}, {transaction.checkOut}, {transaction.status}, {transaction.roomId}, {transaction.price}, {transaction.userId}");
-
                     var service = new TransactionRepository(context);
+                    var transactionController = new TransactionController(service);
 
                     // Call the Create method to add the transaction data to the database
-                    int result = service.Create(transaction);
+                    int result = transactionController.CreateTransaction(transaction);
 
                     if (result > 0)
                     {
                         // Update room status to 'occupied'
-                        roomService.UpdateRoomStatus(roomId, "occupied");
+                        roomControler.UpdateRoomStatus(roomId, "occupied");
                         // Refresh the room interface to update available rooms
                         RefreshRoomInterface();
                         // Transaction added successfully
@@ -333,9 +349,10 @@ namespace Perhotelan.View
             using (DdContext context = new DdContext())
             {
                 var service = new RoomRepository(context);
+                var roomController = new RoomController(service);
 
                 // Fetch all rooms with status 'free' from the database
-                List<Room> rooms = service.GetRoomsByHotelId(_hotelId);
+                List<Room> rooms = roomController.GetRoomsByHotelId(_hotelId);
 
                 foreach (var room in rooms)
                 {
@@ -345,11 +362,8 @@ namespace Perhotelan.View
                 }
             }
         }
-
         private void ClearRoomCards()
         {
-            // Assuming there is a container panel or control that holds the room cards
-            // Example: panelRoomCards.Controls.Clear();
             flpRoom.Controls.Clear();
         }
 
