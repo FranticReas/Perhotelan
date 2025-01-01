@@ -13,7 +13,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using QRCoder;
+<<<<<<< HEAD
 using Perhotelan.View;
+=======
+using Perhotelan.Controller;
+>>>>>>> bb8292f0c979a542031987fb6ba129e4b8fab981
 
 namespace Perhotelan
 {
@@ -32,23 +36,28 @@ namespace Perhotelan
             using (DdContext context = new DdContext())
             {
                 // Initialize repositories
-                HotelRepository hotelService = new HotelRepository(context);
-                RoomRepository roomService = new RoomRepository(context);
-                TransactionRepository transactionService = new TransactionRepository(context);
+                var hotelService = new HotelRepository(context);
+                var roomService = new RoomRepository(context);
+                var transactionService = new TransactionRepository(context);
+                var roomController = new RoomController(roomService);
+                var hotelController = new HotelController(hotelService);
+
+                // Initialize the TransactionController
+                var transactionController = new TransactionController(transactionService);
 
                 try
                 {
-                    // Fetch all transactions for the logged-in user
-                    var transactions = transactionService.GetTransactionsByUserId(_userId);
+                    // Fetch all transactions for the logged-in user using the controller
+                    var transactions = transactionController.GetTransactionsByUserId(_userId);
 
                     foreach (var transaction in transactions)
                     {
-                        // Fetch the room linked to this transaction
-                        var room = roomService.GetRoomById(transaction.roomId);
+                        // Fetch the room linked to this transaction using the RoomRepository
+                        var room = roomController.GetRoomById(transaction.roomId);
                         if (room == null) continue;
 
-                        // Fetch the hotel linked to the room
-                        var hotel = hotelService.GetHotelById(room.hotelId);
+                        // Fetch the hotel linked to the room using the HotelRepository
+                        var hotel = hotelController.GetHotelById(room.hotelId);
                         if (hotel == null) continue;
 
                         // Combine firstname and lastname for the full hotel name
@@ -82,6 +91,7 @@ namespace Perhotelan
                 }
             }
         }
+
         private void AddBookingCard(string hotelName, string location, string bookingStatus, Image hotelImage, int transactionId)
         {
             Panel card = new Panel
@@ -155,19 +165,35 @@ namespace Perhotelan
                     {
                         using (DdContext context = new DdContext())
                         {
+                            // Initialize the TransactionController and RoomController
                             var transactionService = new TransactionRepository(context);
                             var roomService = new RoomRepository(context);
+                            var transactionController = new TransactionController(transactionService);
+                            var roomController = new RoomController(roomService);
 
-                            int roomId = transactionService.GetRoomIdByTransaction(_userId);
+                            try
+                            {
+                                // Get the roomId associated with the transaction
+                                var roomId = transactionController.GetRoomIdByUserId(_userId);
 
-                            transactionService.UpdateTransactionStatus(transactionId, "Dibatalkan");
-                            roomService.UpdateRoomStatus(roomId, "free");
+                                // Update the transaction status to "Cancelled"
+                                transactionController.UpdateTransactionStatus(transactionId, "Dibatalkan");
+
+                                // Update the room status to "free" (available)
+                                roomController.UpdateRoomStatus(roomId, "free");
+
+                                // Update UI elements
+                                statusLabel.Text = "Dibatalkan";
+                                statusLabel.ForeColor = Color.Red;
+
+                                // Refresh the ongoing transactions
+                                btnOngoing.PerformClick();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Error while canceling the transaction: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
-                        // Update the status label to "Canceled"
-                        statusLabel.Text = "Dibatalkan";
-                        statusLabel.ForeColor = Color.Red;
-                        // Mengupdate diproses
-                        btnOngoing.PerformClick();
                     }
                 }
             };
@@ -524,11 +550,16 @@ namespace Perhotelan
                     using (DdContext context = new DdContext())
                     {
                         var roomService = new RoomRepository(context);
+                        var roomController = new RoomController(roomService);
                         int roomId = transactionService.GetRoomIdByTransaction(_userId);
                         var service = new TransactionRepository(context);
-                        service.UpdateTransactionStatus(transactionId.Value, "Selesai");
-                        roomService.UpdateRoomStatus(roomId, "free");
+                        var transactionController = new TransactionController(service);
+                        transactionController.UpdateTransactionStatus(transactionId.Value, "Selesai");
+                        roomController.UpdateRoomStatus(roomId, "free");
                     }
+                    flpBookings.Controls.Clear();
+                    InitializedBookingInterface();
+                    btnOngoing_Click(this, EventArgs.Empty);
                     ticketForm.Close();
                 };
                 ticketForm.Controls.Add(closeButton);

@@ -70,7 +70,7 @@ namespace Perhotelan.Model.Repository
                             firstname = reader["firstname"].ToString(),
                             lastname = reader["lastname"].ToString(),
                             location = reader["location"].ToString(),
-                            hotelRating = Convert.ToInt32(reader["hotelRating"]),
+                            hotelRating = Convert.ToDecimal(reader["hotelRating"]),
                             reviewCount = Convert.ToInt32(reader["reviewCount"]),
                             facility1 = reader["hotelFacility1"].ToString(),
                             facility2 = reader["hotelFacility2"].ToString(),

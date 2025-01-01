@@ -1,4 +1,5 @@
-﻿using Perhotelan.Model.Context;
+﻿using Perhotelan.Controller;
+using Perhotelan.Model.Context;
 using Perhotelan.Model.Entity;
 using Perhotelan.Model.Repository;
 using Perhotelan.View;
@@ -30,9 +31,12 @@ namespace Perhotelan
         {
             using (DdContext context = new DdContext())
             {
-                HotelRepository service = new HotelRepository(context);
-                // Fetch all hotels from the database
-                List<Hotel> hotels = service.GetAllHotels();
+                // Inisialisasi repository dan controller
+                var hotelRepository = new HotelRepository(context);
+                var hotelController = new HotelController(hotelRepository);
+
+                // Mendapatkan semua hotel
+                var hotels = hotelController.GetAllHotel();
 
                 foreach (var hotel in hotels)
                 {
@@ -144,7 +148,7 @@ namespace Perhotelan
         private void Card_Click(string fullname, int hotelid)
         {
             // Open the detailed hotel form with the selected hotel's ID
-            frmHotelDesign hotelDetailsForm = new frmHotelDesign(hotelid, _userId);
+            var hotelDetailsForm = new frmHotelDesign(hotelid, _userId);
             hotelDetailsForm.ShowDialog();
         }
 
