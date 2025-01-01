@@ -34,9 +34,6 @@
             btnProfil = new Button();
             btnSearch = new Button();
             pbProfile = new PictureBox();
-            lblName = new Label();
-            lblEmail = new Label();
-            lblPhoneNumber = new Label();
             pnlHeader = new Panel();
             lblHotel = new Label();
             lblKu = new Label();
@@ -49,6 +46,9 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
+            lblPhoneNumber = new Label();
+            lblName = new Label();
+            lblEmail = new Label();
             flpDetail = new FlowLayoutPanel();
             pnlSideBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbProfile).BeginInit();
@@ -136,37 +136,6 @@
             pbProfile.TabIndex = 3;
             pbProfile.TabStop = false;
             pbProfile.Visible = false;
-            // 
-            // lblName
-            // 
-            lblName.AutoSize = true;
-            lblName.Location = new Point(3, 15);
-            lblName.Name = "lblName";
-            lblName.Size = new Size(38, 15);
-            lblName.TabIndex = 4;
-            lblName.Text = "label1";
-            lblName.Visible = false;
-            // 
-            // lblEmail
-            // 
-            lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(3, 0);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(38, 15);
-            lblEmail.TabIndex = 5;
-            lblEmail.Text = "label2";
-            lblEmail.Visible = false;
-            lblEmail.Click += lblEmail_Click;
-            // 
-            // lblPhoneNumber
-            // 
-            lblPhoneNumber.AutoSize = true;
-            lblPhoneNumber.Location = new Point(3, 30);
-            lblPhoneNumber.Name = "lblPhoneNumber";
-            lblPhoneNumber.Size = new Size(38, 15);
-            lblPhoneNumber.TabIndex = 6;
-            lblPhoneNumber.Text = "label3";
-            lblPhoneNumber.Visible = false;
             // 
             // pnlHeader
             // 
@@ -341,15 +310,46 @@
             label4.TabIndex = 17;
             label4.Text = "🔒";
             // 
+            // lblPhoneNumber
+            // 
+            lblPhoneNumber.AutoSize = true;
+            lblPhoneNumber.Location = new Point(3, 30);
+            lblPhoneNumber.Name = "lblPhoneNumber";
+            lblPhoneNumber.Size = new Size(38, 15);
+            lblPhoneNumber.TabIndex = 6;
+            lblPhoneNumber.Text = "label3";
+            lblPhoneNumber.Visible = false;
+            // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Location = new Point(3, 15);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(38, 15);
+            lblName.TabIndex = 4;
+            lblName.Text = "label1";
+            lblName.Visible = false;
+            // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Location = new Point(3, 0);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(38, 15);
+            lblEmail.TabIndex = 5;
+            lblEmail.Text = "label2";
+            lblEmail.Visible = false;
+            lblEmail.Click += lblEmail_Click;
+            // 
             // flpDetail
             // 
             flpDetail.Controls.Add(lblEmail);
             flpDetail.Controls.Add(lblName);
             flpDetail.Controls.Add(lblPhoneNumber);
             flpDetail.FlowDirection = FlowDirection.TopDown;
-            flpDetail.Location = new Point(185, 80);
+            flpDetail.Location = new Point(377, 84);
             flpDetail.Name = "flpDetail";
-            flpDetail.Size = new Size(204, 58);
+            flpDetail.Size = new Size(54, 58);
             flpDetail.TabIndex = 18;
             // 
             // frmProfil
@@ -396,9 +396,6 @@
         private Button btnProfil;
         private Button btnSearch;
         private PictureBox pbProfile;
-        private Label lblName;
-        private Label lblEmail;
-        private Label lblPhoneNumber;
         private Panel pnlHeader;
         private Label lblHotel;
         private Label lblKu;
@@ -411,6 +408,9 @@
         private Label label2;
         private Label label3;
         private Label label4;
+        private Label lblPhoneNumber;
+        private Label lblName;
+        private Label lblEmail;
         private FlowLayoutPanel flpDetail;
     }
 }

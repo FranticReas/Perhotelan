@@ -22,7 +22,6 @@ namespace Perhotelan.View
         private int _userId;
         public frmProfil(int userId)
         {
-            flpDetail.Controls.Clear();
             _userId = userId;
             InitializeComponent();
             InitializeLoadProfile();

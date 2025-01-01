@@ -9,6 +9,7 @@ using Perhotelan.Model.Entity;
 using Perhotelan.Model.Context;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using Microsoft.VisualBasic.ApplicationServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Perhotelan.Model.Repository
 {
@@ -75,80 +76,44 @@ namespace Perhotelan.Model.Repository
 
             return result;
         }
-
-        public int Update(Entity.User user)
-        {
-            int result = 0;
-
-            // Membuat perintah SQL dinamis
-            string sql = "UPDATE User SET ";
-            List<string> setClauses = new List<string>();
-            var parameters = new Dictionary<string, object>();
-
-            // Menambahkan field yang tidak null ke query dan parameter
-            if (!string.IsNullOrEmpty(user.username))
+            public int Update(Entity.User user)
             {
-                setClauses.Add("username = @username");
-                parameters.Add("@username", user.username);
-            }
-            if (!string.IsNullOrEmpty(user.email))
-            {
-                setClauses.Add("email = @email");
-                parameters.Add("@email", user.email);
-            }
-            if (!string.IsNullOrEmpty(user.password))
-            {
-                setClauses.Add("password = @password");
-                parameters.Add("@password", user.password);
-            }
-            if (!string.IsNullOrEmpty(user.phoneNumber))
-            {
-                setClauses.Add("phoneNumber = @phoneNumber");
-                parameters.Add("@phoneNumber", user.phoneNumber);
-            }
-            if (user.birthdate.HasValue)
-            {
-                setClauses.Add("birthdate = @birthdate");
-                parameters.Add("@birthdate", user.birthdate);
-            }
-            if (!string.IsNullOrEmpty(user.imagePath))
-            {
-                setClauses.Add("image = @imagePath");
-                parameters.Add("@imagePath", user.imagePath);
-            }
-
-            // Jika tidak ada field yang diperbarui, keluar dari method
-            if (setClauses.Count == 0)
-            {
-                throw new ArgumentException("Tidak ada field yang diperbarui.");
-            }
-
-            // Menggabungkan field yang ingin diperbarui
-            sql += string.Join(", ", setClauses) + " WHERE userId = @userId";
-            parameters.Add("@userId", user.userId);
-
-            // Membuat objek command menggunakan blok using
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
-            {
-                // Menambahkan parameter ke command
-                foreach (var param in parameters)
-                {
-                    cmd.Parameters.AddWithValue(param.Key, param.Value);
-                }
-
                 try
                 {
-                    // Menjalankan perintah UPDATE dan menyimpan hasilnya
-                    result = cmd.ExecuteNonQuery();
+                    string updateQuery = "UPDATE User SET ";
+
+                    // Build update query dynamically based on the fields that are not empty
+                    if (!string.IsNullOrEmpty(user.username))
+                        updateQuery += "username = @Username, ";
+                    if (!string.IsNullOrEmpty(user.email))
+                        updateQuery += "email = @Email, ";
+                    if (!string.IsNullOrEmpty(user.phoneNumber))
+                        updateQuery += "phoneNumber = @PhoneNumber, ";
+
+                    // Remove the last comma and add the WHERE clause
+                    updateQuery = updateQuery.TrimEnd(',', ' ') + " WHERE userId = @UserId";
+
+                    using (SQLiteCommand command = new SQLiteCommand(updateQuery, _conn))
+                    {
+                        if (!string.IsNullOrEmpty(user.username))
+                            command.Parameters.AddWithValue("@Username", user.username);
+                        if (!string.IsNullOrEmpty(user.email))
+                            command.Parameters.AddWithValue("@Email", user.email);
+                        if (!string.IsNullOrEmpty(user.phoneNumber))
+                            command.Parameters.AddWithValue("@PhoneNumber", user.phoneNumber);
+
+                        command.Parameters.AddWithValue("@UserId", user.userId);
+
+                        return command.ExecuteNonQuery();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.Print("Update error: {0}", ex.Message);
+                    throw new Exception($"Error updating user: {ex.Message}");
                 }
             }
+        
 
-            return result;
-        }
         public int Delete(Entity.User user)
         {
             int result = 0;

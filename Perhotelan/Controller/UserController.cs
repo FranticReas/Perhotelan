@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Perhotelan.Model.Context;
 using Perhotelan.Model.Entity;
+using static QRCoder.PayloadGenerator;
 
 
 namespace Perhotelan.Controller
@@ -15,7 +15,10 @@ namespace Perhotelan.Controller
     {
         // deklarasi objek Repository untuk menjalankan operasi CRUD
         private UserRepository _repository;
-
+        public UserController(UserRepository transactionRepository)
+        {
+            _repository = transactionRepository;
+        }
         public int Create(User user)
         {
             int result = 0;
@@ -82,6 +85,24 @@ namespace Perhotelan.Controller
             }
             return result;
         }
-      
+        public int UpdateUser(User user)
+        {
+            if (string.IsNullOrEmpty(user.username))
+            {
+                throw new ArgumentException("Username harus diisi.");
+            }
+
+            if (string.IsNullOrEmpty(user.email))
+            {
+                throw new ArgumentException("Email harus diisi.");
+            }
+
+            if (string.IsNullOrEmpty(user.phoneNumber))
+            {
+                throw new ArgumentException("Nomor telepon harus diisi.");
+            }
+
+            return _repository.Update(user);
+        }
     }
 }

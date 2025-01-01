@@ -12,6 +12,7 @@ using Perhotelan.Model.Context;
 using Perhotelan.Model.Entity;
 using Perhotelan.Model.Repository;
 using Perhotelan.View;
+using Perhotelan.Controller;
 
 namespace Perhotelan.View
 {
@@ -73,52 +74,42 @@ namespace Perhotelan.View
 
             try
             {
+                var user = new User
+                {
+                    userId = _userId,
+                    username = updatedName,
+                    email = updatedEmail,
+                    phoneNumber = updatedPhoneNumber
+                };
+
                 using (DdContext context = new DdContext())
                 {
-                    string updateQuery = "UPDATE User SET ";
+                    var repository = new UserRepository(context);
+                    var controller = new UserController(repository);
 
-                    // Build update query dynamically based on the fields that are not empty
-                    if (!string.IsNullOrEmpty(updatedName))
-                        updateQuery += "username = @Username, ";
-                    if (!string.IsNullOrEmpty(updatedEmail))
-                        updateQuery += "email = @Email, ";
-                    if (!string.IsNullOrEmpty(updatedPhoneNumber))
-                        updateQuery += "phoneNumber = @PhoneNumber, ";
+                    int rowsAffected = controller.UpdateUser(user);
 
-                    // Remove the last comma and add the WHERE clause
-                    updateQuery = updateQuery.TrimEnd(',', ' ') + " WHERE userId = @UserId";
-
-                    using (SQLiteCommand command = new SQLiteCommand(updateQuery, context.Conn))
+                    if (rowsAffected > 0)
                     {
-                        // Add parameters for only the fields that are being updated
-                        if (!string.IsNullOrEmpty(updatedName))
-                            command.Parameters.AddWithValue("@Username", updatedName);
-                        if (!string.IsNullOrEmpty(updatedEmail))
-                            command.Parameters.AddWithValue("@Email", updatedEmail);
-                        if (!string.IsNullOrEmpty(updatedPhoneNumber))
-                            command.Parameters.AddWithValue("@PhoneNumber", updatedPhoneNumber);
-
-                        command.Parameters.AddWithValue("@UserId", _userId);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Profil berhasil diperbarui!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close(); // Close the form after updating
-                        }
-                        else
-                        {
-                            MessageBox.Show("Tidak ada perubahan yang dilakukan.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        MessageBox.Show("Profil berhasil diperbarui!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close(); // Close the form after updating
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tidak ada perubahan yang dilakukan.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Terjadi kesalahan saat memperbarui profil: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnKembali_Click(object sender, EventArgs e)
         {
