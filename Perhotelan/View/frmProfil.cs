@@ -20,14 +20,13 @@ namespace Perhotelan.View
     public partial class frmProfil : Form
     {
         private int _userId;
-
         public frmProfil(int userId)
         {
+            flpDetail.Controls.Clear();
             _userId = userId;
             InitializeComponent();
             InitializeLoadProfile();
         }
-
         private void InitializeLoadProfile()
         {
             SuspendLayout();
@@ -37,7 +36,6 @@ namespace Perhotelan.View
 
             ResumeLayout(false);
         }
-
         private void AddCard()
         {
             // Panel utama untuk kartu profil
@@ -91,12 +89,8 @@ namespace Perhotelan.View
             };
             card.Controls.Add(lblPhoneNumber);
 
-
-
-
             // Tambahkan panel ke form
             Controls.Add(card);
-
             // Ambil data dari database
             try
             {
@@ -129,59 +123,52 @@ namespace Perhotelan.View
             }
 
         }
-
-
-
         private void btnHome_Click_1(object sender, EventArgs e)
         {
             frmMainMenu menuForm = new frmMainMenu(_userId);
             SwitchForm(this, menuForm);
         }
-
         private void btnBooking_Click_1(object sender, EventArgs e)
         {
             frmBooking bookingForm = new frmBooking(_userId);
             SwitchForm(this, bookingForm);
         }
-
         public static void SwitchForm(Form currentForm, Form newForm)
         {
             currentForm.Hide();       // Sembunyikan form sekarang
             newForm.ShowDialog();     // Tampilkan form baru sebagai dialog
             currentForm.Show();       // Kembalikan form lama jika diperlukan
         }
-
         private void flpMenu_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
         private void lblHotel_Click(object sender, EventArgs e)
         {
 
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnBooking2_Click(object sender, EventArgs e)
         {
             frmBooking bookingForm = new frmBooking(_userId);
             SwitchForm(this, bookingForm);
         }
-
         private void btnProfilUpdate_Click(object sender, EventArgs e)
         {
             frmUpdateProfile updateForm = new frmUpdateProfile(_userId);
             SwitchForm(this, updateForm);
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             var updateForm = new frmLogin();
             SwitchForm(this, updateForm);
+        }
+        private void lblEmail_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
