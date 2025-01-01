@@ -2,6 +2,7 @@
 using Perhotelan.Model.Repository;
 using Perhotelan.Model.Entity;
 using System.Data.SQLite;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace Perhotelan
 {
@@ -17,7 +18,6 @@ namespace Perhotelan
         {
             
         }
-
         private void txtLoginEmail_Leave(object sender, EventArgs e) //Email leave
         {
             
@@ -71,8 +71,10 @@ namespace Perhotelan
                     if (result != null)
                     {
                         LoggedInUserId = Convert.ToInt32(result); // Set the userId if login is successful
-                        this.DialogResult = DialogResult.OK; // Indicate successful login
-                        this.Close();
+                        var registerForm = new frmMainMenu(LoggedInUserId);
+                        this.Hide(); // Hide the login form
+                        registerForm.ShowDialog(); // Show the registration form as a dialog
+                        this.Show(); // Show the login form again if the registration form is closed
                     }
                     else
                     {

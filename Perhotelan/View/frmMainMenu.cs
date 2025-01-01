@@ -213,7 +213,6 @@ namespace Perhotelan
         {
             currentForm.Hide();       // Sembunyikan form sekarang
             newForm.ShowDialog();     // Tampilkan form baru sebagai dialog
-            currentForm.Show();       // Kembalikan form lama jika diperlukan
         }
 
         private void btnHome_Click(object sender, EventArgs e)

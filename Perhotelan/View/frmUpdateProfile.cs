@@ -52,7 +52,7 @@ namespace Perhotelan.View
                 Size = new Size(120, 120),
                 Location = new Point(105, 10),
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = Image.FromFile("profil.png") // Pastikan path ini benar
+                Image = Image.FromFile("C:/Users/desir/Desktop/Tugas/Kuliah/s3/Pemograman 2/UTS/Perhotelan/Perhotelan/asset/profil.png") // Pastikan path ini benar
             };
             card.Controls.Add(pbProfile);
 
