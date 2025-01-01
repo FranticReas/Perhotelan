@@ -98,6 +98,7 @@
             btnProfil.TabIndex = 0;
             btnProfil.Text = "🙍";
             btnProfil.UseVisualStyleBackColor = true;
+            btnProfil.Click += btnProfil_Click;
             // 
             // btnSearch
             // 
@@ -191,6 +192,7 @@
             Controls.Add(pnlHeader);
             Controls.Add(pnlSideBar);
             Name = "frmBooking";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Hotelku";
             pnlSideBar.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);

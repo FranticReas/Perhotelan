@@ -28,6 +28,8 @@ namespace Perhotelan
             InitializeComponent();
             txtPass.PasswordChar = '*';
             txtPassConfrm.PasswordChar = '*';
+            this.AcceptButton = btnDaftar;
+
         }
 
         private void TxtTglLahir_Leave(object sender, EventArgs e)

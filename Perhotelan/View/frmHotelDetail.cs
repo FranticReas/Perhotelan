@@ -329,7 +329,7 @@ namespace Perhotelan.View
                         MessageBox.Show("Transaction added successfully!\n" +
                             $"Check-in: {checkinDate:dddd, dd MMMM yyyy}\n" +
                             $"Check-out: {checkoutDate:dddd, dd MMMM yyyy}\n" +
-                            $"Room ID: {roomId}\nPrice: {price:C}",
+                            $"Room ID: {roomId}\nPrice: Rp.{Convert.ToString(price)}  K",
                             "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
