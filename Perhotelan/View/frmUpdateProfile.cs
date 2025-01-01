@@ -124,8 +124,8 @@ namespace Perhotelan.View
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            frmProfil bookingForm = new frmProfil(_userId);
-            SwitchForm(this, bookingForm);
+            frmProfil profilForm = new frmProfil(_userId);
+            SwitchForm(this, profilForm);
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -139,6 +139,11 @@ namespace Perhotelan.View
             frmBooking bookingForm = new frmBooking(_userId);
             SwitchForm(this, bookingForm);
         }
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            frmEditProfile EditProfileForm = new frmEditProfile(_userId);
+            ShowForm(this, EditProfileForm);
+        }
         public static void SwitchForm(Form currentForm, Form newForm)
         {
             currentForm.Hide();       // Sembunyikan form sekarang
@@ -146,7 +151,13 @@ namespace Perhotelan.View
             currentForm.Show();       // Kembalikan form lama jika diperlukan
         }
 
-        
+        public static void ShowForm(Form currentForm, Form newForm)
+        {
+            newForm.ShowDialog();     // Tampilkan form baru sebagai dialog
+            currentForm.Show();
+        }
+
+       
     }
 }
 

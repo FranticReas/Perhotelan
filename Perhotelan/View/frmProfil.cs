@@ -174,8 +174,13 @@ namespace Perhotelan.View
 
         private void btnProfilUpdate_Click(object sender, EventArgs e)
         {
-            frmUpdateProfile bookingForm = new frmUpdateProfile(_userId);
-            SwitchForm(this, bookingForm);
+            frmUpdateProfile updateForm = new frmUpdateProfile(_userId);
+            SwitchForm(this, updateForm);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

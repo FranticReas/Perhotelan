@@ -171,12 +171,13 @@
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpdate.ForeColor = Color.White;
-            btnUpdate.Location = new Point(123, 482);
+            btnUpdate.Location = new Point(123, 474);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(186, 36);
+            btnUpdate.Size = new Size(186, 41);
             btnUpdate.TabIndex = 14;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // label1
             // 

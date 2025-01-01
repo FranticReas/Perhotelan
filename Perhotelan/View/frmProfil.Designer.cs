@@ -287,6 +287,7 @@
             button5.TabIndex = 13;
             button5.Text = "Logout";
             button5.UseVisualStyleBackColor = false;
+            button5.Click += button5_Click;
             // 
             // label1
             // 

@@ -13,11 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using QRCoder;
-<<<<<<< HEAD
-using Perhotelan.View;
-=======
 using Perhotelan.Controller;
->>>>>>> bb8292f0c979a542031987fb6ba129e4b8fab981
+using Perhotelan.View;
 
 namespace Perhotelan
 {
