@@ -35,5 +35,10 @@ namespace Perhotelan
         {
 
         }
+
+        private void frmCancelConfirmation_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

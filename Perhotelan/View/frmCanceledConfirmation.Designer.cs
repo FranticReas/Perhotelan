@@ -60,6 +60,7 @@
             // btnConfirm
             // 
             btnConfirm.BackColor = Color.FromArgb(251, 86, 68);
+            btnConfirm.FlatAppearance.BorderSize = 0;
             btnConfirm.Font = new Font("Franklin Gothic Medium", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnConfirm.ForeColor = Color.White;
             btnConfirm.Location = new Point(249, 93);
@@ -87,6 +88,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(389, 143);
             ControlBox = false;
             Controls.Add(btnCancel);
@@ -95,7 +97,9 @@
             Controls.Add(lblConfirmation);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmCancelConfirmation";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Batalkan Booking";
+            Load += frmCancelConfirmation_Load;
             ResumeLayout(false);
             PerformLayout();
         }
