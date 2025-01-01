@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using QRCoder;
+using Perhotelan.View;
 
 namespace Perhotelan
 {
@@ -478,9 +479,9 @@ namespace Perhotelan
                 };
                 ticketForm.Controls.Add(qrCodePictureBox);
 
-                string qrData = $"Nama: {userFullName}\n" +
-                                $"No HP: {userPhoneNumber}\n" +
-                                $"Check-in: {transaction.checkIn:dd MMMM yyyy}\n" +
+                string qrData = $"Nama     : {userFullName}\n" +
+                                $"No HP    : {userPhoneNumber}\n" +
+                                $"Check-in : {transaction.checkIn:dd MMMM yyyy}\n" +
                                 $"Check-out: {transaction.checkOut:dd MMMM yyyy}";
 
                 // Generate QR Code atau gunakan path default
@@ -496,9 +497,9 @@ namespace Perhotelan
                 // Tambahkan detail transaksi
                 Label detailLabel = new Label
                 {
-                    Text = $"Nama: {userFullName}\n" +
-                           $"No HP: {userPhoneNumber}\n" +
-                           $"Check-in: {transaction.checkIn:dd MMMM yyyy}\n" +
+                    Text = $"Nama     : {userFullName}\n" +
+                           $"No HP    : {userPhoneNumber}\n" +
+                           $"Check-in : {transaction.checkIn:dd MMMM yyyy}\n" +
                            $"Check-out: {transaction.checkOut:dd MMMM yyyy}",
                     Font = new Font("Segoe UI", 9),
                     Location = new Point(10, 250),
@@ -519,7 +520,7 @@ namespace Perhotelan
                 };
                 closeButton.Click += (s, e2) =>
                 {
-                    
+
                     using (DdContext context = new DdContext())
                     {
                         var roomService = new RoomRepository(context);
@@ -579,11 +580,17 @@ namespace Perhotelan
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            frmProfil profilForm = new frmProfil(_userId);
+            SwitchForm(this, profilForm);
         }
     }
 }

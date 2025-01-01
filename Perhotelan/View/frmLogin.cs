@@ -10,7 +10,8 @@ namespace Perhotelan
         public frmLogin()
         {
             InitializeComponent();
-            txtLoginPass.PasswordChar = '*';  
+            txtLoginPass.PasswordChar = '*';
+            this.AcceptButton = btnLogin;
         }
         private void txtLoginEmail_Enter(object sender, EventArgs e) // Email enter
         {

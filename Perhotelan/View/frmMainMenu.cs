@@ -199,6 +199,12 @@ namespace Perhotelan
             SwitchForm(this, bookingForm);
         }
 
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            frmProfil profilForm = new frmProfil(_userId);
+            SwitchForm(this, profilForm);
+        }
+
         public static void SwitchForm(Form currentForm, Form newForm)
         {
             currentForm.Hide();       // Sembunyikan form sekarang
@@ -210,5 +216,7 @@ namespace Perhotelan
         {
 
         }
+
+       
     }
 }
