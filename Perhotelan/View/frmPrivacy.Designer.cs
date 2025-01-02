@@ -98,6 +98,7 @@
             btnHome.TabIndex = 4;
             btnHome.Text = "🏠";
             btnHome.UseVisualStyleBackColor = true;
+            btnHome.Click += btnHome_Click;
             // 
             // btnBooking
             // 
@@ -113,6 +114,7 @@
             btnBooking.TabIndex = 3;
             btnBooking.Text = "📖";
             btnBooking.UseVisualStyleBackColor = true;
+            btnBooking.Click += btnBooking_Click;
             // 
             // btnProfil
             // 
@@ -142,6 +144,7 @@
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // pnlSideBar
             // 
@@ -185,6 +188,7 @@
             Controls.Add(pnlSideBar);
             Controls.Add(pnlHeader);
             Name = "frmPrivacy";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "HotelKu";
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();

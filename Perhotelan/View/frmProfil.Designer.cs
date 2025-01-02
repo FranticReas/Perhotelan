@@ -130,6 +130,7 @@
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // pbProfile
             // 
