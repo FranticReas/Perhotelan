@@ -169,5 +169,11 @@ namespace Perhotelan.View
         {
 
         }
+
+        private void btnPrivacy_Click(object sender, EventArgs e)
+        {
+            frmPrivacy privacyForm = new frmPrivacy(_userId);
+            SwitchForm(this, privacyForm);
+        }
     }
 }

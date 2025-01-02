@@ -64,10 +64,10 @@
             pnlSideBar.Controls.Add(btnProfil);
             pnlSideBar.Controls.Add(btnSearch);
             pnlSideBar.Dock = DockStyle.Bottom;
-            pnlSideBar.Location = new Point(0, 404);
-            pnlSideBar.Margin = new Padding(3, 0, 3, 3);
+            pnlSideBar.Location = new Point(0, 539);
+            pnlSideBar.Margin = new Padding(3, 0, 3, 4);
             pnlSideBar.Name = "pnlSideBar";
-            pnlSideBar.Size = new Size(389, 46);
+            pnlSideBar.Size = new Size(445, 61);
             pnlSideBar.TabIndex = 2;
             // 
             // btnHome
@@ -77,9 +77,10 @@
             btnHome.FlatStyle = FlatStyle.Flat;
             btnHome.Font = new Font("Segoe UI", 12F);
             btnHome.ForeColor = Color.White;
-            btnHome.Location = new Point(12, 3);
+            btnHome.Location = new Point(14, 4);
+            btnHome.Margin = new Padding(3, 4, 3, 4);
             btnHome.Name = "btnHome";
-            btnHome.Size = new Size(42, 40);
+            btnHome.Size = new Size(48, 53);
             btnHome.TabIndex = 4;
             btnHome.Text = "🏠";
             btnHome.UseVisualStyleBackColor = true;
@@ -92,9 +93,10 @@
             btnBooking.FlatStyle = FlatStyle.Flat;
             btnBooking.Font = new Font("Segoe UI", 12F);
             btnBooking.ForeColor = SystemColors.ControlLightLight;
-            btnBooking.Location = new Point(108, 3);
+            btnBooking.Location = new Point(123, 4);
+            btnBooking.Margin = new Padding(3, 4, 3, 4);
             btnBooking.Name = "btnBooking";
-            btnBooking.Size = new Size(42, 40);
+            btnBooking.Size = new Size(48, 53);
             btnBooking.TabIndex = 3;
             btnBooking.Text = "📖";
             btnBooking.UseVisualStyleBackColor = true;
@@ -106,9 +108,10 @@
             btnProfil.FlatStyle = FlatStyle.Flat;
             btnProfil.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnProfil.ForeColor = Color.FromArgb(250, 199, 131);
-            btnProfil.Location = new Point(335, 3);
+            btnProfil.Location = new Point(383, 4);
+            btnProfil.Margin = new Padding(3, 4, 3, 4);
             btnProfil.Name = "btnProfil";
-            btnProfil.Size = new Size(42, 40);
+            btnProfil.Size = new Size(48, 53);
             btnProfil.TabIndex = 0;
             btnProfil.Text = "🙍";
             btnProfil.UseVisualStyleBackColor = true;
@@ -120,19 +123,19 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 12F);
             btnSearch.ForeColor = SystemColors.ControlLightLight;
-            btnSearch.Location = new Point(228, 3);
+            btnSearch.Location = new Point(261, 4);
+            btnSearch.Margin = new Padding(3, 4, 3, 4);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(42, 40);
+            btnSearch.Size = new Size(48, 53);
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍";
             btnSearch.UseVisualStyleBackColor = true;
             // 
             // pbProfile
             // 
-            pbProfile.Location = new Point(49, 84);
-            pbProfile.Margin = new Padding(3, 2, 3, 2);
+            pbProfile.Location = new Point(56, 112);
             pbProfile.Name = "pbProfile";
-            pbProfile.Size = new Size(109, 46);
+            pbProfile.Size = new Size(125, 61);
             pbProfile.TabIndex = 3;
             pbProfile.TabStop = false;
             pbProfile.Visible = false;
@@ -144,8 +147,9 @@
             pnlHeader.Controls.Add(lblKu);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(3, 4, 3, 4);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(389, 64);
+            pnlHeader.Size = new Size(445, 85);
             pnlHeader.TabIndex = 8;
             // 
             // lblHotel
@@ -155,10 +159,10 @@
             lblHotel.FlatStyle = FlatStyle.Flat;
             lblHotel.Font = new Font("Montserrat Black", 32F, FontStyle.Bold);
             lblHotel.ForeColor = SystemColors.ControlLightLight;
-            lblHotel.Location = new Point(58, 0);
+            lblHotel.Location = new Point(66, 0);
             lblHotel.Margin = new Padding(0);
             lblHotel.Name = "lblHotel";
-            lblHotel.Size = new Size(180, 60);
+            lblHotel.Size = new Size(224, 75);
             lblHotel.TabIndex = 12;
             lblHotel.Text = "HOTEL";
             lblHotel.Click += lblHotel_Click;
@@ -170,10 +174,10 @@
             lblKu.BackColor = Color.Transparent;
             lblKu.Font = new Font("Montserrat Black", 32F, FontStyle.Bold);
             lblKu.ForeColor = Color.FromArgb(250, 199, 131);
-            lblKu.Location = new Point(223, 0);
+            lblKu.Location = new Point(255, 0);
             lblKu.Margin = new Padding(0);
             lblKu.Name = "lblKu";
-            lblKu.Size = new Size(92, 60);
+            lblKu.Size = new Size(114, 75);
             lblKu.TabIndex = 13;
             lblKu.Text = "KU";
             // 
@@ -185,10 +189,9 @@
             btnProfilUpdate.FlatStyle = FlatStyle.Flat;
             btnProfilUpdate.Font = new Font("Montserrat", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnProfilUpdate.ForeColor = Color.FromArgb(17, 70, 60);
-            btnProfilUpdate.Location = new Point(72, 164);
-            btnProfilUpdate.Margin = new Padding(3, 2, 3, 2);
+            btnProfilUpdate.Location = new Point(82, 219);
             btnProfilUpdate.Name = "btnProfilUpdate";
-            btnProfilUpdate.Size = new Size(286, 36);
+            btnProfilUpdate.Size = new Size(327, 48);
             btnProfilUpdate.TabIndex = 9;
             btnProfilUpdate.Text = "Profil Saya";
             btnProfilUpdate.TextAlign = ContentAlignment.MiddleLeft;
@@ -203,10 +206,9 @@
             btnBooking2.FlatStyle = FlatStyle.Flat;
             btnBooking2.Font = new Font("Montserrat", 10.2F, FontStyle.Bold);
             btnBooking2.ForeColor = Color.FromArgb(17, 70, 60);
-            btnBooking2.Location = new Point(72, 201);
-            btnBooking2.Margin = new Padding(3, 2, 3, 2);
+            btnBooking2.Location = new Point(82, 268);
             btnBooking2.Name = "btnBooking2";
-            btnBooking2.Size = new Size(286, 36);
+            btnBooking2.Size = new Size(327, 48);
             btnBooking2.TabIndex = 10;
             btnBooking2.Text = "Reservasi";
             btnBooking2.TextAlign = ContentAlignment.MiddleLeft;
@@ -220,10 +222,9 @@
             btnNotif.FlatStyle = FlatStyle.Flat;
             btnNotif.Font = new Font("Montserrat", 10.2F, FontStyle.Bold);
             btnNotif.ForeColor = Color.FromArgb(17, 70, 60);
-            btnNotif.Location = new Point(72, 241);
-            btnNotif.Margin = new Padding(3, 2, 3, 2);
+            btnNotif.Location = new Point(82, 321);
             btnNotif.Name = "btnNotif";
-            btnNotif.Size = new Size(286, 36);
+            btnNotif.Size = new Size(327, 48);
             btnNotif.TabIndex = 11;
             btnNotif.Text = "Notifikasi";
             btnNotif.TextAlign = ContentAlignment.MiddleLeft;
@@ -236,14 +237,14 @@
             btnPrivacy.FlatStyle = FlatStyle.Flat;
             btnPrivacy.Font = new Font("Montserrat", 10.2F, FontStyle.Bold);
             btnPrivacy.ForeColor = Color.FromArgb(17, 70, 60);
-            btnPrivacy.Location = new Point(72, 280);
-            btnPrivacy.Margin = new Padding(3, 2, 3, 2);
+            btnPrivacy.Location = new Point(82, 373);
             btnPrivacy.Name = "btnPrivacy";
-            btnPrivacy.Size = new Size(286, 36);
+            btnPrivacy.Size = new Size(327, 48);
             btnPrivacy.TabIndex = 12;
             btnPrivacy.Text = "Kebijakan Privasi";
             btnPrivacy.TextAlign = ContentAlignment.MiddleLeft;
             btnPrivacy.UseVisualStyleBackColor = true;
+            btnPrivacy.Click += btnPrivacy_Click;
             // 
             // button5
             // 
@@ -253,10 +254,9 @@
             button5.FlatStyle = FlatStyle.Flat;
             button5.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button5.ForeColor = Color.White;
-            button5.Location = new Point(85, 347);
-            button5.Margin = new Padding(3, 2, 3, 2);
+            button5.Location = new Point(97, 463);
             button5.Name = "button5";
-            button5.Size = new Size(204, 36);
+            button5.Size = new Size(233, 48);
             button5.TabIndex = 13;
             button5.Text = "Logout";
             button5.UseVisualStyleBackColor = false;
@@ -269,9 +269,9 @@
             label1.FlatStyle = FlatStyle.Flat;
             label1.Font = new Font("Segoe UI", 14F);
             label1.ForeColor = Color.FromArgb(17, 70, 60);
-            label1.Location = new Point(33, 169);
+            label1.Location = new Point(38, 225);
             label1.Name = "label1";
-            label1.Size = new Size(33, 25);
+            label1.Size = new Size(47, 32);
             label1.TabIndex = 14;
             label1.Text = "🙍";
             label1.Click += label1_Click;
@@ -281,9 +281,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14F);
             label2.ForeColor = Color.FromArgb(17, 70, 60);
-            label2.Location = new Point(33, 206);
+            label2.Location = new Point(38, 275);
             label2.Name = "label2";
-            label2.Size = new Size(33, 25);
+            label2.Size = new Size(47, 32);
             label2.TabIndex = 15;
             label2.Text = "📖";
             // 
@@ -292,9 +292,9 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F);
             label3.ForeColor = Color.FromArgb(17, 70, 60);
-            label3.Location = new Point(33, 246);
+            label3.Location = new Point(38, 328);
             label3.Name = "label3";
-            label3.Size = new Size(33, 25);
+            label3.Size = new Size(47, 32);
             label3.TabIndex = 16;
             label3.Text = "🔔";
             // 
@@ -304,18 +304,18 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Segoe UI", 14F);
             label4.ForeColor = Color.FromArgb(17, 70, 60);
-            label4.Location = new Point(33, 285);
+            label4.Location = new Point(38, 380);
             label4.Name = "label4";
-            label4.Size = new Size(33, 25);
+            label4.Size = new Size(47, 32);
             label4.TabIndex = 17;
             label4.Text = "🔒";
             // 
             // lblPhoneNumber
             // 
             lblPhoneNumber.AutoSize = true;
-            lblPhoneNumber.Location = new Point(3, 30);
+            lblPhoneNumber.Location = new Point(3, 40);
             lblPhoneNumber.Name = "lblPhoneNumber";
-            lblPhoneNumber.Size = new Size(38, 15);
+            lblPhoneNumber.Size = new Size(50, 20);
             lblPhoneNumber.TabIndex = 6;
             lblPhoneNumber.Text = "label3";
             lblPhoneNumber.Visible = false;
@@ -323,9 +323,9 @@
             // lblName
             // 
             lblName.AutoSize = true;
-            lblName.Location = new Point(3, 15);
+            lblName.Location = new Point(3, 20);
             lblName.Name = "lblName";
-            lblName.Size = new Size(38, 15);
+            lblName.Size = new Size(50, 20);
             lblName.TabIndex = 4;
             lblName.Text = "label1";
             lblName.Visible = false;
@@ -335,7 +335,7 @@
             lblEmail.AutoSize = true;
             lblEmail.Location = new Point(3, 0);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(38, 15);
+            lblEmail.Size = new Size(50, 20);
             lblEmail.TabIndex = 5;
             lblEmail.Text = "label2";
             lblEmail.Visible = false;
@@ -347,16 +347,17 @@
             flpDetail.Controls.Add(lblName);
             flpDetail.Controls.Add(lblPhoneNumber);
             flpDetail.FlowDirection = FlowDirection.TopDown;
-            flpDetail.Location = new Point(377, 84);
+            flpDetail.Location = new Point(431, 112);
+            flpDetail.Margin = new Padding(3, 4, 3, 4);
             flpDetail.Name = "flpDetail";
-            flpDetail.Size = new Size(54, 58);
+            flpDetail.Size = new Size(62, 77);
             flpDetail.TabIndex = 18;
             // 
             // frmProfil
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(389, 450);
+            ClientSize = new Size(445, 600);
             ControlBox = false;
             Controls.Add(flpDetail);
             Controls.Add(label4);
@@ -371,7 +372,6 @@
             Controls.Add(pbProfile);
             Controls.Add(pnlHeader);
             Controls.Add(pnlSideBar);
-            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmProfil";
