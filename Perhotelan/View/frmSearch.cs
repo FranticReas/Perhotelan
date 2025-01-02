@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -181,149 +182,47 @@ namespace Perhotelan.View
         }
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            
-
             // Panel untuk filter
             Panel filterPanel = new Panel
             {
-                Size = new Size(450, 400), // Ukuran panel diperbesar
-                Location = new Point((this.Width - 450) / 2, (this.Height - 400) / 2), // Pusatkan panel
+                Size = new Size(450, 500),
+                Location = new Point((this.Width - 450) / 2, (this.Height - 500) / 2),
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            // Label untuk range rating
-            Label lblRatingRange = new Label
+            // Filter untuk fasilitas
+            Label lblFacility = new Label
             {
-                Text = "Rating Range:",
+                Text = "Facilities:",
                 Location = new Point(20, 20),
                 Font = new Font("Montserrat", 10, FontStyle.Bold),
                 ForeColor = Color.Black,
                 AutoSize = true
             };
-            filterPanel.Controls.Add(lblRatingRange);
+            filterPanel.Controls.Add(lblFacility);
 
-            // TrackBar untuk rating minimal
-            TrackBar trackBarRatingMin = new TrackBar
-            {
-                Minimum = 0,
-                Maximum = 50, // Representasikan 0 - 5.0 dengan skala 0 - 50
-                TickFrequency = 5,
-                Size = new Size(200, 30),
-                Location = new Point(20, 50)
-            };
-            filterPanel.Controls.Add(trackBarRatingMin);
+            // Checkbox untuk fasilitas
+            CheckBox chkGym = new CheckBox { Text = "GYM", Location = new Point(20, 50), AutoSize = true };
+            CheckBox chkPool = new CheckBox { Text = "POOL", Location = new Point(100, 50), AutoSize = true };
+            CheckBox chkSpa = new CheckBox { Text = "SPA", Location = new Point(20, 80), AutoSize = true };
+            CheckBox chkRestaurant = new CheckBox { Text = "RESTAURANT", Location = new Point(100, 80), AutoSize = true };
+            CheckBox chkWifi = new CheckBox { Text = "WIFI", Location = new Point(20, 110), AutoSize = true };
+            CheckBox chkBreakfast = new CheckBox { Text = "BREAKFAST", Location = new Point(100, 110), AutoSize = true };
 
-            // TrackBar untuk rating maksimal
-            TrackBar trackBarRatingMax = new TrackBar
-            {
-                Minimum = 0,
-                Maximum = 50,
-                TickFrequency = 5,
-                Size = new Size(200, 30),
-                Location = new Point(230, 50)
-            };
-            filterPanel.Controls.Add(trackBarRatingMax);
-
-            // Label untuk menampilkan range rating
-            Label lblRatingValue = new Label
-            {
-                Text = "0.0 - 5.0",
-                Location = new Point(20, 90),
-                Font = new Font("Montserrat", 10, FontStyle.Regular),
-                ForeColor = Color.Black,
-                AutoSize = true
-            };
-            filterPanel.Controls.Add(lblRatingValue);
-
-            // Event handler untuk trackBarRatingMin dan trackBarRatingMax
-            trackBarRatingMin.Scroll += (s, ev) =>
-            {
-                double minRating = trackBarRatingMin.Value / 10.0;
-                double maxRating = trackBarRatingMax.Value / 10.0;
-                if (minRating > maxRating)
-                    trackBarRatingMin.Value = trackBarRatingMax.Value;
-                lblRatingValue.Text = $"{minRating:0.0} - {maxRating:0.0}";
-            };
-
-            trackBarRatingMax.Scroll += (s, ev) =>
-            {
-                double minRating = trackBarRatingMin.Value / 10.0;
-                double maxRating = trackBarRatingMax.Value / 10.0;
-                if (maxRating < minRating)
-                    trackBarRatingMax.Value = trackBarRatingMin.Value;
-                lblRatingValue.Text = $"{minRating:0.0} - {maxRating:0.0}";
-            };
-
-            // Label untuk range harga
-            Label lblPriceRange = new Label
-            {
-                Text = "Price Range:",
-                Location = new Point(20, 130),
-                Font = new Font("Montserrat", 10, FontStyle.Bold),
-                ForeColor = Color.Black,
-                AutoSize = true
-            };
-            filterPanel.Controls.Add(lblPriceRange);
-
-            // TrackBar untuk harga minimal
-            TrackBar trackBarPriceMin = new TrackBar
-            {
-                Minimum = 0,
-                Maximum = 3000,
-                TickFrequency = 500,
-                Size = new Size(200, 30),
-                Location = new Point(20, 160)
-            };
-            filterPanel.Controls.Add(trackBarPriceMin);
-
-            // TrackBar untuk harga maksimal
-            TrackBar trackBarPriceMax = new TrackBar
-            {
-                Minimum = 0,
-                Maximum = 3000,
-                TickFrequency = 500,
-                Size = new Size(200, 30),
-                Location = new Point(230, 160)
-            };
-            filterPanel.Controls.Add(trackBarPriceMax);
-
-            // Label untuk menampilkan range harga
-            Label lblPriceValue = new Label
-            {
-                Text = "0 - 3000",
-                Location = new Point(20, 200),
-                Font = new Font("Montserrat", 10, FontStyle.Regular),
-                ForeColor = Color.Black,
-                AutoSize = true
-            };
-            filterPanel.Controls.Add(lblPriceValue);
-
-            // Event handler untuk trackBarPriceMin dan trackBarPriceMax
-            trackBarPriceMin.Scroll += (s, ev) =>
-            {
-                int minPrice = trackBarPriceMin.Value;
-                int maxPrice = trackBarPriceMax.Value;
-                if (minPrice > maxPrice)
-                    trackBarPriceMin.Value = trackBarPriceMax.Value;
-                lblPriceValue.Text = $"{minPrice} - {maxPrice}";
-            };
-
-            trackBarPriceMax.Scroll += (s, ev) =>
-            {
-                int minPrice = trackBarPriceMin.Value;
-                int maxPrice = trackBarPriceMax.Value;
-                if (maxPrice < minPrice)
-                    trackBarPriceMax.Value = trackBarPriceMin.Value;
-                lblPriceValue.Text = $"{minPrice} - {maxPrice}";
-            };
+            filterPanel.Controls.Add(chkGym);
+            filterPanel.Controls.Add(chkPool);
+            filterPanel.Controls.Add(chkSpa);
+            filterPanel.Controls.Add(chkRestaurant);
+            filterPanel.Controls.Add(chkWifi);
+            filterPanel.Controls.Add(chkBreakfast);
 
             // Tombol Apply Filter
             Button btnApplyFilter = new Button
             {
                 Text = "Apply Filter",
                 Size = new Size(120, 30),
-                Location = new Point(150, 250),
+                Location = new Point(150, 160),
                 BackColor = Color.Green,
                 ForeColor = Color.White,
                 Font = new Font("Montserrat", 9, FontStyle.Bold)
@@ -335,7 +234,7 @@ namespace Perhotelan.View
             {
                 Text = "Cancel",
                 Font = new Font("Montserrat", 10, FontStyle.Bold),
-                Location = new Point(300, 250),
+                Location = new Point(300, 160),
                 BackColor = Color.Gray,
                 ForeColor = Color.White,
                 AutoSize = true
@@ -346,9 +245,70 @@ namespace Perhotelan.View
             // Event handler untuk Apply Filter
             btnApplyFilter.Click += (s, ev) =>
             {
-                // Logic untuk menerapkan filter
-                MessageBox.Show("Filter applied!");
-                filterPanel.Visible = false; // Sembunyikan panel filter
+                // Ambil filter yang dipilih
+                List<string> selectedFacilities = new List<string>();
+                if (chkGym.Checked) selectedFacilities.Add("GYM");
+                if (chkPool.Checked) selectedFacilities.Add("POOL");
+                if (chkSpa.Checked) selectedFacilities.Add("SPA");
+                if (chkRestaurant.Checked) selectedFacilities.Add("RESTAURANT");
+                if (chkWifi.Checked) selectedFacilities.Add("WIFI");
+                if (chkBreakfast.Checked) selectedFacilities.Add("BREAKFAST");
+
+                if (selectedFacilities.Count == 0)
+                {
+                    MessageBox.Show("Please select at least one facility.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Query database
+                string query = @"SELECT *  FROM Hotel WHERE hotelFacility1 IN ({0}) OR hotelFacility2 IN ({0}) OR hotelFacility3 IN ({0});";
+
+                // Format query untuk mendukung parameter dinamika
+                string parameterizedQuery = string.Join(",", selectedFacilities.Select((_, i) => $"@facility{i}"));
+                query = string.Format(query, parameterizedQuery);
+
+                List<Hotel> filteredHotels = new List<Hotel>();
+
+                using (var context = new DdContext())
+                {
+                    using (var cmd = new SQLiteCommand(query, context.Conn))
+                    {
+                        for (int i = 0; i < selectedFacilities.Count; i++)
+                        {
+                            cmd.Parameters.AddWithValue($"@facility{i}", selectedFacilities[i]);
+                        }
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                filteredHotels.Add(new Hotel
+                                {
+                                    hotelId = reader.GetInt32(reader.GetOrdinal("hotelId")),
+                                    firstname = reader.GetString(reader.GetOrdinal("firstname")),
+                                    lastname = reader.GetString(reader.GetOrdinal("lastname")),
+                                    imagePath = reader.GetString(reader.GetOrdinal("imagePath")),
+                                    location = reader.GetString(reader.GetOrdinal("location")),
+                                    hotelRating = reader.GetDecimal(reader.GetOrdinal("hotelRating")),
+                                    facility1 = reader.GetString(reader.GetOrdinal("hotelFacility1")),
+                                    facility2 = reader.GetString(reader.GetOrdinal("hotelFacility2")),
+                                    facility3 = reader.GetString(reader.GetOrdinal("hotelFacility3"))
+                                });
+                            }
+                        }
+                    }
+                }
+
+                // Tampilkan hasil di flpMenu
+                flpMenu.Controls.Clear();
+                foreach (var hotel in filteredHotels)
+                {
+                    Image hotelImage = Image.FromFile($"{hotel.imagePath}.jpg");
+                    string fullName = $"{hotel.firstname} {hotel.lastname}";
+                    AddCard(fullName, hotelImage, hotel.location, $"{hotel.hotelRating}⭐", Convert.ToInt32(hotel.hotelId), hotel.facility1, hotel.facility2, hotel.facility3);
+                }
+
+                filterPanel.Dispose();
             };
 
             // Tambahkan panel ke form
@@ -356,18 +316,19 @@ namespace Perhotelan.View
             filterPanel.BringToFront();
         }
 
+
+
+
         private void btnHome_Click(object sender, EventArgs e)
         {
             frmMainMenu menuForm = new frmMainMenu(_userId);
             SwitchForm(this, menuForm);
         }
-
         private void btnBooking_Click(object sender, EventArgs e)
         {
             frmBooking bookForm = new frmBooking(_userId);
             SwitchForm(this, bookForm);
         }
-
         private void btnProfil_Click(object sender, EventArgs e)
         {
             frmProfil profilForm = new frmProfil(_userId);
