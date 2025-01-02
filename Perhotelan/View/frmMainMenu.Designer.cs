@@ -35,7 +35,8 @@
             btnSearch = new Button();
             flpMenu = new FlowLayoutPanel();
             pnlHeader = new Panel();
-            txtSearch = new TextBox();
+            lblHotel = new Label();
+            lblKu = new Label();
             pnlSideBar.SuspendLayout();
             pnlHeader.SuspendLayout();
             SuspendLayout();
@@ -48,10 +49,10 @@
             pnlSideBar.Controls.Add(btnProfil);
             pnlSideBar.Controls.Add(btnSearch);
             pnlSideBar.Dock = DockStyle.Bottom;
-            pnlSideBar.Location = new Point(0, 539);
-            pnlSideBar.Margin = new Padding(3, 0, 3, 4);
+            pnlSideBar.Location = new Point(0, 404);
+            pnlSideBar.Margin = new Padding(3, 0, 3, 3);
             pnlSideBar.Name = "pnlSideBar";
-            pnlSideBar.Size = new Size(445, 61);
+            pnlSideBar.Size = new Size(389, 46);
             pnlSideBar.TabIndex = 1;
             // 
             // btnHome
@@ -61,10 +62,9 @@
             btnHome.FlatStyle = FlatStyle.Flat;
             btnHome.Font = new Font("Segoe UI", 12F);
             btnHome.ForeColor = Color.FromArgb(250, 199, 131);
-            btnHome.Location = new Point(14, 4);
-            btnHome.Margin = new Padding(3, 4, 3, 4);
+            btnHome.Location = new Point(12, 3);
             btnHome.Name = "btnHome";
-            btnHome.Size = new Size(48, 53);
+            btnHome.Size = new Size(42, 40);
             btnHome.TabIndex = 4;
             btnHome.Text = "🏠";
             btnHome.UseVisualStyleBackColor = true;
@@ -77,10 +77,9 @@
             btnBooking.FlatStyle = FlatStyle.Flat;
             btnBooking.Font = new Font("Segoe UI", 12F);
             btnBooking.ForeColor = SystemColors.ControlLightLight;
-            btnBooking.Location = new Point(123, 4);
-            btnBooking.Margin = new Padding(3, 4, 3, 4);
+            btnBooking.Location = new Point(108, 3);
             btnBooking.Name = "btnBooking";
-            btnBooking.Size = new Size(48, 53);
+            btnBooking.Size = new Size(42, 40);
             btnBooking.TabIndex = 3;
             btnBooking.Text = "📖";
             btnBooking.UseVisualStyleBackColor = true;
@@ -92,10 +91,9 @@
             btnProfil.FlatStyle = FlatStyle.Flat;
             btnProfil.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnProfil.ForeColor = SystemColors.ControlLightLight;
-            btnProfil.Location = new Point(383, 4);
-            btnProfil.Margin = new Padding(3, 4, 3, 4);
+            btnProfil.Location = new Point(335, 3);
             btnProfil.Name = "btnProfil";
-            btnProfil.Size = new Size(48, 53);
+            btnProfil.Size = new Size(42, 40);
             btnProfil.TabIndex = 0;
             btnProfil.Text = "🙍";
             btnProfil.UseVisualStyleBackColor = true;
@@ -108,10 +106,9 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 12F);
             btnSearch.ForeColor = SystemColors.ControlLightLight;
-            btnSearch.Location = new Point(261, 4);
-            btnSearch.Margin = new Padding(3, 4, 3, 4);
+            btnSearch.Location = new Point(228, 3);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(48, 53);
+            btnSearch.Size = new Size(42, 40);
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍";
             btnSearch.UseVisualStyleBackColor = true;
@@ -120,45 +117,61 @@
             // flpMenu
             // 
             flpMenu.AutoScroll = true;
-            flpMenu.Location = new Point(0, 43);
-            flpMenu.Margin = new Padding(3, 4, 3, 4);
+            flpMenu.Location = new Point(0, 32);
             flpMenu.Name = "flpMenu";
-            flpMenu.Padding = new Padding(11, 33, 11, 13);
-            flpMenu.Size = new Size(445, 492);
+            flpMenu.Padding = new Padding(10, 25, 10, 10);
+            flpMenu.Size = new Size(389, 369);
             flpMenu.TabIndex = 4;
             flpMenu.Paint += flpMenu_Paint;
             // 
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(17, 70, 60);
-            pnlHeader.Controls.Add(txtSearch);
+            pnlHeader.Controls.Add(lblHotel);
+            pnlHeader.Controls.Add(lblKu);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
-            pnlHeader.Margin = new Padding(3, 4, 3, 4);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(445, 45);
+            pnlHeader.Size = new Size(389, 34);
             pnlHeader.TabIndex = 5;
             // 
-            // txtSearch
+            // lblHotel
             // 
-            txtSearch.Location = new Point(14, 8);
-            txtSearch.Margin = new Padding(3, 4, 3, 4);
-            txtSearch.Name = "txtSearch";
-            txtSearch.PlaceholderText = "🔍 Search";
-            txtSearch.Size = new Size(417, 27);
-            txtSearch.TabIndex = 10;
-            txtSearch.TextChanged += txtSearch_TextChanged;
+            lblHotel.AutoSize = true;
+            lblHotel.BackColor = Color.Transparent;
+            lblHotel.FlatStyle = FlatStyle.Flat;
+            lblHotel.Font = new Font("Montserrat Black", 24F, FontStyle.Bold);
+            lblHotel.ForeColor = SystemColors.ControlLightLight;
+            lblHotel.Location = new Point(93, -7);
+            lblHotel.Margin = new Padding(0);
+            lblHotel.Name = "lblHotel";
+            lblHotel.Size = new Size(135, 44);
+            lblHotel.TabIndex = 17;
+            lblHotel.Text = "HOTEL";
+            // 
+            // lblKu
+            // 
+            lblKu.AutoEllipsis = true;
+            lblKu.AutoSize = true;
+            lblKu.BackColor = Color.Transparent;
+            lblKu.Font = new Font("Montserrat Black", 24F, FontStyle.Bold);
+            lblKu.ForeColor = Color.FromArgb(250, 199, 131);
+            lblKu.Location = new Point(228, -6);
+            lblKu.Margin = new Padding(0);
+            lblKu.Name = "lblKu";
+            lblKu.Size = new Size(68, 44);
+            lblKu.TabIndex = 18;
+            lblKu.Text = "KU";
             // 
             // frmMainMenu
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(445, 600);
+            ClientSize = new Size(389, 450);
             ControlBox = false;
             Controls.Add(pnlHeader);
             Controls.Add(pnlSideBar);
             Controls.Add(flpMenu);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "frmMainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelKu";
@@ -177,6 +190,7 @@
         private Button btnProfil;
         private Button btnHome;
         private Button btnBooking;
-        private TextBox txtSearch;
+        private Label lblHotel;
+        private Label lblKu;
     }
 }

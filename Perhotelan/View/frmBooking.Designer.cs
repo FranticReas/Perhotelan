@@ -34,11 +34,12 @@
             btnProfil = new Button();
             btnSearch = new Button();
             pnlHeader = new Panel();
-            txtSearch = new TextBox();
             flpBookings = new FlowLayoutPanel();
             btnOngoing = new Button();
             btnCompleted = new Button();
             btnCanceled = new Button();
+            lblHotel = new Label();
+            lblKu = new Label();
             pnlSideBar.SuspendLayout();
             pnlHeader.SuspendLayout();
             SuspendLayout();
@@ -118,21 +119,13 @@
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(17, 70, 60);
-            pnlHeader.Controls.Add(txtSearch);
+            pnlHeader.Controls.Add(lblHotel);
+            pnlHeader.Controls.Add(lblKu);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(389, 34);
             pnlHeader.TabIndex = 6;
-            // 
-            // txtSearch
-            // 
-            txtSearch.Location = new Point(12, 6);
-            txtSearch.Name = "txtSearch";
-            txtSearch.PlaceholderText = "🔍 Search";
-            txtSearch.Size = new Size(365, 23);
-            txtSearch.TabIndex = 10;
-            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // flpBookings
             // 
@@ -179,6 +172,34 @@
             btnCanceled.UseVisualStyleBackColor = true;
             btnCanceled.Click += btnCanceled_Click;
             // 
+            // lblHotel
+            // 
+            lblHotel.AutoSize = true;
+            lblHotel.BackColor = Color.Transparent;
+            lblHotel.FlatStyle = FlatStyle.Flat;
+            lblHotel.Font = new Font("Montserrat Black", 24F, FontStyle.Bold);
+            lblHotel.ForeColor = SystemColors.ControlLightLight;
+            lblHotel.Location = new Point(93, -7);
+            lblHotel.Margin = new Padding(0);
+            lblHotel.Name = "lblHotel";
+            lblHotel.Size = new Size(135, 44);
+            lblHotel.TabIndex = 17;
+            lblHotel.Text = "HOTEL";
+            // 
+            // lblKu
+            // 
+            lblKu.AutoEllipsis = true;
+            lblKu.AutoSize = true;
+            lblKu.BackColor = Color.Transparent;
+            lblKu.Font = new Font("Montserrat Black", 24F, FontStyle.Bold);
+            lblKu.ForeColor = Color.FromArgb(250, 199, 131);
+            lblKu.Location = new Point(228, -6);
+            lblKu.Margin = new Padding(0);
+            lblKu.Name = "lblKu";
+            lblKu.Size = new Size(68, 44);
+            lblKu.TabIndex = 18;
+            lblKu.Text = "KU";
+            // 
             // frmBooking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -208,10 +229,11 @@
         private Button btnProfil;
         private Button btnSearch;
         private Panel pnlHeader;
-        private TextBox txtSearch;
         private FlowLayoutPanel flpBookings;
         private Button btnOngoing;
         private Button btnCompleted;
         private Button btnCanceled;
+        private Label lblHotel;
+        private Label lblKu;
     }
 }

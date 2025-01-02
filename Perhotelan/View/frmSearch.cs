@@ -216,7 +216,7 @@ namespace Perhotelan.View
             };
             Label lblMinPrice = new Label
             {
-                Text = "$500",
+                Text = "Rp 500K",
                 Location = new Point(230, 50),
                 Font = new Font("Montserrat", 8),
                 ForeColor = Color.Black
@@ -235,7 +235,7 @@ namespace Perhotelan.View
             };
             Label lblMaxPrice = new Label
             {
-                Text = "$3000",
+                Text = "Rp 3000K",
                 Location = new Point(230, 80),
                 Font = new Font("Montserrat", 8),
                 ForeColor = Color.Black
@@ -244,8 +244,8 @@ namespace Perhotelan.View
             filterPanel.Controls.Add(lblMaxPrice);
 
             // Update labels on trackbar value change
-            trkMinPrice.ValueChanged += (s, e) => lblMinPrice.Text = $"${trkMinPrice.Value}";
-            trkMaxPrice.ValueChanged += (s, e) => lblMaxPrice.Text = $"${trkMaxPrice.Value}";
+            trkMinPrice.ValueChanged += (s, e) => lblMinPrice.Text = $"Rp {trkMinPrice.Value}K";
+            trkMaxPrice.ValueChanged += (s, e) => lblMaxPrice.Text = $"Rp {trkMaxPrice.Value}K";
 
             // Star Rating
             Label lblStarRating = new Label
@@ -433,13 +433,6 @@ namespace Perhotelan.View
                 }
             }
         }
-
-
-
-
-
-
-
         private void btnHome_Click(object sender, EventArgs e)
         {
             frmMainMenu menuForm = new frmMainMenu(_userId);
