@@ -608,7 +608,8 @@ namespace Perhotelan
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
+            var form = new frmSearch(_userId);
+            SwitchForm(this, form);
         }
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {

@@ -175,5 +175,11 @@ namespace Perhotelan.View
             frmPrivacy privacyForm = new frmPrivacy(_userId);
             SwitchForm(this, privacyForm);
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var form = new frmSearch(_userId);
+            SwitchForm(this, form);
+        }
     }
 }
