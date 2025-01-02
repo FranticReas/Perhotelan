@@ -80,8 +80,60 @@ namespace Perhotelan.Model.Repository
                     }
                 }
             }
-
             return hotel;
+        }
+        public List<Hotel> GetFilteredHotels(SQLiteConnection connection, List<string> facilities, int minPrice, int maxPrice, int rating)
+        {
+            List<Hotel> hotels = new List<Hotel>();
+
+            string query = @"
+                SELECT h.*, r.price, r.roomType
+                FROM Hotel h
+                INNER JOIN Room r ON h.hotelId = r.hotelId
+                WHERE r.price BETWEEN @minPrice AND @maxPrice
+                AND h.hotelRating >= @rating
+                AND (
+                    h.hotelFacility1 IN ({0}) OR
+                    h.hotelFacility2 IN ({0}) OR
+                    h.hotelFacility3 IN ({0})
+                )";
+
+            string parameterizedQuery = string.Join(",", facilities.Select((_, i) => $"@facility{i}"));
+            query = string.Format(query, parameterizedQuery);
+
+            using (var cmd = new SQLiteCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@minPrice", minPrice);
+                cmd.Parameters.AddWithValue("@maxPrice", maxPrice);
+                cmd.Parameters.AddWithValue("@rating", rating);
+
+                for (int i = 0; i < facilities.Count; i++)
+                {
+                    cmd.Parameters.AddWithValue($"@facility{i}", facilities[i]);
+                }
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        hotels.Add(new Hotel
+                        {
+                            hotelId = reader.GetInt32(reader.GetOrdinal("hotelId")),
+                            firstname = reader.GetString(reader.GetOrdinal("firstname")),
+                            lastname = reader.GetString(reader.GetOrdinal("lastname")),
+                            imagePath = reader.GetString(reader.GetOrdinal("imagePath")),
+                            location = reader.GetString(reader.GetOrdinal("location")),
+                            hotelRating = reader.GetDecimal(reader.GetOrdinal("hotelRating")),
+                            facility1 = reader.GetString(reader.GetOrdinal("facility1")),
+                            facility2 = reader.GetString(reader.GetOrdinal("facility2")),
+                            facility3 = reader.GetString(reader.GetOrdinal("facility3"))
+                        });
+                    }
+                }
+            }
+
+            return hotels;
         }
     }
 }
+
