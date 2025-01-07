@@ -35,8 +35,22 @@ namespace Perhotelan.View
                 // Inisialisasi repository dan controller
                 var userRepository = new UserRepository(context);
 
+                try
+                {
+                    userRepository.GenerateSendToken(email);
 
-                userRepository.GenerateSendToken(email);
+                    // Setelah token dikirim, buka form reset password
+                    frmResetPassword resetPasswordForm = new frmResetPassword(); // Kirim email sebagai parameter ke form reset password
+                    this.Hide(); // Sembunyikan form saat ini
+                    resetPasswordForm.ShowDialog(); // Tampilkan form reset password
+                    this.Show(); // Tampilkan kembali form saat ini setelah form reset password ditutup
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
             }
 
             ShowResetPass?.Invoke();

@@ -18,6 +18,9 @@ namespace Perhotelan.Model.Repository
 {
     class UserRepository
     {
+        private readonly string _connectionString = @"Data Source=D:\Pemrograman Lanjut\Perhotelan\Perhotelan\database\hotelapp.db;Version=3;";
+
+       
         // deklarasi objek connection
         private SQLiteConnection _conn;
 
@@ -194,35 +197,29 @@ namespace Perhotelan.Model.Repository
 
         public void UpdatePassword(string email, string newPassword)
         {
-           
-                
+            string query = "UPDATE User SET password = @Password, reset_token = NULL, token_expiry = NULL WHERE email = @Email";
 
-                // Update password dan reset token
-                string query = "UPDATE User SET password = @Password, reset_token = NULL, token_expiry = NULL WHERE email = @Email";
-                using (SQLiteCommand cmd = new SQLiteCommand(query, _conn))
+            using (var conn = new SQLiteConnection(_connectionString))
+            {
+                conn.Open(); // Pastikan koneksi dibuka sebelum digunakan
+                using (var cmd = new SQLiteCommand(query, conn))
                 {
+                    try
+                    {
+                        cmd.Parameters.AddWithValue("@Password", newPassword);
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.ExecuteNonQuery();
 
-                cmd.Parameters.AddWithValue("@Password", newPassword); // Bisa ditambahkan hashing
-                cmd.Parameters.AddWithValue("@Email", email);
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Password successfully reset.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                        MessageBox.Show("Password successfully reset.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: {ex.Message}");
-                }
-                finally
-                {
-                    _conn.Dispose();
-                }
-
-                }
-
-                 
+            }
         }
+
         public void GenerateSendToken(string email)
         {
             string checkEmail = "SELECT COUNT(*) FROM User WHERE email = @email";
