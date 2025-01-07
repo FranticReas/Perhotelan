@@ -3,11 +3,15 @@ using Perhotelan.Model.Repository;
 using Perhotelan.Model.Entity;
 using System.Data.SQLite;
 using Microsoft.VisualBasic.ApplicationServices;
+using Perhotelan.View;
 
 namespace Perhotelan
 {
     public partial class frmLogin : Form
     {
+
+        public event Action ShowResetPass;
+       
         public frmLogin()
         {
             InitializeComponent();
@@ -16,11 +20,11 @@ namespace Perhotelan
         }
         private void txtLoginEmail_Enter(object sender, EventArgs e) // Email enter
         {
-            
+
         }
         private void txtLoginEmail_Leave(object sender, EventArgs e) //Email leave
         {
-            
+
         }
         private void txtLoginPass_Enter(object sender, EventArgs e) //Password enter
         {
@@ -128,6 +132,15 @@ namespace Perhotelan
                 passwordTextBox.PasswordChar = '*'; // Hide password
                 showHideButton.Text = "👁"; // Change button to indicate visible state
             }
+        }
+
+       
+
+        private void lnkLupa_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var  formEmail = new frmLupaPassword();
+            formEmail.ShowDialog();
+            ShowResetPass?.Invoke();
         }
     }
 }

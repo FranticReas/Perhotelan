@@ -18,6 +18,8 @@ namespace Perhotelan.Model.Entity
         public string phoneNumber { get; set; }
         public DateTime? birthdate { get; set; }
         public string imagePath { get; set; }
+        public string reset_token { get; set; }
+        public DateTime token_expiry { get; set; }
 
     }
 }
