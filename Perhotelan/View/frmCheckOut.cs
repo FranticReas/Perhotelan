@@ -44,5 +44,10 @@ namespace Perhotelan.View
             // Tutup form tanpa melakukan apa-apa
             this.Close();
         }
+
+        private void dtpCheckOut_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

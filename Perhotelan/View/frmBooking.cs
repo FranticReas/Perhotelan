@@ -611,11 +611,7 @@ namespace Perhotelan
             var form = new frmSearch(_userId);
             SwitchForm(this, form);
         }
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void btnProfil_Click(object sender, EventArgs e)
         {
             frmProfil profilForm = new frmProfil(_userId);

@@ -43,6 +43,7 @@
             label5 = new Label();
             label4 = new Label();
             label6 = new Label();
+            btnBack = new Button();
             pnlHeader.SuspendLayout();
             pnlSideBar.SuspendLayout();
             SuspendLayout();
@@ -50,6 +51,7 @@
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(17, 70, 60);
+            pnlHeader.Controls.Add(btnBack);
             pnlHeader.Controls.Add(lblHotel);
             pnlHeader.Controls.Add(lblKu);
             pnlHeader.Dock = DockStyle.Top;
@@ -69,7 +71,7 @@
             lblHotel.Location = new Point(66, 0);
             lblHotel.Margin = new Padding(0);
             lblHotel.Name = "lblHotel";
-            lblHotel.Size = new Size(224, 75);
+            lblHotel.Size = new Size(227, 84);
             lblHotel.TabIndex = 12;
             lblHotel.Text = "HOTEL";
             // 
@@ -80,10 +82,10 @@
             lblKu.BackColor = Color.Transparent;
             lblKu.Font = new Font("Montserrat Black", 32F, FontStyle.Bold);
             lblKu.ForeColor = Color.FromArgb(250, 199, 131);
-            lblKu.Location = new Point(255, 0);
+            lblKu.Location = new Point(276, 0);
             lblKu.Margin = new Padding(0);
             lblKu.Name = "lblKu";
-            lblKu.Size = new Size(114, 75);
+            lblKu.Size = new Size(117, 84);
             lblKu.TabIndex = 13;
             lblKu.Text = "KU";
             // 
@@ -162,6 +164,7 @@
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // btnUpdate
             // 
@@ -250,6 +253,21 @@
             label6.TabIndex = 21;
             label6.Text = "📞";
             // 
+            // btnBack
+            // 
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.Font = new Font("Montserrat Black", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBack.ForeColor = Color.FromArgb(250, 199, 131);
+            btnBack.Location = new Point(7, 14);
+            btnBack.Margin = new Padding(3, 4, 3, 4);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(46, 57);
+            btnBack.TabIndex = 18;
+            btnBack.Text = "<";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
+            // 
             // frmUpdateProfile
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -295,5 +313,6 @@
         private Label label5;
         private Label label4;
         private Label label6;
+        private Button btnBack;
     }
 }
