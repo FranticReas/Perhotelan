@@ -423,7 +423,7 @@ namespace Perhotelan
                 Form ticketForm = new Form
                 {
                     Text = "Tiket Hotel",
-                    Size = new Size(302, 504),
+                    Size = new Size(302, 480),
                     StartPosition = FormStartPosition.CenterParent,
                     ControlBox = false
                 };
@@ -444,6 +444,7 @@ namespace Perhotelan
                     FlatStyle = FlatStyle.Flat,
                     Size = new Size(40, 43)
                 };
+                btnBack.FlatAppearance.BorderSize = 0;
                 btnBack.Click += (s, e2) => ticketForm.Close();
 
                 // Label Hotel
@@ -536,7 +537,7 @@ namespace Perhotelan
                     Text = "Selesai",
                     Font = new Font("Segoe UI", 10),
                     Size = new Size(250, 40),
-                    Location = new Point(20, 430),
+                    Location = new Point(20, 380),
                     BackColor = Color.Green,
                     ForeColor = Color.White,
                     FlatStyle = FlatStyle.Flat

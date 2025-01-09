@@ -59,5 +59,10 @@ namespace Perhotelan.View
         {
             this.Close();
         }
+
+        private void lblNewPass_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

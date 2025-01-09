@@ -346,7 +346,7 @@ namespace Perhotelan.View
                     if (paymentMethod == DialogResult.OK)
                     {
                         string choice = Microsoft.VisualBasic.Interaction.InputBox(
-                            "Masukkan pilihan anda (1, 2, or 3):",
+                            "Masukkan pilihan anda: \n1. Credit Card\n2 .Cash\n3. Bank Transfer \n \nMasukkan digit 1-3:",
                             "Pilih Metode Pembayaran",
                             "1");
 

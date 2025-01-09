@@ -42,99 +42,112 @@
             // lblReset
             // 
             lblReset.AutoSize = true;
-            lblReset.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblReset.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             lblReset.ForeColor = SystemColors.ControlLightLight;
-            lblReset.Location = new Point(176, 113);
-            lblReset.Margin = new Padding(4, 0, 4, 0);
+            lblReset.Location = new Point(94, 45);
             lblReset.Name = "lblReset";
-            lblReset.Size = new Size(203, 22);
+            lblReset.Size = new Size(203, 24);
             lblReset.TabIndex = 9;
             lblReset.Text = "Reset Your Password";
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(115, 232);
+            txtEmail.Location = new Point(41, 136);
+            txtEmail.Margin = new Padding(2, 2, 2, 2);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(359, 31);
+            txtEmail.Size = new Size(288, 27);
             txtEmail.TabIndex = 10;
             txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // txtToken
             // 
-            txtToken.Location = new Point(115, 344);
+            txtToken.Location = new Point(41, 218);
+            txtToken.Margin = new Padding(2, 2, 2, 2);
             txtToken.Name = "txtToken";
-            txtToken.Size = new Size(359, 31);
+            txtToken.Size = new Size(288, 27);
             txtToken.TabIndex = 11;
             // 
             // txtNewPassword
             // 
-            txtNewPassword.Location = new Point(115, 470);
+            txtNewPassword.Location = new Point(41, 302);
+            txtNewPassword.Margin = new Padding(2, 2, 2, 2);
             txtNewPassword.Name = "txtNewPassword";
-            txtNewPassword.Size = new Size(359, 31);
+            txtNewPassword.Size = new Size(288, 27);
             txtNewPassword.TabIndex = 12;
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEmail.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             lblEmail.ForeColor = SystemColors.ControlLightLight;
-            lblEmail.Location = new Point(115, 185);
-            lblEmail.Margin = new Padding(4, 0, 4, 0);
+            lblEmail.Location = new Point(38, 102);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(59, 22);
+            lblEmail.Size = new Size(60, 24);
             lblEmail.TabIndex = 13;
             lblEmail.Text = "Email";
             // 
             // lblToken
             // 
             lblToken.AutoSize = true;
-            lblToken.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblToken.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             lblToken.ForeColor = SystemColors.ControlLightLight;
-            lblToken.Location = new Point(115, 290);
-            lblToken.Margin = new Padding(4, 0, 4, 0);
+            lblToken.Location = new Point(37, 187);
             lblToken.Name = "lblToken";
-            lblToken.Size = new Size(66, 22);
+            lblToken.Size = new Size(66, 24);
             lblToken.TabIndex = 14;
             lblToken.Text = "Token";
             // 
             // lblNewPass
             // 
             lblNewPass.AutoSize = true;
-            lblNewPass.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNewPass.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             lblNewPass.ForeColor = SystemColors.ControlLightLight;
-            lblNewPass.Location = new Point(115, 411);
-            lblNewPass.Margin = new Padding(4, 0, 4, 0);
+            lblNewPass.Location = new Point(39, 270);
             lblNewPass.Name = "lblNewPass";
-            lblNewPass.Size = new Size(142, 22);
+            lblNewPass.Size = new Size(145, 24);
             lblNewPass.TabIndex = 15;
             lblNewPass.Text = "New Password";
+            lblNewPass.Click += lblNewPass_Click;
             // 
             // btnReset
             // 
-            btnReset.Location = new Point(212, 571);
+            btnReset.BackColor = Color.FromArgb(250, 199, 131);
+            btnReset.FlatAppearance.BorderSize = 0;
+            btnReset.FlatStyle = FlatStyle.Flat;
+            btnReset.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
+            btnReset.ForeColor = Color.FromArgb(17, 70, 60);
+            btnReset.Location = new Point(41, 371);
+            btnReset.Margin = new Padding(2, 2, 2, 2);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(112, 34);
+            btnReset.Size = new Size(134, 52);
             btnReset.TabIndex = 16;
             btnReset.Text = "Reset";
-            btnReset.UseVisualStyleBackColor = true;
+            btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(362, 571);
+            btnCancel.AccessibleRole = AccessibleRole.None;
+            btnCancel.BackColor = Color.FromArgb(250, 199, 131);
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
+            btnCancel.ForeColor = Color.FromArgb(17, 70, 60);
+            btnCancel.Location = new Point(195, 371);
+            btnCancel.Margin = new Padding(2, 2, 2, 2);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(112, 34);
+            btnCancel.Size = new Size(134, 52);
             btnCancel.TabIndex = 17;
             btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // frmResetPassword
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(17, 70, 60);
-            ClientSize = new Size(556, 750);
+            ClientSize = new Size(377, 474);
             ControlBox = false;
             Controls.Add(btnCancel);
             Controls.Add(btnReset);
@@ -145,7 +158,9 @@
             Controls.Add(txtToken);
             Controls.Add(txtEmail);
             Controls.Add(lblReset);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "frmResetPassword";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelKu";
             ResumeLayout(false);
             PerformLayout();
