@@ -36,44 +36,53 @@
             // lblEmailSend
             // 
             lblEmailSend.AutoSize = true;
-            lblEmailSend.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEmailSend.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             lblEmailSend.ForeColor = SystemColors.ControlLightLight;
-            lblEmailSend.Location = new Point(144, 163);
-            lblEmailSend.Margin = new Padding(4, 0, 4, 0);
+            lblEmailSend.Location = new Point(94, 47);
             lblEmailSend.Name = "lblEmailSend";
-            lblEmailSend.Size = new Size(244, 22);
+            lblEmailSend.Size = new Size(243, 24);
             lblEmailSend.TabIndex = 8;
             lblEmailSend.Text = "Send Token to Your Email";
+            lblEmailSend.Click += lblEmailSend_Click;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(76, 250);
+            txtEmail.Location = new Point(54, 109);
+            txtEmail.Margin = new Padding(2, 2, 2, 2);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(406, 31);
+            txtEmail.Size = new Size(326, 27);
             txtEmail.TabIndex = 9;
             txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // btnSend
             // 
-            btnSend.Location = new Point(217, 376);
+            btnSend.BackColor = Color.FromArgb(250, 199, 131);
+            btnSend.FlatAppearance.BorderSize = 0;
+            btnSend.FlatStyle = FlatStyle.Flat;
+            btnSend.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
+            btnSend.ForeColor = Color.FromArgb(17, 70, 60);
+            btnSend.Location = new Point(136, 173);
+            btnSend.Margin = new Padding(2, 2, 2, 2);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(112, 34);
+            btnSend.Size = new Size(141, 50);
             btnSend.TabIndex = 10;
             btnSend.Text = "Send";
-            btnSend.UseVisualStyleBackColor = true;
+            btnSend.UseVisualStyleBackColor = false;
             btnSend.Click += btnSend_Click;
             // 
             // frmLupaPassword
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(17, 70, 60);
-            ClientSize = new Size(556, 750);
+            ClientSize = new Size(429, 262);
             ControlBox = false;
             Controls.Add(btnSend);
             Controls.Add(txtEmail);
             Controls.Add(lblEmailSend);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "frmLupaPassword";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelKu";
             ResumeLayout(false);
             PerformLayout();

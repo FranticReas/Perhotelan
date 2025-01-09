@@ -61,6 +61,11 @@ namespace Perhotelan.View
         {
 
         }
+
+        private void lblEmailSend_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
