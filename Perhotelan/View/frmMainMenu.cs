@@ -162,37 +162,7 @@ namespace Perhotelan
             frmSearch Searchform = new frmSearch(_userId);
             SwitchForm(this, Searchform);
         }
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            string searchText = txtSearch.Text.ToLower();
-
-            foreach (Panel card in flpMenu.Controls.OfType<Panel>())
-            {
-                Label titleLabel = card.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Font.Bold);
-                string hotelId = card.Tag?.ToString().ToLower(); // Ambil hotelId dari Tag
-
-                if (titleLabel != null)
-                {
-                    bool isMatch;
-
-                    if (searchText.StartsWith("#"))
-                    {
-                        // Pencarian berdasarkan hotelId (hilangkan tanda # untuk pencocokan)
-                        string searchId = searchText.Substring(1); // Buang karakter #
-                        isMatch = hotelId != null && hotelId.Contains(searchId);
-                    }
-                    else
-                    {
-                        // Pencarian berdasarkan nama hotel
-                        isMatch = titleLabel.Text.ToLower().Contains(searchText);
-                    }
-
-                    card.Visible = isMatch; // Tampilkan/hilangkan card sesuai hasil pencocokan
-                }
-            }
-
-        }
-
+        
         private void flpMenu_Paint(object sender, PaintEventArgs e)
         {
 
