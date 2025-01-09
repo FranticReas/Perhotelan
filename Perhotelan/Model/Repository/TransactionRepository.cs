@@ -3,6 +3,7 @@ using Perhotelan.Model.Context;
 using Perhotelan.Model.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
@@ -73,6 +74,13 @@ namespace Perhotelan.Model.Repository
                     MessageBox.Show($"Error while creating transaction: {ex.Message}\n{ex.StackTrace}",
                      "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     System.Diagnostics.Debug.Print("Create error: {0}\n{1}", ex.Message, ex.StackTrace);
+                }
+                finally
+                {
+                    if (_conn.State == System.Data.ConnectionState.Open)
+                    {
+                        _conn.Close();  // Tutup koneksi
+                    }
                 }
             }
             return result;
@@ -171,6 +179,44 @@ namespace Perhotelan.Model.Repository
                 }
             }
             return transaction;
+        }
+        public int CancelTransaction(int transactionId)
+        {
+            int result = 0;
+            string sql = "DELETE FROM Transaction_ WHERE transactionId = @transactionId";
+
+
+            try
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
+                {
+                    cmd.Parameters.AddWithValue("@transactionId", transactionId);
+
+                    _conn.Open();  // Buka koneksi
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result > 0)
+                    {
+                        Console.WriteLine("Transaksi berhasil dibatalkan.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Transaksi tidak ditemukan.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Terjadi kesalahan: " + ex.Message);
+            }
+            finally
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    _conn.Close();  // Tutup koneksi
+                }
+            }
+            return result;
         }
 
     }

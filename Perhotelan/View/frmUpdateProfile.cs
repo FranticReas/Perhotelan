@@ -52,7 +52,7 @@ namespace Perhotelan.View
                 Size = new Size(120, 120),
                 Location = new Point(105, 10),
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                Image = Image.FromFile("C:/Users/desir/Desktop/Tugas/Kuliah/s3/Pemograman 2/UTS/Perhotelan/Perhotelan/asset/profil.png") // Pastikan path ini benar
+                Image = Image.FromFile("asset/profil.png") // Pastikan path ini benar
             };
             card.Controls.Add(pbProfile);
 
@@ -139,11 +139,19 @@ namespace Perhotelan.View
             frmBooking bookingForm = new frmBooking(_userId);
             SwitchForm(this, bookingForm);
         }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             frmEditProfile EditProfileForm = new frmEditProfile(_userId);
+            EditProfileForm.FormClosed += (s, args) =>
+            {
+                Controls.Clear();  // Hapus semua kontrol sebelum refresh
+                InitializeComponent();
+                InitializeLoadProfile();  // Muat ulang profil pengguna
+            };
             ShowForm(this, EditProfileForm);
         }
+
         public static void SwitchForm(Form currentForm, Form newForm)
         {
             currentForm.Hide();       // Sembunyikan form sekarang
@@ -157,7 +165,16 @@ namespace Perhotelan.View
             currentForm.Show();
         }
 
-       
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var form = new frmSearch(_userId);
+            SwitchForm(this, form);
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            var form = new frmProfil(_userId);
+            SwitchForm(this, form);
+        }
     }
 }
-

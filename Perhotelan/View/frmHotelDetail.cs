@@ -298,49 +298,92 @@ namespace Perhotelan.View
         {
             using (DdContext context = new DdContext())
             {
+                var roomService = new RoomRepository(context);
+                var roomControler = new RoomController(roomService);
+
+                // Create a transaction instance
+                var transaction = new Transaction_
                 {
-                    var roomService = new RoomRepository(context);
-                    var roomControler = new RoomController(roomService);
+                    transactionDate = DateTime.Now,
+                    checkIn = checkinDate,
+                    checkOut = checkoutDate,
+                    status = "Booked",
+                    roomId = roomId,
+                    price = price,
+                    userId = userId
+                };
 
-                    // Create a transaction instance
-                    var transaction = new Transaction_
+                var service = new TransactionRepository(context);
+                var transactionController = new TransactionController(service);
+
+                // Call the Create method to add the transaction data to the database
+                int result = transactionController.CreateTransaction(transaction);
+
+                if (result > 0)
+                {
+                    // Update room status to 'occupied'
+                    roomControler.UpdateRoomStatus(roomId, "occupied");
+                    RefreshRoomInterface();
+
+                    // Show transaction details with payment method options
+                    string message = "Transaction added successfully!\n" +
+                                     $"Check-in: {checkinDate:dddd, dd MMMM yyyy}\n" +
+                                     $"Check-out: {checkoutDate:dddd, dd MMMM yyyy}\n" +
+                                     $"Room ID: {roomId}\nPrice: Rp {price}K\n\n " +
+                                     "Choose payment method:\n" +
+                                     "1 - Credit Card\n" +
+                                     "2 - Cash\n" +
+                                     "3 - Bank Transfer\n\n" +
+                                     "Press Cancel to cancel the order.";
+
+                    DialogResult paymentMethod = MessageBox.Show(
+                        message,
+                        "Transaction Successful",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Information
+                    );
+
+                    if (paymentMethod == DialogResult.OK)
                     {
-                        transactionDate = DateTime.Now,           // Transaction date
-                        checkIn = checkinDate,                    // Check-in date
-                        checkOut = checkoutDate,                  // Check-out date
-                        status = "Booked",                        // Room status
-                        roomId = roomId,                          // Room ID
-                        price = price,                            // Room price
-                        userId = userId                           // User ID
-                    };
-                    var service = new TransactionRepository(context);
-                    var transactionController = new TransactionController(service);
+                        string choice = Microsoft.VisualBasic.Interaction.InputBox(
+                            "Masukkan pilihan anda (1, 2, or 3):",
+                            "Pilih Metode Pembayaran",
+                            "1");
 
-                    // Call the Create method to add the transaction data to the database
-                    int result = transactionController.CreateTransaction(transaction);
-
-                    if (result > 0)
-                    {
-                        // Update room status to 'occupied'
-                        roomControler.UpdateRoomStatus(roomId, "occupied");
-                        // Refresh the room interface to update available rooms
-                        RefreshRoomInterface();
-                        // Transaction added successfully
-                        MessageBox.Show("Transaction added successfully!\n" +
-                            $"Check-in: {checkinDate:dddd, dd MMMM yyyy}\n" +
-                            $"Check-out: {checkoutDate:dddd, dd MMMM yyyy}\n" +
-                            $"Room ID: {roomId}\nPrice: Rp {Convert.ToString(price)}K",
-                            "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        switch (choice)
+                        {
+                            case "1":
+                                MessageBox.Show("Kartu Kredit dipilih.", "Metode Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            case "2":
+                                MessageBox.Show("Tunai dipilih.", "Metode Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            case "3":
+                                MessageBox.Show("Transfer bank dipilih.", "Metode Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            default:
+                                MessageBox.Show("Pilihan tidak valid. Mohon coba lagi.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                        }
                     }
                     else
                     {
-                        // Failed to add transaction
-                        MessageBox.Show("Failed to add transaction. Please try again.",
-                            "Transaction Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Cancel the transaction and update room status to 'available'
+                        service.CancelTransaction(transaction.transactionId);
+                        roomControler.UpdateRoomStatus(roomId, "free");
+                        RefreshRoomInterface();
+                        MessageBox.Show("Transaksi telah dibatalkan.", "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                }
+                else 
+                {
+                    MessageBox.Show("Failed to add transaction. Please try again.",
+                        "Transaction Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
+
         private void RefreshRoomInterface()
         {
             // Clear the current room cards (assuming there is a method to do this)
