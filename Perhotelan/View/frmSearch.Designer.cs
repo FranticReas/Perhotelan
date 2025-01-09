@@ -71,7 +71,7 @@
             txtSearch.Location = new Point(14, 8);
             txtSearch.Margin = new Padding(3, 4, 3, 4);
             txtSearch.Name = "txtSearch";
-            txtSearch.PlaceholderText = "🔍 Search";
+            txtSearch.PlaceholderText = "🔍 Cari";
             txtSearch.Size = new Size(371, 27);
             txtSearch.TabIndex = 10;
             txtSearch.TextChanged += txtSearch_TextChanged_1;

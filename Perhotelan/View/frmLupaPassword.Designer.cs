@@ -40,16 +40,17 @@
             lblEmailSend.ForeColor = SystemColors.ControlLightLight;
             lblEmailSend.Location = new Point(94, 47);
             lblEmailSend.Name = "lblEmailSend";
-            lblEmailSend.Size = new Size(243, 24);
+            lblEmailSend.Size = new Size(258, 27);
             lblEmailSend.TabIndex = 8;
-            lblEmailSend.Text = "Send Token to Your Email";
+            lblEmailSend.Text = "Kirim Token ke Email Anda";
             lblEmailSend.Click += lblEmailSend_Click;
             // 
             // txtEmail
             // 
             txtEmail.Location = new Point(54, 109);
-            txtEmail.Margin = new Padding(2, 2, 2, 2);
+            txtEmail.Margin = new Padding(2);
             txtEmail.Name = "txtEmail";
+            txtEmail.PlaceholderText = "Masukkan Email Anda";
             txtEmail.Size = new Size(326, 27);
             txtEmail.TabIndex = 9;
             txtEmail.TextChanged += txtEmail_TextChanged;
@@ -62,11 +63,11 @@
             btnSend.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             btnSend.ForeColor = Color.FromArgb(17, 70, 60);
             btnSend.Location = new Point(136, 173);
-            btnSend.Margin = new Padding(2, 2, 2, 2);
+            btnSend.Margin = new Padding(2);
             btnSend.Name = "btnSend";
             btnSend.Size = new Size(141, 50);
             btnSend.TabIndex = 10;
-            btnSend.Text = "Send";
+            btnSend.Text = "Kirim";
             btnSend.UseVisualStyleBackColor = false;
             btnSend.Click += btnSend_Click;
             // 
@@ -80,7 +81,7 @@
             Controls.Add(btnSend);
             Controls.Add(txtEmail);
             Controls.Add(lblEmailSend);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "frmLupaPassword";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelKu";

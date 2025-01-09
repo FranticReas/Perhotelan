@@ -92,22 +92,24 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
+            lblEmail.BackColor = Color.Transparent;
             lblEmail.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             lblEmail.ForeColor = SystemColors.ControlLightLight;
-            lblEmail.Location = new Point(82, 215);
+            lblEmail.Location = new Point(82, 210);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(60, 24);
+            lblEmail.Size = new Size(62, 27);
             lblEmail.TabIndex = 7;
             lblEmail.Text = "Email";
             // 
             // lblPassword
             // 
             lblPassword.AutoSize = true;
+            lblPassword.BackColor = Color.Transparent;
             lblPassword.Font = new Font("Montserrat ExtraBold", 10.2F, FontStyle.Bold);
             lblPassword.ForeColor = SystemColors.ControlLightLight;
-            lblPassword.Location = new Point(82, 279);
+            lblPassword.Location = new Point(82, 274);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(99, 24);
+            lblPassword.Size = new Size(101, 27);
             lblPassword.TabIndex = 8;
             lblPassword.Text = "Password";
             // 
@@ -133,7 +135,7 @@
             lblHotel.Location = new Point(65, 76);
             lblHotel.Margin = new Padding(0);
             lblHotel.Name = "lblHotel";
-            lblHotel.Size = new Size(223, 73);
+            lblHotel.Size = new Size(226, 83);
             lblHotel.TabIndex = 10;
             lblHotel.Text = "HOTEL";
             lblHotel.Click += lblHotel_Click;
@@ -149,7 +151,7 @@
             lblKu.Location = new Point(261, 76);
             lblKu.Margin = new Padding(0);
             lblKu.Name = "lblKu";
-            lblKu.Size = new Size(114, 73);
+            lblKu.Size = new Size(117, 83);
             lblKu.TabIndex = 11;
             lblKu.Text = "KU";
             lblKu.Click += lblKu_Click;
