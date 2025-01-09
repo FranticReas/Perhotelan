@@ -162,8 +162,7 @@ namespace Perhotelan
             frmSearch Searchform = new frmSearch(_userId);
             SwitchForm(this, Searchform);
         }
-       
-
+        
         private void flpMenu_Paint(object sender, PaintEventArgs e)
         {
 

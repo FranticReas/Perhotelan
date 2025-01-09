@@ -18,9 +18,6 @@ namespace Perhotelan.Model.Repository
 {
     class UserRepository
     {
-        private readonly string _connectionString = @"Data Source=D:\Pemrograman Lanjut\Perhotelan\Perhotelan\database\hotelapp.db;Version=3;";
-
-       
         // deklarasi objek connection
         private SQLiteConnection _conn;
 
@@ -198,11 +195,7 @@ namespace Perhotelan.Model.Repository
         public void UpdatePassword(string email, string newPassword)
         {
             string query = "UPDATE User SET password = @Password, reset_token = NULL, token_expiry = NULL WHERE email = @Email";
-
-            using (var conn = new SQLiteConnection(_connectionString))
-            {
-                conn.Open(); // Pastikan koneksi dibuka sebelum digunakan
-                using (var cmd = new SQLiteCommand(query, conn))
+                using (var cmd = new SQLiteCommand(query, _conn))
                 {
                     try
                     {
@@ -217,7 +210,7 @@ namespace Perhotelan.Model.Repository
                         MessageBox.Show($"Error: {ex.Message}");
                     }
                 }
-            }
+            
         }
 
         public void GenerateSendToken(string email)
@@ -306,11 +299,7 @@ namespace Perhotelan.Model.Repository
             {
                 try
                 {
-
-
                     // Periksa token dan waktu kadaluarsa
-
-
                     cmd.Parameters.AddWithValue("@Email", email);
 
                     using (var reader = cmd.ExecuteReader())
@@ -334,18 +323,7 @@ namespace Perhotelan.Model.Repository
                     MessageBox.Show($"Error: {ex.Message}");
                     return false;
                 }
-                finally
-                {
-                    _conn.Dispose();
-                }
             }
-            
         }
-
-
-
-
-
-
     }
 }
