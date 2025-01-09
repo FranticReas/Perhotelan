@@ -44,21 +44,21 @@
             // txtLoginEmail
             // 
             txtLoginEmail.Anchor = AnchorStyles.None;
-            txtLoginEmail.Location = new Point(107, 300);
-            txtLoginEmail.Margin = new Padding(4, 5, 4, 5);
+            txtLoginEmail.Location = new Point(86, 240);
+            txtLoginEmail.Margin = new Padding(3, 4, 3, 4);
             txtLoginEmail.Name = "txtLoginEmail";
             txtLoginEmail.PlaceholderText = "Masukkan Email Anda Disini";
-            txtLoginEmail.Size = new Size(314, 31);
+            txtLoginEmail.Size = new Size(252, 27);
             txtLoginEmail.TabIndex = 2;
             txtLoginEmail.TextChanged += txtLoginEmail_TextChanged;
             // 
             // txtLoginPass
             // 
-            txtLoginPass.Location = new Point(107, 380);
-            txtLoginPass.Margin = new Padding(4, 5, 4, 5);
+            txtLoginPass.Location = new Point(86, 304);
+            txtLoginPass.Margin = new Padding(3, 4, 3, 4);
             txtLoginPass.Name = "txtLoginPass";
             txtLoginPass.PlaceholderText = "Masukkan Password Anda Disini";
-            txtLoginPass.Size = new Size(281, 31);
+            txtLoginPass.Size = new Size(226, 27);
             txtLoginPass.TabIndex = 3;
             txtLoginPass.TextChanged += txtLoginPass_TextChanged;
             // 
@@ -70,10 +70,10 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.FromArgb(17, 70, 60);
-            btnLogin.Location = new Point(107, 503);
-            btnLogin.Margin = new Padding(4, 5, 4, 5);
+            btnLogin.Location = new Point(86, 402);
+            btnLogin.Margin = new Padding(3, 4, 3, 4);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(316, 85);
+            btnLogin.Size = new Size(253, 68);
             btnLogin.TabIndex = 4;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
@@ -83,10 +83,9 @@
             // 
             lblregister.AutoSize = true;
             lblregister.ForeColor = SystemColors.ControlLightLight;
-            lblregister.Location = new Point(160, 687);
-            lblregister.Margin = new Padding(4, 0, 4, 0);
+            lblregister.Location = new Point(128, 550);
             lblregister.Name = "lblregister";
-            lblregister.Size = new Size(166, 25);
+            lblregister.Size = new Size(137, 20);
             lblregister.TabIndex = 5;
             lblregister.Text = "Belum punya akun?";
             // 
@@ -95,10 +94,9 @@
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblEmail.ForeColor = SystemColors.ControlLightLight;
-            lblEmail.Location = new Point(107, 270);
-            lblEmail.Margin = new Padding(4, 0, 4, 0);
+            lblEmail.Location = new Point(86, 216);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(59, 22);
+            lblEmail.Size = new Size(50, 18);
             lblEmail.TabIndex = 7;
             lblEmail.Text = "Email";
             // 
@@ -107,10 +105,9 @@
             lblPassword.AutoSize = true;
             lblPassword.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPassword.ForeColor = SystemColors.ControlLightLight;
-            lblPassword.Location = new Point(107, 350);
-            lblPassword.Margin = new Padding(4, 0, 4, 0);
+            lblPassword.Location = new Point(86, 280);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(97, 22);
+            lblPassword.Size = new Size(83, 18);
             lblPassword.TabIndex = 8;
             lblPassword.Text = "Password";
             // 
@@ -118,10 +115,9 @@
             // 
             lnkRegister.AutoSize = true;
             lnkRegister.LinkColor = Color.White;
-            lnkRegister.Location = new Point(314, 687);
-            lnkRegister.Margin = new Padding(4, 0, 4, 0);
+            lnkRegister.Location = new Point(251, 550);
             lnkRegister.Name = "lnkRegister";
-            lnkRegister.Size = new Size(61, 25);
+            lnkRegister.Size = new Size(51, 20);
             lnkRegister.TabIndex = 9;
             lnkRegister.TabStop = true;
             lnkRegister.Text = "Daftar";
@@ -132,12 +128,12 @@
             lblHotel.AutoSize = true;
             lblHotel.BackColor = Color.Transparent;
             lblHotel.FlatStyle = FlatStyle.Flat;
-            lblHotel.Font = new Font("Microsoft Sans Serif", 32F, FontStyle.Bold);
+            lblHotel.Font = new Font("Montserrat Black", 31.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblHotel.ForeColor = SystemColors.ControlLightLight;
-            lblHotel.Location = new Point(81, 95);
+            lblHotel.Location = new Point(65, 76);
             lblHotel.Margin = new Padding(0);
             lblHotel.Name = "lblHotel";
-            lblHotel.Size = new Size(251, 73);
+            lblHotel.Size = new Size(226, 83);
             lblHotel.TabIndex = 10;
             lblHotel.Text = "HOTEL";
             lblHotel.Click += lblHotel_Click;
@@ -148,22 +144,22 @@
             lblKu.AutoSize = true;
             lblKu.BackColor = Color.Transparent;
             lblKu.FlatStyle = FlatStyle.Flat;
-            lblKu.Font = new Font("Microsoft Sans Serif", 32F, FontStyle.Bold);
+            lblKu.Font = new Font("Montserrat Black", 31.8F, FontStyle.Bold);
             lblKu.ForeColor = Color.FromArgb(250, 199, 131);
-            lblKu.Location = new Point(327, 95);
+            lblKu.Location = new Point(261, 76);
             lblKu.Margin = new Padding(0);
             lblKu.Name = "lblKu";
-            lblKu.Size = new Size(123, 73);
+            lblKu.Size = new Size(117, 83);
             lblKu.TabIndex = 11;
             lblKu.Text = "KU";
             lblKu.Click += lblKu_Click;
             // 
             // btnShowPass
             // 
-            btnShowPass.Location = new Point(387, 378);
-            btnShowPass.Margin = new Padding(4, 5, 4, 5);
+            btnShowPass.Location = new Point(310, 302);
+            btnShowPass.Margin = new Padding(3, 4, 3, 4);
             btnShowPass.Name = "btnShowPass";
-            btnShowPass.Size = new Size(36, 38);
+            btnShowPass.Size = new Size(29, 30);
             btnShowPass.TabIndex = 12;
             btnShowPass.Text = "👁";
             btnShowPass.UseVisualStyleBackColor = true;
@@ -173,10 +169,9 @@
             // 
             lnkLupa.AutoSize = true;
             lnkLupa.LinkColor = Color.White;
-            lnkLupa.Location = new Point(107, 430);
-            lnkLupa.Margin = new Padding(4, 0, 4, 0);
+            lnkLupa.Location = new Point(86, 344);
             lnkLupa.Name = "lnkLupa";
-            lnkLupa.Size = new Size(112, 25);
+            lnkLupa.Size = new Size(93, 20);
             lnkLupa.TabIndex = 13;
             lnkLupa.TabStop = true;
             lnkLupa.Text = "Lupa Sandi ?";
@@ -185,10 +180,10 @@
             // frmLogin
             // 
             AcceptButton = btnLogin;
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(17, 70, 60);
-            ClientSize = new Size(556, 750);
+            ClientSize = new Size(445, 600);
             ControlBox = false;
             Controls.Add(lnkLupa);
             Controls.Add(btnShowPass);
@@ -201,7 +196,7 @@
             Controls.Add(btnLogin);
             Controls.Add(txtLoginPass);
             Controls.Add(txtLoginEmail);
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HotelKu";
